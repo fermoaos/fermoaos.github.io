@@ -122,6 +122,57 @@
 
 <!-- atlas:start --><section id="atlas" class="atlas" aria-labelledby="atlas-h"><div class="section-head"><h2 id="atlas-h">Capability atlas</h2><p>Four engine families we built and measured ourselves. Every one is a tool an agent calls from chat.</p></div><ul class="atlas-grid"><li><a href="cases/roster/index.html"><h3>Scheduling and assignment</h3><p>Nurse rosters, call-center staffing, league fixtures, room assignment, crew pairing, school timetables, live dispatch. State the constraints in chat; a constraint solver returns the table.</p></a></li><li><a href="cases/interference/index.html"><h3>Vision and signal judgment</h3><p>Surface-defect inspection, RF interference diagnosis, device fingerprinting, machine acoustics and vibration, WiFi presence. A nine-stage receiver built in-house; judgments in real time.</p></a></li><li><div class="atlas-card"><h3>Documents, knowledge, support</h3><p>Document recognition and entry, automated customer replies, internal knowledge search. Agents absorb 60 to 70 percent of repeat inquiries.</p></div></li><li><div class="atlas-card"><h3>Demand and business data</h3><p>Management dashboards, demand forecasting and reorder simulation, sales-signal radar. Situational awareness goes from half a day to instant.</p></div></li></ul></section><!-- atlas:end -->
 
+<section id="demo" class="demo-dock" aria-labelledby="demo-h" data-base="../assets/demo/">
+  <div class="section-head">
+    <h2 id="demo-h">Press the agent</h2>
+    <p>Not a script: a <mark>replay of real executions</mark>. Four runs recorded on 4 September 2026 in growth-commerce-os against Mildo Bakery (a fictional company on synthetic data), replayed in the order they happened, thinking, tool calls, and the pause for approval. The model is Qwen3.8-27B on our own cluster. Recordings are in Korean.</p>
+  </div>
+  <div class="dock">
+    <div class="dock-side">
+      <ul class="scn-list">
+        <li><button class="scn" type="button" data-scn="dormant" aria-current="true"><b>Dormant customers, then a win-back campaign</b><span>1 delegation, 6 cards</span></button></li>
+        <li><button class="scn" type="button" data-scn="diagnose" aria-current="false"><b>Revenue diagnosis and a 3 month plan</b><span>1 delegation, plan card</span></button></li>
+        <li><button class="scn" type="button" data-scn="groupbuy" aria-current="false"><b>Influencer group buy and the pitch DM</b><span>1 external send approval</span></button></li>
+        <li><button class="scn" type="button" data-scn="subscription" aria-current="false"><b>Subscription candidates and a first offer</b><span>3 tools, 2 cards</span></button></li>
+      </ul>
+      <div class="legend">
+        <h3>What you are looking at</h3>
+        <dl>
+          <div><dt>Thinking</dt><dd>What the model said to itself. Folded away; open it to read it verbatim.</dd></div>
+          <div><dt>Tool</dt><dd>A function it actually called, with the input and the output it got back.</dd></div>
+          <div><dt>Card</dt><dd>A tool result turned into a table, a plan, or a chart.</dd></div>
+          <div><dt>Approval</dt><dd>Anything leaving the company stops until a person presses. Press it yourself.</dd></div>
+          <div><dt>Next</dt><dd>Three follow-up questions the agent proposes at the end of a turn.</dd></div>
+        </dl>
+        <p class="fine">Synthetic data, so no customer here is real, and the send is a mock.</p>
+      </div>
+    </div>
+    <div class="player" tabindex="0" data-player aria-label="Recorded agent run player">
+      <div class="player-head">
+        <span class="p-dot" aria-hidden="true"></span>
+        <span class="p-agent">그로스 커머스 매니저</span>
+        <span class="chip">Qwen3.8-27B, our cluster</span>
+        <span class="chip" data-status>idle</span>
+        <span class="p-ctrl">
+          <button class="p-btn" type="button" data-play aria-pressed="false">Play</button>
+          <button class="p-btn" type="button" data-speed="1" aria-pressed="true">1x</button>
+          <button class="p-btn" type="button" data-speed="2" aria-pressed="false">2x</button>
+          <button class="p-btn" type="button" data-speed="0" aria-pressed="false">Instant</button>
+          <button class="p-btn" type="button" data-restart>Restart</button>
+        </span>
+      </div>
+      <div class="log" data-log></div>
+      <button class="to-latest" type="button" data-latest hidden>Jump to latest</button>
+      <form class="composer" data-composer onsubmit="return false">
+        <input type="text" disabled placeholder="This is a recording. In the product you type here" aria-label="Composer, disabled during replay">
+        <button class="p-btn" type="button" disabled>Send</button>
+      </form>
+      <p class="sr-only" aria-live="polite" data-live></p>
+    </div>
+  </div>
+</section>
+<button class="dock-launcher" type="button" data-launcher><span class="p-dot" aria-hidden="true"></span>Play the agent demo</button>
+
 <!-- usecases:start --><section id="cases" class="cases" aria-labelledby="cases-h"><div class="section-head"><h2 id="cases-h">Use Cases</h2><p>Instead of explaining, press. 76 demos across seven families run in the browser, and the agent calls them as tools.</p></div><ul class="demo-fams"><li class="demo-fam"><h3><a href="../usecases/index.html#sched">Scheduling and assignment</a></h3><p>State the constraints and a solver returns the table. A feasible answer is guaranteed before optimality is chased.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/19-nurse-roster/" target="_blank" rel="noopener">Nurse rostering</a></li><li><a href="https://2icorp.github.io/demos/20-contact-staffing/" target="_blank" rel="noopener">Contact center staffing</a></li><li><a href="https://2icorp.github.io/demos/21-league-fixture/" target="_blank" rel="noopener">League fixture scheduling</a></li></ul></li><li class="demo-fam"><h3><a href="../usecases/index.html#doc">Documents, knowledge, support</a></h3><p>Reads and files documents, answers inquiries, finds internal knowledge with citations. Agents absorb 60 to 70 percent of repeat questions.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/02-doc-automation/" target="_blank" rel="noopener">Document capture and entry</a></li><li><a href="https://2icorp.github.io/demos/05-support-chatbot/" target="_blank" rel="noopener">Customer inquiry handling</a></li><li><a href="https://2icorp.github.io/demos/07-knowledge-rag/" target="_blank" rel="noopener">Internal knowledge search</a></li></ul></li><li class="demo-fam"><h3><a href="../usecases/index.html#data">Demand and business data</a></h3><p>Management status, demand forecasting and reorder, sales signals. Situational awareness from half a day to instant.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/01-data-dashboard/" target="_blank" rel="noopener">Operations dashboard</a></li><li><a href="https://2icorp.github.io/demos/04-demand-forecast/" target="_blank" rel="noopener">Demand forecast and ordering</a></li><li><a href="https://2icorp.github.io/demos/08-sales-signal/" target="_blank" rel="noopener">Sales signal radar</a></li></ul></li><li class="demo-fam"><h3><a href="../usecases/index.html#signal">Vision and signal judgment</a></h3><p>Receivers and inspectors built from antenna to verdict. Judgments in real time, evidence attached.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/03-vision-defect/" target="_blank" rel="noopener">Surface defect inspection</a></li><li><a href="https://2icorp.github.io/demos/06-sigprint-rf/" target="_blank" rel="noopener">RF interference diagnosis</a></li><li><a href="https://2icorp.github.io/demos/13-medimg-loop/" target="_blank" rel="noopener">Medical imaging closed loop</a></li></ul></li><li class="demo-fam"><h3><a href="../usecases/index.html#agent">Work agents</a></h3><p>Decomposes one sentence and calls the engines above as tools. Code decides, people approve.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/11-agent-orchestrator/" target="_blank" rel="noopener">Conversational AI orchestrator</a></li><li><a href="https://2icorp.github.io/demos/decision-os/" target="_blank" rel="noopener">Combinatorial decision support</a></li><li><a href="https://hyojunguy.github.io/harness-quality-checker/" target="_blank" rel="noopener">Agent harness quality checker</a></li></ul></li><li class="demo-fam"><h3><a href="../usecases/index.html#serve">Model serving and cost</a></h3><p>Self-hosting break-even, VRAM, quantization, routing. The calculators behind what the model gateway chooses.</p><ul class="demo-mini"><li><a href="https://hyojunguy.github.io/llm-selfhost-calculator/" target="_blank" rel="noopener">LLM self-hosting calculator</a></li><li><a href="https://hyojunguy.github.io/finetune-method-picker/" target="_blank" rel="noopener">Fine-tuning method picker</a></li><li><a href="https://hyojunguy.github.io/agent-cost-sim/" target="_blank" rel="noopener">Multi-agent routing cost</a></li></ul></li><li class="demo-fam"><h3><a href="../usecases/index.html#media">Media and content generation</a></h3><p>Ad video, shorts, characters, voice. The creative the media-ops agent will run, made inside the same OS.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/09-promo-video/" target="_blank" rel="noopener">Issue-driven ad video studio</a></li><li><a href="https://2icorp.github.io/demos/10-web-marketing/" target="_blank" rel="noopener">Web presence audit</a></li><li><a href="https://2icorp.github.io/demos/12-cad-blockout/" target="_blank" rel="noopener">Architectural blockout loop</a></li></ul></li></ul><p class="atlas-more"><a class="btn btn-line" href="../usecases/index.html">See all 76 demos</a></p><div class="field"><h3>Running in the field</h3><p>Demos that became products, with measurements and current state.</p><ul class="field-list"><li><a href="../cases/mildo/index.html"><h4>Mildo Bakery, D2C growth</h4><p>Fictional brand, synthetic data, owner approval required</p></a></li><li><a href="../cases/cafe24/index.html"><h4>Cafe24 merchants, agentic commerce</h4><p>Cafe24 today; Shopify and UCP/ACP next</p></a></li><li><a href="../cases/agency/index.html"><h4>Performance agencies, media operations</h4><p>Plan 에서 approve 에서 execute 에서 verify 에서 rollback e2e passing</p></a></li><li><a href="../cases/payroll/index.html"><h4>Payroll close and social insurance</h4><p>In build: foundation and loop done, payroll domain is the next track</p></a></li><li><a href="../cases/visibility/index.html"><h4>AI visibility</h4><p>Phase 0; absorption analyzer precision 1.000 / recall 0.750</p></a></li><li><a href="../cases/privacy-ads/index.html"><h4>Privacy-preserving ads</h4><p>DIPS 2026; gates 8/8 PASS</p></a></li><li><a href="../cases/interference/index.html"><h4>RF interference diagnosis</h4><p>Measured on synthetic benches; field data pending</p></a></li><li><a href="../cases/roster/index.html"><h4>Nurse roster scheduling</h4><p>Measured against public NRP benchmarks</p></a></li></ul></div></section><!-- usecases:end -->
 
 <section id="insights" class="insights" aria-labelledby="insights-h">
@@ -214,5 +265,6 @@
   </symbol>
 </svg>
 <script src="../assets/main.js" defer></script>
+<script src="../assets/demo.js" defer></script>
 </body>
 </html>

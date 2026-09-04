@@ -122,6 +122,57 @@
 
 <!-- atlas:start --><section id="atlas" class="atlas" aria-labelledby="atlas-h"><div class="section-head"><h2 id="atlas-h">역량 지도</h2><p>직접 만들고 실측한 엔진 네 계열입니다. 전부 에이전트가 채팅에서 도구로 부릅니다.</p></div><ul class="atlas-grid"><li><a href="cases/roster/index.html"><h3>배정·일정 최적화</h3><p>간호사 근무표, 콜센터 배치, 리그 일정, 방 배정, 승무원 페어링, 학교 시간표, 실시간 배차. 채팅으로 조건을 말하면 제약 솔버가 표를 냅니다.</p></a></li><li><a href="cases/interference/index.html"><h3>비전·신호 판정</h3><p>외관 불량 검사, 무선 간섭 진단, 기기 지문, 설비 음향·진동, WiFi 재실. 수신기 9단계를 직접 구현했고 판정은 실시간입니다.</p></a></li><li><div class="atlas-card"><h3>문서·지식·상담</h3><p>문서 자동 인식과 입력, 고객 문의 자동응대, 사내 지식 검색. 반복 문의의 60~70% 를 에이전트가 받습니다.</p></div></li><li><div class="atlas-card"><h3>수요·경영 데이터</h3><p>경영 현황 대시보드, 수요예측과 발주 시뮬레이터, 영업 신호 레이더. 현황 파악이 반나절에서 조회 즉시로 줄어듭니다.</p></div></li></ul></section><!-- atlas:end -->
 
+<section id="demo" class="demo-dock" aria-labelledby="demo-h" data-base="assets/demo/">
+  <div class="section-head">
+    <h2 id="demo-h">에이전트를 눌러 보세요</h2>
+    <p>대본이 아니라 <mark>실제 실행 기록</mark>입니다. 2026년 9월 4일 growth-commerce-os에서 밀도 베이커리(가상 회사, 합성 데이터)로 돌린 네 가지 실행을, 생각하고 도구를 부르고 승인을 기다린 순서 그대로 되감아 보여줍니다. 모델은 사내 클러스터의 Qwen3.8-27B 입니다.</p>
+  </div>
+  <div class="dock">
+    <div class="dock-side">
+      <ul class="scn-list">
+        <li><button class="scn" type="button" data-scn="dormant" aria-current="true"><b>휴면 고객을 찾아 복귀 캠페인까지</b><span>위임 1건, 카드 6장</span></button></li>
+        <li><button class="scn" type="button" data-scn="diagnose" aria-current="false"><b>매출 진단과 3개월 계획</b><span>위임 1건, 계획 카드</span></button></li>
+        <li><button class="scn" type="button" data-scn="groupbuy" aria-current="false"><b>인플루언서 공구와 제안 DM 발송</b><span>외부 발신 승인 1건</span></button></li>
+        <li><button class="scn" type="button" data-scn="subscription" aria-current="false"><b>구독 전환 후보와 오퍼 설계</b><span>도구 3개, 카드 2장</span></button></li>
+      </ul>
+      <div class="legend">
+        <h3>무엇을 보고 계신가요</h3>
+        <dl>
+          <div><dt>생각</dt><dd>모델이 스스로에게 한 말입니다. 접어 두었고, 펼치면 그대로 나옵니다.</dd></div>
+          <div><dt>도구</dt><dd>실제로 부른 함수입니다. 입력과 출력을 같이 볼 수 있습니다.</dd></div>
+          <div><dt>카드</dt><dd>도구가 낸 결과를 표, 계획, 차트로 만든 것입니다.</dd></div>
+          <div><dt>승인</dt><dd>밖으로 나가는 일은 사람이 누를 때까지 멈춥니다. 직접 눌러 보세요.</dd></div>
+          <div><dt>이어서</dt><dd>다음에 물어볼 만한 것을 에이전트가 세 개 제안합니다.</dd></div>
+        </dl>
+        <p class="fine">합성 데이터라 고객 정보는 실재하지 않습니다. 발송도 mock 입니다.</p>
+      </div>
+    </div>
+    <div class="player" tabindex="0" data-player aria-label="에이전트 실행 기록 재생기">
+      <div class="player-head">
+        <span class="p-dot" aria-hidden="true"></span>
+        <span class="p-agent">그로스 커머스 매니저</span>
+        <span class="chip">Qwen3.8-27B, 사내 클러스터</span>
+        <span class="chip" data-status>대기</span>
+        <span class="p-ctrl">
+          <button class="p-btn" type="button" data-play aria-pressed="false">재생</button>
+          <button class="p-btn" type="button" data-speed="1" aria-pressed="true">1배</button>
+          <button class="p-btn" type="button" data-speed="2" aria-pressed="false">2배</button>
+          <button class="p-btn" type="button" data-speed="0" aria-pressed="false">즉시</button>
+          <button class="p-btn" type="button" data-restart>처음부터</button>
+        </span>
+      </div>
+      <div class="log" data-log></div>
+      <button class="to-latest" type="button" data-latest hidden>최신으로 내리기</button>
+      <form class="composer" data-composer onsubmit="return false">
+        <input type="text" disabled placeholder="재생 중인 기록입니다. 실제 제품에서는 여기에 입력합니다" aria-label="입력창, 재생 중에는 쓸 수 없습니다">
+        <button class="p-btn" type="button" disabled>보내기</button>
+      </form>
+      <p class="sr-only" aria-live="polite" data-live></p>
+    </div>
+  </div>
+</section>
+<button class="dock-launcher" type="button" data-launcher><span class="p-dot" aria-hidden="true"></span>에이전트 데모 재생</button>
+
 <!-- usecases:start --><section id="cases" class="cases" aria-labelledby="cases-h"><div class="section-head"><h2 id="cases-h">Use Cases</h2><p>말로 설명하는 대신 눌러 보시면 됩니다. 일곱 계열 76개 데모가 전부 브라우저에서 돌고, 에이전트는 이것들을 도구로 부릅니다.</p></div><ul class="demo-fams"><li class="demo-fam"><h3><a href="usecases/index.html#sched">배정·일정 최적화</a></h3><p>조건을 말하면 제약 솔버가 표를 냅니다. 최적을 노리기 전에 어떤 조건에서도 실행 가능한 해부터 보장합니다.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/19-nurse-roster/" target="_blank" rel="noopener">간호사 근무표 편성</a></li><li><a href="https://2icorp.github.io/demos/20-contact-staffing/" target="_blank" rel="noopener">콜센터 인력 배치</a></li><li><a href="https://2icorp.github.io/demos/21-league-fixture/" target="_blank" rel="noopener">리그 일정 편성</a></li></ul></li><li class="demo-fam"><h3><a href="usecases/index.html#doc">문서·지식·상담</a></h3><p>문서를 읽고 입력하고, 문의에 답하고, 사내 지식을 인용과 함께 찾습니다. 반복 문의의 60~70%를 에이전트가 받습니다.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/02-doc-automation/" target="_blank" rel="noopener">문서 자동 인식, 입력</a></li><li><a href="https://2icorp.github.io/demos/05-support-chatbot/" target="_blank" rel="noopener">고객 문의 자동응대</a></li><li><a href="https://2icorp.github.io/demos/07-knowledge-rag/" target="_blank" rel="noopener">사내 지식 검색</a></li></ul></li><li class="demo-fam"><h3><a href="usecases/index.html#data">수요·경영 데이터</a></h3><p>경영 현황, 수요예측과 발주, 영업 신호. 현황 파악이 반나절에서 조회 즉시로 줄어듭니다.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/01-data-dashboard/" target="_blank" rel="noopener">경영 현황 대시보드</a></li><li><a href="https://2icorp.github.io/demos/04-demand-forecast/" target="_blank" rel="noopener">수요예측, 발주 시뮬레이터</a></li><li><a href="https://2icorp.github.io/demos/08-sales-signal/" target="_blank" rel="noopener">영업 신호 레이더</a></li></ul></li><li class="demo-fam"><h3><a href="usecases/index.html#signal">비전·신호 판정</a></h3><p>안테나에서 판단까지 직접 구현한 수신기와 비전 검사기. 판정은 실시간이고 근거는 스펙트럼과 함께 옵니다.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/03-vision-defect/" target="_blank" rel="noopener">외관 불량 검사</a></li><li><a href="https://2icorp.github.io/demos/06-sigprint-rf/" target="_blank" rel="noopener">무선 간섭 진단</a></li><li><a href="https://2icorp.github.io/demos/13-medimg-loop/" target="_blank" rel="noopener">의료영상 도구 운용 폐루프</a></li></ul></li><li class="demo-fam"><h3><a href="usecases/index.html#agent">업무 에이전트</a></h3><p>한 문장 지시를 분해해 위의 엔진들을 도구로 부르는 층. 판정은 코드가, 승인은 사람이 합니다.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/11-agent-orchestrator/" target="_blank" rel="noopener">대화형 AI 오케스트레이터</a></li><li><a href="https://2icorp.github.io/demos/decision-os/" target="_blank" rel="noopener">조합 최적화 의사결정</a></li><li><a href="https://hyojunguy.github.io/harness-quality-checker/" target="_blank" rel="noopener">에이전트 하네스 품질 검사</a></li></ul></li><li class="demo-fam"><h3><a href="usecases/index.html#serve">모델 서빙·비용</a></h3><p>자체 호스팅 손익, VRAM, 양자화, 라우팅. 모델 게이트웨이가 무엇을 근거로 고르는지를 계산기로 보여줍니다.</p><ul class="demo-mini"><li><a href="https://hyojunguy.github.io/llm-selfhost-calculator/" target="_blank" rel="noopener">LLM 자체 호스팅 계산기</a></li><li><a href="https://hyojunguy.github.io/finetune-method-picker/" target="_blank" rel="noopener">파인튜닝 방법 계산기</a></li><li><a href="https://hyojunguy.github.io/agent-cost-sim/" target="_blank" rel="noopener">멀티에이전트 라우팅 비용</a></li></ul></li><li class="demo-fam"><h3><a href="usecases/index.html#media">미디어·콘텐츠 생성</a></h3><p>광고 영상, 숏폼, 캐릭터, 음성. 매체 운영 에이전트가 집행할 소재를 같은 운영체계 안에서 만듭니다.</p><ul class="demo-mini"><li><a href="https://2icorp.github.io/demos/09-promo-video/" target="_blank" rel="noopener">이슈 연동 광고 영상 스튜디오</a></li><li><a href="https://2icorp.github.io/demos/10-web-marketing/" target="_blank" rel="noopener">웹 존재감 진단</a></li><li><a href="https://2icorp.github.io/demos/12-cad-blockout/" target="_blank" rel="noopener">건축 블록아웃 폐루프</a></li></ul></li></ul><p class="atlas-more"><a class="btn btn-line" href="usecases/index.html">데모 76개 전체 보기</a></p><div class="field"><h3>현장에서 도는 것</h3><p>데모가 제품이 된 사례입니다. 실측과 지금 상태를 적어 두었습니다.</p><ul class="field-list"><li><a href="cases/mildo/index.html"><h4>밀도 베이커리, D2C 성장</h4><p>가상 브랜드, 합성 데이터, 대표 승인 필수</p></a></li><li><a href="cases/cafe24/index.html"><h4>카페24 머천트, 에이전트 커머스</h4><p>Cafe24 연동, Shopify, UCP/ACP 는 다음</p></a></li><li><a href="cases/agency/index.html"><h4>퍼포먼스 대행사, 매체 운영</h4><p>e2e 계획 에서 승인 에서 실행 에서 검증 에서 롤백 통과</p></a></li><li><a href="cases/payroll/index.html"><h4>급여 마감과 4대보험</h4><p>구축 중 — 기반과 대화 루프 완료, 급여 도메인은 다음 트랙</p></a></li><li><a href="cases/visibility/index.html"><h4>AI 가시성 측정</h4><p>Phase 0, 흡수 분석기 정밀도 1.000 / 재현율 0.750</p></a></li><li><a href="cases/privacy-ads/index.html"><h4>프라이버시 광고</h4><p>DIPS 2026, 게이트 8/8 PASS</p></a></li><li><a href="cases/interference/index.html"><h4>무선 간섭 진단</h4><p>합성 벤치 실측, 현장 데이터 대기</p></a></li><li><a href="cases/roster/index.html"><h4>간호사 근무표 편성</h4><p>공개 NRP 벤치마크 대비 실측</p></a></li></ul></div></section><!-- usecases:end -->
 
 <section id="insights" class="insights" aria-labelledby="insights-h">
@@ -214,5 +265,6 @@
   </symbol>
 </svg>
 <script src="assets/main.js" defer></script>
+<script src="assets/demo.js" defer></script>
 </body>
 </html>

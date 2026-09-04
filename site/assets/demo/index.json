@@ -1,0 +1,29 @@
+{
+ "recorded_at": "2026-09-04",
+ "scenarios": [
+  {
+   "slug": "dormant",
+   "title": "휴면 고객을 찾아 복귀 캠페인까지",
+   "events": 374,
+   "segments": 1
+  },
+  {
+   "slug": "diagnose",
+   "title": "매출 진단과 3개월 계획 (위임)",
+   "events": 256,
+   "segments": 1
+  },
+  {
+   "slug": "groupbuy",
+   "title": "인플루언서 공구 시작 → 제안 DM 발송 (승인)",
+   "events": 414,
+   "segments": 2
+  },
+  {
+   "slug": "subscription",
+   "title": "구독 전환 후보와 오퍼 설계",
+   "events": 396,
+   "segments": 1
+  }
+ ]
+}
