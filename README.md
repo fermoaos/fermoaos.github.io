@@ -2,10 +2,13 @@
 
 재개 절차 (어느 머신에서든):
 
+라이브: **https://fermoaos.github.io/** (org `fermoaos`, `main` push → `.github/workflows/pages.yml` 이 `site/` 를 그대로 배포).
+2026-09-04 까지의 히스토리는 `hyojunguy/ai-strategy-private` 의 `marketing/fermoa/`(c76a6f23 까지)에 있고, 지금은 그 레포에 서브모듈 `fermoa-site` 로 붙어 있다.
+
 ```bash
-python3 marketing/fermoa/build_pages.py            # content/pages.json → 서브페이지 22장 재생성 (멱등)
-python3 scripts/skills/static_site_gate.py marketing/fermoa/site   # 넘침·토큰·hidden·크롬 게이트
-open marketing/fermoa/site/index.html              # KO 홈 · en/index.html = EN
+python3 build_pages.py                                  # content/pages.json → 서브페이지 재생성 (멱등)
+python3 ../scripts/skills/static_site_gate.py site      # 부모 레포의 게이트 (넘침·토큰·hidden·크롬)
+open site/index.html                                    # KO 홈 · en/index.html = EN
 ```
 
 | 무엇 | 어디 |
@@ -20,6 +23,6 @@ open marketing/fermoa/site/index.html              # KO 홈 · en/index.html = E
 ⛔ 제외: Paxis · Metis · Maxis · praxis 문구 전부. 미디어는 X 박스 유지(사용자 지시).
 보드 프로젝트 `agentos-brand`. 미완: KIPRIS 상표 조회 · 도메인 등록(사용자 수동) · 실제 미디어.
 
-- 캐릭터 자산 재생성: `python3 marketing/fermoa/build_character_assets.py` → `build_pages.py`
-- 히어로 필름 재생성: `python3 marketing/fermoa/build_film_assets.py` (brand/film/draft-v1-36s.mp4 → `site/assets/film/hero.mp4` 무음·faststart + 포스터 + `hero.json` 점 좌표/풀림 시각) → `build_pages.py` (SVG 세계선이 `hero.json` 의 점으로 수렴). 새 초안이 나오면 `SRC` 만 바꾼다.
+- 캐릭터 자산 재생성: `python3 build_character_assets.py` → `build_pages.py`
+- 히어로 필름 재생성: `python3 build_film_assets.py` (brand/film/draft-v1-36s.mp4 → `site/assets/film/hero.mp4` 무음·faststart + 포스터 + `hero.json` 점 좌표/풀림 시각) → `build_pages.py` (SVG 세계선이 `hero.json` 의 점으로 수렴). 새 초안이 나오면 `SRC` 만 바꾼다.
 - 히어로 = 필름(2026-09-03). 지휘자 스틸은 계층 5칸·Operations 에 남아 있다. 시나리오 원장 `docs/2026-09-03-hero-film-scenario.md` §12.
