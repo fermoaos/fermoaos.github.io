@@ -15,7 +15,7 @@ import numpy as np
 from PIL import Image
 
 ROOT = pathlib.Path(__file__).resolve().parent
-SRC = ROOT / "brand" / "film" / "draft-v1-36s.mp4"
+SRC = ROOT / "brand" / "film" / "draft-v2-48s.mp4"
 DST = ROOT / "site" / "assets" / "film"
 TRIM_S = 0.9          # fade-from-black ends here (luma plateau measured 2026-09-03)
 S2_AT_SRC = 6.0       # scenario §2: S1 정지 0–6s, S2 풀림 starts here (source time)
