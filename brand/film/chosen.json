@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-03",
+  "model": "gpt-image-2",
+  "size": "1536x864",
+  "quality": "medium",
+  "style": "none",
+  "chosen": "frame1-office-bluehour.png",
+  "chosen_by": "사용자 채택 2026-09-03 (첫 프레임 사무실)",
+  "why": "양자화 경계가 화면 안에 보이고(안쪽 사진, 바깥 알갱이), 종이가 공중에 멈춰 있고, 손끝 노란 점이 유일한 채도. S1 장소(사무실)와 일치",
+  "rejected": {
+    "frame1-crosswalk-rain.png": "구도는 강하나 노란 점이 사라졌고 경계가 돔처럼 닫혀 '손에서 퍼진다'가 약함. S3 도착지 컷의 레퍼런스로 보관"
+  },
+  "items": [
+    {
+      "file": "frame1-crosswalk-rain.png",
+      "sha256": "c874312aad559668"
+    },
+    {
+      "file": "frame1-office-bluehour.png",
+      "sha256": "6c9eac1611c8da62"
+    },
+    {
+      "file": "frame2-dissolve.png",
+      "sha256": "50b1f4e592084655"
+    },
+    {
+      "file": "frame3-hospital-roster.png",
+      "sha256": "2a9d8ae0cc2c7f41"
+    },
+    {
+      "file": "frame3b-agency-console.png",
+      "sha256": "33516b8f798bfc96"
+    },
+    {
+      "file": "frame3c-warehouse-stock.png",
+      "sha256": "a71c37a88770e502"
+    },
+    {
+      "file": "frame3d-payroll-close.png",
+      "sha256": "f48a367cc43cfb22"
+    },
+    {
+      "file": "frame3e-store-checkout.png",
+      "sha256": "ce63b91285a78ba4"
+    },
+    {
+      "file": "frame4-return.png",
+      "sha256": "24ce079cfee75784"
+    }
+  ],
+  "storyboard_v1": {
+    "sheet": "storyboard-v1.jpg",
+    "frames": [
+      "frame1-office-bluehour.png",
+      "frame2-dissolve.png",
+      "frame3-hospital-roster.png",
+      "frame4-return.png"
+    ],
+    "how": "frame2~4 는 edit_image.py --input frame1 --role style 로 생성(같은 필름·그레이드·사무실 유지)",
+    "chosen_by": "사용자 채택 2026-09-03 (4프레임)",
+    "notes": {
+      "frame2": "발끝부터 알갱이로 풀려 우상단 세계선 3가닥으로 흐름, 노란 점 선두 ✓",
+      "frame3": "점이 모여 마커 쥔 손이 되고 근무표 빈칸이 채워짐, 왼쪽에서 유입선 ✓",
+      "frame4": "시간 재개: 종이 바닥, 동료 걷는 중, 내린 손끝 노란 점, 격자 없음 ✓ (책상 위 결과 5장은 약함 — 영상에서 인서트로 보강)"
+    }
+  },
+  "storyboard_v2": {
+    "sheet": "storyboard-v2.jpg",
+    "frames": [
+      "frame1-office-bluehour.png",
+      "frame2-dissolve.png",
+      "frame3-hospital-roster.png",
+      "frame3b-agency-console.png",
+      "frame3c-warehouse-stock.png",
+      "frame3d-payroll-close.png",
+      "frame3e-store-checkout.png",
+      "frame4-return.png"
+    ],
+    "chosen_by": "claude 육안 — 사용자 승인 대기 (S3 ②~⑤)",
+    "how": "S3 ②~⑤ 는 edit_image.py --input frame1 --role identity --input frame3 --role style (같은 사람의 오른손·검은 소매, 얼굴 없음). 급여 마감 프레임의 붉은 경고 행은 edit 1회로 무채색화(노랑 외 색 금지)"
+  }
+}

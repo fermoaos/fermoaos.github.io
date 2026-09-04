@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>퍼포먼스 대행사, 매체 운영 — Fermoa</title>
+<meta name="description" content="광고주 여럿과 매체 여럿을 콘솔 하나에서 승인하고 집행하고 되돌립니다. ROAS 진단과 예산 재배분까지.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="../../en/cases/agency/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="top">
+  <a class="brand" href="../../index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../index.html#agentos">AgentOS</a><a href="../../index.html#ops">Agentic Ops</a><a href="../../index.html#cases">Use Cases</a><a href="../../index.html#insights">Insights</a><a href="../../index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="칠판" data-label-dark="그래프지">칠판</button>
+    <span class="lang"><a href="../../en/cases/agency/index.html" hreflang="en">ENG</a></span>
+    <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../index.html#cases">Use Cases</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>퍼포먼스 대행사, 매체 운영</h1>
+      <p class="lede">광고주 여럿과 매체 여럿을 콘솔 하나에서 승인하고 집행하고 되돌립니다. ROAS 진단과 예산 재배분까지.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>OAuth 도 개발자 토큰도 파트너 승인도 필요 없습니다. 매체 콘솔에서 늘 뽑던 리포트 파일이면 됩니다. 프로파일이 통화, 시간대, 귀속창, 출처를 출처와 함께 채우고, 사용자가 잇는 것은 날짜와 예산 두 컬럼뿐입니다. 5분 안에 내 광고주 데이터로 콘솔이 뜹니다.</p><p>프로파일이 모르는 것은 채우지 않습니다. 부가세는 값 대신 무엇을 확인해야 하는지 말하고, 네이버 전환창은 직접과 간접의 합산임을 밝힌 채로 들어옵니다. 공식 문서에 없는 포맷은 지원하지 않고, 대행사 블로그는 출처로 쓰지 않습니다.</p><p>급락 원인은 증거와 함께 찾고, 못 본 축은 못 봤다고 말합니다. 채널 비교에서 귀속 기준이 다르면 합계를 만들지 않습니다. 계획은 dry-run 으로 diff 를 보고 승인된 것만 실행하며, 실패하면 기록된 값으로 돌아갑니다.</p></div>
+  <aside class="facts" aria-label="실측과 사실">
+    <h2>실측과 사실</h2>
+    <dl><div><dt>진입</dt><dd>자격증명 없이 리포트 CSV 로 5분</dd></div><div><dt>프로파일</dt><dd>naver-searchad · naver-searchad-api · kakao keyword/moment API</dd></div><div><dt>원칙</dt><dd>모르는 것은 채우지 않는다</dd></div><div><dt>조사</dt><dd>performance.investigate, 증거와 함께</dd></div><div><dt>집행</dt><dd>승인된 계획만, 멱등, 사후조건 되읽기</dd></div><div><dt>복원</dt><dd>plan.rollback</dd></div></dl>
+    <p class="impl"><span>구현</span> plataid-media-ops</p>
+    <p class="impl"><span>지금 상태</span> e2e 계획→승인→실행→검증→롤백 통과</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>다른 사례</h2>
+  <ul><li><a href="../mildo/index.html">밀도 베이커리, D2C 성장</a></li><li><a href="../cafe24/index.html">카페24 머천트, 에이전트 커머스</a></li><li><a href="../payroll/index.html">급여 마감과 4대보험</a></li><li><a href="../visibility/index.html">AI 가시성 측정</a></li><li><a href="../privacy-ads/index.html">프라이버시 광고</a></li><li><a href="../interference/index.html">무선 간섭 진단</a></li><li><a href="../roster/index.html">간호사 근무표 편성</a></li></ul>
+  <p><a class="btn btn-line" href="../../index.html#cases">목록으로</a></p>
+</section>
+<section class="page-cta">
+  <h2>이 계층을 붙잡아 보시겠어요?</h2>
+  <p>실험에서 실행까지 같이 갑니다.</p>
+  <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">(주)페르모아 | 대표 ○○○ | 사업자등록번호 000-00-00000 | 서울특별시 ○○구 ○○로 00</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>

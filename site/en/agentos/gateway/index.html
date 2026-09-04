@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Model gateway — Fermoa</title>
+<meta name="description" content="One OpenAI-compatible endpoint. Keys and budgets, routing and fallback, token metering, all in one place, with every request kept on tape.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="icon" href="../../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ko" href="../../../agentos/gateway/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="../../../en/index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../../en/index.html#agentos">AgentOS</a><a href="../../../en/index.html#ops">Agentic Ops</a><a href="../../../en/index.html#cases">Use Cases</a><a href="../../../en/index.html#insights">Insights</a><a href="../../../en/index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="Blackboard" data-label-dark="Graph paper">Blackboard</button>
+    <span class="lang"><a href="../../../agentos/gateway/index.html" hreflang="ko">KOR</a></span>
+    <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../../en/index.html#agentos">AgentOS</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>Model gateway</h1>
+      <p class="lede">One OpenAI-compatible endpoint. Keys and budgets, routing and fallback, token metering, all in one place, with every request kept on tape.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>Whatever model an agent uses, it calls one address. The gateway issues keys, sets budgets, fails over when a model is down, and counts what was spent. Images and audio pass through the same grammar as text.</p><p>Metering is unit-agnostic. Models sold by the token, by the second and by the image land in the same ledger. The catalog has a license gate, so a model that cannot be used commercially cannot be switched on from the console at all.</p><p>Every request is kept on a live tape. Being able to rewind who sent what and got what back is what makes an agent&#x27;s claim of completion verifiable.</p></div>
+  <aside class="facts" aria-label="Measured and factual">
+    <h2>Measured and factual</h2>
+    <dl><div><dt>Surface</dt><dd>One OpenAI-compatible endpoint plus a console</dd></div><div><dt>Control</dt><dd>Keys, budgets, routing/fallback, token metering</dd></div><div><dt>Metering</dt><dd>Unit-polymorphic: tokens, seconds, images</dd></div><div><dt>Catalog</dt><dd>License gate; 14 presets</dd></div><div><dt>Record</dt><dd>Live request tape</dd></div><div><dt>Verdicts</dt><dd>Preflight and smoke are judged by code</dd></div></dl>
+    <p class="impl"><span>Implementation</span> token-factory-gateway (Next.js 15)</p>
+    <p class="impl"><span>Current state</span> Local preflight GO, tab e2e API 13 + browser 6</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>Other layers</h2>
+  <ul><li><a href="../runtime/index.html">Agent runtime</a></li><li><a href="../contract/index.html">Contract layer</a></li><li><a href="../pipeline/index.html">Pipeline</a></li><li><a href="../edge/index.html">Edge agent</a></li></ul>
+  <p><a class="btn btn-line" href="../../../en/index.html#agentos">Back to the list</a></p>
+</section>
+<section class="page-cta">
+  <h2>Want to hold this layer?</h2>
+  <p>From experiment to execution, together.</p>
+  <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">Fermoa Inc. | CEO ○○○ | Business registration 000-00-00000 | Seoul, Korea</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../../assets/main.js" defer></script>
+</body>
+</html>

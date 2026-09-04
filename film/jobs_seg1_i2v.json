@@ -1,0 +1,11 @@
+[
+ {
+  "prompt": "CAMERA: 35mm cinema lens, shallow depth of field, framed from BEHIND the person at shoulder height; locked-off, then a very slow push-in over the whole shot. The camera never pulls back, never shows itself.\nLOOK: photorealistic blue-hour open-plan office, natural window light, real film grain, near-monochrome desaturated grade with deep grey shadows. The ONLY colored element in the entire video is one tiny highlighter-yellow point at the raised fingertip.\nSTYLE: cinematic brand film, slow, held, precise. Silent except the room tone, which cuts to total silence at the freeze. No glow, no neon, no lens flare, no light particles: every dot is a matte physical grain, like a halftone made of real grains.\nCHARACTER: one person, seen ONLY from behind for the whole shot, face never visible. Plain dark sweater, dark short hair, average build. Right arm raised, hand open, palm forward, held perfectly still like a conductor's hold.\nSETTING: a real open-plan office at blue hour: city skyline through tall windows, rows of desks and dark monitors, sheets of paper, one colleague far in the background, a coffee cup with steam.\nCONSTRAINT: no readable text anywhere, no legible numbers, no letters on any screen or paper, no logos, no watermarks, no subtitles, no other colored element besides the single yellow point.\nSCENES:\n1. (~3s, medium from behind) The person raises the right hand and stops. The instant a tiny yellow point appears at the fingertip, everything else freezes: sheets of paper hang in mid-air, the far colleague is caught mid-step, the coffee steam stands still. Room tone cuts to silence.\n2. (~4s, same framing, slow push-in) From the raised hand a soft spherical boundary spreads outward through the office. Everything the boundary passes changes from photographic reality into a fine lattice of small matte grey dots that still hold the shapes of desks, windows and the frozen colleague.\n3. (~3s, same framing) The boundary keeps growing toward the camera. By the end the far half of the office is entirely dots while the person stays solid and perfectly still, the yellow point steady at the fingertip. Hold.",
+  "image": [
+   "marketing/fermoa/brand/film/frame1-office-bluehour.png"
+  ],
+  "output": "outputs/omni-video/fermoa-hero/seg_01.mp4",
+  "aspect_ratio": "16:9",
+  "duration": 10
+ }
+]

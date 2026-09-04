@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>에이전트 런타임 — Fermoa</title>
+<meta name="description" content="한 문장의 지시를 끝까지 실행하는 런타임. 에이전트는 스킬로 정의되고, 무엇을 판단해 무엇을 했는지가 전부 기록에 남습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="../../en/agentos/runtime/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="top">
+  <a class="brand" href="../../index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../index.html#agentos">AgentOS</a><a href="../../index.html#ops">Agentic Ops</a><a href="../../index.html#cases">Use Cases</a><a href="../../index.html#insights">Insights</a><a href="../../index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="칠판" data-label-dark="그래프지">칠판</button>
+    <span class="lang"><a href="../../en/agentos/runtime/index.html" hreflang="en">ENG</a></span>
+    <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../index.html#agentos">AgentOS</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>에이전트 런타임</h1>
+      <p class="lede">한 문장의 지시를 끝까지 실행하는 런타임. 에이전트는 스킬로 정의되고, 무엇을 판단해 무엇을 했는지가 전부 기록에 남습니다.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>런타임의 첫 규칙은 모델이 계산하지 않는다는 것입니다. 금액, 세액, 시간은 순수 함수만 산출하고 에이전트는 그 결과를 설명합니다. 돈은 부동소수점이 아니라 십진수이고, 급여 귀속월과 출퇴근 타임스탬프는 서로 다른 타입입니다. 이런 제약은 문서가 아니라 컴파일러와 CI 가 지킵니다.</p><p>오퍼레이션 하나를 등록하면 화면, API, 에이전트 도구가 동시에 생깁니다. 등록을 잊으면 컴파일 에러입니다. 그래서 사람이 보는 것과 에이전트가 쓰는 것이 갈라질 수 없습니다.</p><p>모든 계산 근거는 덧붙이기만 가능한 해시 체인 원장에 남습니다. 재현할 수 있다는 뜻이고, 대가도 있습니다. 증거가 생긴 테넌트는 삭제할 수 없습니다. 되돌릴 수 없는 단계는 사람이 승인 토큰으로 엽니다.</p></div>
+  <aside class="facts" aria-label="실측과 사실">
+    <h2>실측과 사실</h2>
+    <dl><div><dt>구현</dt><dd>Rust 크레이트 15개, companyos-*</dd></div><div><dt>도구 노출</dt><dd>UI = API = Agent Tool, 누락은 컴파일 에러</dd></div><div><dt>계산</dt><dd>LLM 은 계산하지 않는다, 순수 함수만</dd></div><div><dt>증거</dt><dd>append-only 해시 체인 원장</dd></div><div><dt>승인</dt><dd>비가역 단계는 승인 토큰 없이 실행 경로 없음</dd></div><div><dt>격리</dt><dd>테넌트 + 개인/팀 RLS, Postgres 소유</dd></div></dl>
+    <p class="impl"><span>구현</span> agent-companyos (Rust)</p>
+    <p class="impl"><span>지금 상태</span> 기반·대화 루프·tool parity 완료 (2026-08)</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>다른 계층</h2>
+  <ul><li><a href="../contract/index.html">계약 계층</a></li><li><a href="../pipeline/index.html">파이프라인</a></li><li><a href="../gateway/index.html">모델 게이트웨이</a></li><li><a href="../edge/index.html">엣지 에이전트</a></li></ul>
+  <p><a class="btn btn-line" href="../../index.html#agentos">목록으로</a></p>
+</section>
+<section class="page-cta">
+  <h2>이 계층을 붙잡아 보시겠어요?</h2>
+  <p>실험에서 실행까지 같이 갑니다.</p>
+  <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">(주)페르모아 | 대표 ○○○ | 사업자등록번호 000-00-00000 | 서울특별시 ○○구 ○○로 00</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>

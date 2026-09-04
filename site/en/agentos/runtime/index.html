@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent runtime — Fermoa</title>
+<meta name="description" content="A runtime that carries a one-sentence instruction through to the end. Agents are defined as skills, and everything they judged and did stays on the record.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="icon" href="../../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ko" href="../../../agentos/runtime/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="../../../en/index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../../en/index.html#agentos">AgentOS</a><a href="../../../en/index.html#ops">Agentic Ops</a><a href="../../../en/index.html#cases">Use Cases</a><a href="../../../en/index.html#insights">Insights</a><a href="../../../en/index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="Blackboard" data-label-dark="Graph paper">Blackboard</button>
+    <span class="lang"><a href="../../../agentos/runtime/index.html" hreflang="ko">KOR</a></span>
+    <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../../en/index.html#agentos">AgentOS</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>Agent runtime</h1>
+      <p class="lede">A runtime that carries a one-sentence instruction through to the end. Agents are defined as skills, and everything they judged and did stays on the record.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>The first rule of the runtime is that the model does not calculate. Amounts, taxes and time are produced by pure functions; the agent explains the result. Money is decimal, not floating point, and a payroll month is a different type from a clock-in timestamp. These constraints are held by the compiler and CI, not by a document.</p><p>Register one operation and a screen, an API route and an agent tool appear together. Forget to register and the build fails. What a person sees and what an agent uses cannot drift apart.</p><p>Every calculation leaves its evidence in an append-only hash chain. That means it can be reproduced, and it has a price: a tenant with evidence can no longer be deleted. Irreversible steps are opened by a person with an approval token.</p></div>
+  <aside class="facts" aria-label="Measured and factual">
+    <h2>Measured and factual</h2>
+    <dl><div><dt>Implementation</dt><dd>15 Rust crates, companyos-*</dd></div><div><dt>Tool surface</dt><dd>UI = API = agent tool; omission is a compile error</dd></div><div><dt>Calculation</dt><dd>The LLM never calculates; pure functions only</dd></div><div><dt>Evidence</dt><dd>Append-only hash-chain ledger</dd></div><div><dt>Approval</dt><dd>No execution path for irreversible steps without a token</dd></div><div><dt>Isolation</dt><dd>Tenant + person/team RLS, owned by Postgres</dd></div></dl>
+    <p class="impl"><span>Implementation</span> agent-companyos (Rust)</p>
+    <p class="impl"><span>Current state</span> Foundation, conversation loop and tool parity done (Aug 2026)</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>Other layers</h2>
+  <ul><li><a href="../contract/index.html">Contract layer</a></li><li><a href="../pipeline/index.html">Pipeline</a></li><li><a href="../gateway/index.html">Model gateway</a></li><li><a href="../edge/index.html">Edge agent</a></li></ul>
+  <p><a class="btn btn-line" href="../../../en/index.html#agentos">Back to the list</a></p>
+</section>
+<section class="page-cta">
+  <h2>Want to hold this layer?</h2>
+  <p>From experiment to execution, together.</p>
+  <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">Fermoa Inc. | CEO ○○○ | Business registration 000-00-00000 | Seoul, Korea</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../../assets/main.js" defer></script>
+</body>
+</html>

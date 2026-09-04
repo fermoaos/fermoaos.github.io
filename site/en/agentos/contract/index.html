@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contract layer — Fermoa</title>
+<meta name="description" content="Campaigns, metrics and budgets are written down as contracts first. Policy, approval and rollback run on top of them, so people know what an agent must not cross before it runs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="icon" href="../../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ko" href="../../../agentos/contract/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="../../../en/index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../../en/index.html#agentos">AgentOS</a><a href="../../../en/index.html#ops">Agentic Ops</a><a href="../../../en/index.html#cases">Use Cases</a><a href="../../../en/index.html#insights">Insights</a><a href="../../../en/index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="Blackboard" data-label-dark="Graph paper">Blackboard</button>
+    <span class="lang"><a href="../../../agentos/contract/index.html" hreflang="ko">KOR</a></span>
+    <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../../en/index.html#agentos">AgentOS</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>Contract layer</h1>
+      <p class="lede">Campaigns, metrics and budgets are written down as contracts first. Policy, approval and rollback run on top of them, so people know what an agent must not cross before it runs.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>Every ad channel has a different API and a different attribution basis. The contract layer writes those differences down first, as a Campaign IR and a Metric Contract. Where attribution differs it refuses to build a total, and where it could not see an axis it says so. Pretending a single window would commit the very error this product forbids in others.</p><p>Agents see only twelve work-level tools: investigate a drop, compare channels, draft an optimization plan, dry-run it, execute an approved plan, roll back to recorded values. No low-level channel API is exposed, and granting approval is people-only, absent from the tool list entirely.</p><p>Execution is idempotent and reads back its postconditions. Change history is explained from a hash-chained audit ledger, and a pre/post difference-in-differences runs only after the system has judged that increment is measurable at all.</p></div>
+  <aside class="facts" aria-label="Measured and factual">
+    <h2>Measured and factual</h2>
+    <dl><div><dt>Core</dt><dd>Campaign IR + Metric Contract + policy/approval + execution workflow + audit ledger</dd></div><div><dt>Tools</dt><dd>12 work-level tools; no low-level channel APIs</dd></div><div><dt>People only</dt><dd>approval.grant is absent from agent and MCP surfaces</dd></div><div><dt>Simulation</dt><dd>Dry-run diff + read-back + drift detection</dd></div><div><dt>Increment</dt><dd>experiment.assess judges measurability first; DiD</dd></div><div><dt>Verification</dt><dd>256 contract tests, 103-item browser e2e</dd></div></dl>
+    <p class="impl"><span>Implementation</span> plataid-media-ops (Rust)</p>
+    <p class="impl"><span>Current state</span> 256 contract tests, 103-item browser e2e passing</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>Other layers</h2>
+  <ul><li><a href="../runtime/index.html">Agent runtime</a></li><li><a href="../pipeline/index.html">Pipeline</a></li><li><a href="../gateway/index.html">Model gateway</a></li><li><a href="../edge/index.html">Edge agent</a></li></ul>
+  <p><a class="btn btn-line" href="../../../en/index.html#agentos">Back to the list</a></p>
+</section>
+<section class="page-cta">
+  <h2>Want to hold this layer?</h2>
+  <p>From experiment to execution, together.</p>
+  <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">Fermoa Inc. | CEO ○○○ | Business registration 000-00-00000 | Seoul, Korea</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../../assets/main.js" defer></script>
+</body>
+</html>

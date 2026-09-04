@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>엣지 에이전트 — Fermoa</title>
+<meta name="description" content="기기 안에서 의도를 추론합니다. 4비트 양자화 SDK 와 연합학습으로 데이터는 기기를 떠나지 않고, 서버는 학습된 결과만 받습니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="../../en/agentos/edge/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="top">
+  <a class="brand" href="../../index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../index.html#agentos">AgentOS</a><a href="../../index.html#ops">Agentic Ops</a><a href="../../index.html#cases">Use Cases</a><a href="../../index.html#insights">Insights</a><a href="../../index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="칠판" data-label-dark="그래프지">칠판</button>
+    <span class="lang"><a href="../../en/agentos/edge/index.html" hreflang="en">ENG</a></span>
+    <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../index.html#agentos">AgentOS</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>엣지 에이전트</h1>
+      <p class="lede">기기 안에서 의도를 추론합니다. 4비트 양자화 SDK 와 연합학습으로 데이터는 기기를 떠나지 않고, 서버는 학습된 결과만 받습니다.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>SDK 는 2.2MB 입니다. 예산 5MB 의 42%. 의도 벡터화는 기기 안에서 p95 0.257ms 에 끝납니다. 원본 발화와 프로필은 전송되지 않고 가중치만 집계되며, 카나리아 7건은 전부 미검출이었습니다. 광고 요청 자체가 없습니다. 카탈로그 3,000 항목이 통째로 번들되기 때문입니다.</p><p>5MB 로 30억 파라미터 모델을 돌린다고 말하지 않습니다. 실제 구조는 두 층입니다. 상시 경로는 우리가 직접 증류한 초소형 정적 임베딩이고, OS 내장 모델이 있는 기기에서만 추론 깊이를 올립니다. 220배 작은 모델이 교사의 78%에서 87% 를 냅니다.</p><p>프라이버시 예산 ε ≤ 2.0 은 기술 값이 아니라 계약 조건입니다. 기기 인구 1만 미만인 파일럿에서는 연합학습을 끄고 원문 전송 0 만 약속합니다. 1만 이상에서 학습을 켜고 캠페인 ε 을 공개합니다.</p></div>
+  <aside class="facts" aria-label="실측과 사실">
+    <h2>실측과 사실</h2>
+    <dl><div><dt>SDK</dt><dd>2,200,471B, 예산의 42%</dd></div><div><dt>지연</dt><dd>의도 벡터화 p95 0.257ms</dd></div><div><dt>전송</dt><dd>원본 0, 카나리아 7/7 미검출</dd></div><div><dt>연합학습</dt><dd>탈락 30% 에도 수렴, BCE 0.69→0.20</dd></div><div><dt>ε</dt><dd>캠페인 총 1.730 ≤ 2.0</dd></div><div><dt>품질</dt><dd>KLUE-YNAT 0.641 · NSMC 0.736, 1.92MB</dd></div></dl>
+    <p class="impl"><span>구현</span> plataid-ondevice-slm</p>
+    <p class="impl"><span>지금 상태</span> 게이트 8/8 PASS (2026-08-27 실측)</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>다른 계층</h2>
+  <ul><li><a href="../runtime/index.html">에이전트 런타임</a></li><li><a href="../contract/index.html">계약 계층</a></li><li><a href="../pipeline/index.html">파이프라인</a></li><li><a href="../gateway/index.html">모델 게이트웨이</a></li></ul>
+  <p><a class="btn btn-line" href="../../index.html#agentos">목록으로</a></p>
+</section>
+<section class="page-cta">
+  <h2>이 계층을 붙잡아 보시겠어요?</h2>
+  <p>실험에서 실행까지 같이 갑니다.</p>
+  <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">(주)페르모아 | 대표 ○○○ | 사업자등록번호 000-00-00000 | 서울특별시 ○○구 ○○로 00</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>

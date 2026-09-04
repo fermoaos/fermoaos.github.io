@@ -1,0 +1,25 @@
+{
+  "p1-ready-graphpaper": null,
+  "p5-cutoff-graphpaper": null,
+  "p2-hold-graphpaper": [
+    0.6055908203125,
+    0.4412994384765625
+  ],
+  "p4-lower-graphpaper": null,
+  "p3-downbeat-graphpaper": [
+    0.6011242988782052,
+    0.7475961538461539
+  ],
+  "states-triptych-blackboard": [
+    0.8676772216076696,
+    0.1798430586283186
+  ],
+  "p2-hold-blackboard": [
+    0.5338541666666666,
+    0.48193359375
+  ],
+  "p2-hold-graphpaper-nodot": [
+    0.6055908203125,
+    0.4412994384765625
+  ]
+}

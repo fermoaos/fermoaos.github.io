@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edge agent — Fermoa</title>
+<meta name="description" content="Intent is inferred on the device. With a 4-bit quantized SDK and federated learning, data never leaves the phone; the server only receives what was learned.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="icon" href="../../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="ko" href="../../../agentos/edge/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="../../../en/index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../../en/index.html#agentos">AgentOS</a><a href="../../../en/index.html#ops">Agentic Ops</a><a href="../../../en/index.html#cases">Use Cases</a><a href="../../../en/index.html#insights">Insights</a><a href="../../../en/index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="Blackboard" data-label-dark="Graph paper">Blackboard</button>
+    <span class="lang"><a href="../../../agentos/edge/index.html" hreflang="ko">KOR</a></span>
+    <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../../en/index.html#agentos">AgentOS</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>Edge agent</h1>
+      <p class="lede">Intent is inferred on the device. With a 4-bit quantized SDK and federated learning, data never leaves the phone; the server only receives what was learned.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>The SDK is 2.2MB, 42% of a 5MB budget. Intent vectorization finishes on-device at a p95 of 0.257ms. Raw utterances and profiles are never sent, only weights are aggregated, and all seven canaries went undetected. There is no ad request at all: the 3,000-item catalog ships as a bundle.</p><p>We do not say a 5MB SDK runs a three-billion-parameter model. The real structure has two tiers: an always-on path with a tiny static embedding we distilled ourselves, and deeper inference only on devices that ship an OS model. A model 220 times smaller reaches 78 to 87 percent of its teacher.</p><p>A privacy budget of ε ≤ 2.0 is a contract term, not a technical value. Pilots under 10,000 devices keep federated learning off and promise zero raw transfer. Above 10,000 it turns on and the campaign ε is published.</p></div>
+  <aside class="facts" aria-label="Measured and factual">
+    <h2>Measured and factual</h2>
+    <dl><div><dt>SDK</dt><dd>2,200,471B, 42% of budget</dd></div><div><dt>Latency</dt><dd>Intent vectorization p95 0.257ms</dd></div><div><dt>Transfer</dt><dd>Zero raw; canaries 7/7 undetected</dd></div><div><dt>Federated</dt><dd>Converges with 30% dropout, BCE 0.69→0.20</dd></div><div><dt>ε</dt><dd>Campaign total 1.730 ≤ 2.0</dd></div><div><dt>Quality</dt><dd>KLUE-YNAT 0.641, NSMC 0.736 at 1.92MB</dd></div></dl>
+    <p class="impl"><span>Implementation</span> plataid-ondevice-slm</p>
+    <p class="impl"><span>Current state</span> Gates 8/8 PASS (measured 2026-08-27)</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>Other layers</h2>
+  <ul><li><a href="../runtime/index.html">Agent runtime</a></li><li><a href="../contract/index.html">Contract layer</a></li><li><a href="../pipeline/index.html">Pipeline</a></li><li><a href="../gateway/index.html">Model gateway</a></li></ul>
+  <p><a class="btn btn-line" href="../../../en/index.html#agentos">Back to the list</a></p>
+</section>
+<section class="page-cta">
+  <h2>Want to hold this layer?</h2>
+  <p>From experiment to execution, together.</p>
+  <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">Fermoa Inc. | CEO ○○○ | Business registration 000-00-00000 | Seoul, Korea</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../../assets/main.js" defer></script>
+</body>
+</html>

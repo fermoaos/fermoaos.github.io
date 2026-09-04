@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>간호사 근무표 편성 — Fermoa</title>
+<meta name="description" content="제약을 말하면 제약 솔버가 표를 냅니다. 콜센터 배치, 리그 일정, 방 배정, 승무원 페어링, 시간표, 배차가 같은 엔진입니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../assets/style.css">
+<link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="../../en/cases/roster/index.html">
+</head>
+<body class="sub">
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+<header class="top">
+  <a class="brand" href="../../index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../index.html#agentos">AgentOS</a><a href="../../index.html#ops">Agentic Ops</a><a href="../../index.html#cases">Use Cases</a><a href="../../index.html#insights">Insights</a><a href="../../index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="칠판" data-label-dark="그래프지">칠판</button>
+    <span class="lang"><a href="../../en/cases/roster/index.html" hreflang="en">ENG</a></span>
+    <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../index.html#cases">Use Cases</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>간호사 근무표 편성</h1>
+      <p class="lede">제약을 말하면 제약 솔버가 표를 냅니다. 콜센터 배치, 리그 일정, 방 배정, 승무원 페어링, 시간표, 배차가 같은 엔진입니다.</p>
+    </div>
+    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+  </div>
+</section>
+<section class="page-body">
+  <div class="prose"><p>근무표는 사람이 며칠을 붙들고도 누군가는 불만인 문제입니다. 법정 휴식, 숙련 조합, 개인 선호, 야간 연속 제한 같은 제약을 CP-SAT 모델로 적고, 공개 간호사 로스터링 벤치마크에서 실측했습니다.</p><p>문헌을 뒤진 결론은 정직하게 적어 두었습니다. 근무표를 딥러닝으로 푸는 시도는 아직 제약 솔버를 이기지 못했습니다. 그래서 학습 모델이 아니라 솔버를 팔고, 모델은 제약을 받아 적고 결과를 설명하는 데만 씁니다.</p><p>채팅에서 &quot;다음 달 3교대, 신입 둘은 같은 조 금지&quot;라고 말하면 에이전트가 제약으로 옮기고 솔버를 부릅니다. 표는 사람이 확인하고 승인한 뒤에 배포됩니다.</p></div>
+  <aside class="facts" aria-label="실측과 사실">
+    <h2>실측과 사실</h2>
+    <dl><div><dt>엔진</dt><dd>CP-SAT 제약 솔버</dd></div><div><dt>벤치</dt><dd>공개 NRP 벤치마크 대비 실측</dd></div><div><dt>같은 엔진</dt><dd>콜센터 · 리그 일정 · 방 배정 · 승무원 페어링 · 시간표 · 배차</dd></div><div><dt>문헌</dt><dd>딥러닝은 아직 솔버를 못 이겼다 (2i 리서치 2026-08)</dd></div><div><dt>역할</dt><dd>모델은 제약을 적고 설명, 계산은 솔버</dd></div></dl>
+    <p class="impl"><span>구현</span> scheduling lab (2i L5 배정·일정)</p>
+    <p class="impl"><span>지금 상태</span> 공개 NRP 벤치마크 대비 실측</p>
+  </aside>
+</section>
+<section class="related">
+  <h2>다른 사례</h2>
+  <ul><li><a href="../mildo/index.html">밀도 베이커리, D2C 성장</a></li><li><a href="../cafe24/index.html">카페24 머천트, 에이전트 커머스</a></li><li><a href="../agency/index.html">퍼포먼스 대행사, 매체 운영</a></li><li><a href="../payroll/index.html">급여 마감과 4대보험</a></li><li><a href="../visibility/index.html">AI 가시성 측정</a></li><li><a href="../privacy-ads/index.html">프라이버시 광고</a></li><li><a href="../interference/index.html">무선 간섭 진단</a></li></ul>
+  <p><a class="btn btn-line" href="../../index.html#cases">목록으로</a></p>
+</section>
+<section class="page-cta">
+  <h2>이 계층을 붙잡아 보시겠어요?</h2>
+  <p>실험에서 실행까지 같이 갑니다.</p>
+  <a class="btn btn-ink" href="../../index.html#contact">문의하기</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">(주)페르모아 | 대표 ○○○ | 사업자등록번호 000-00-00000 | 서울특별시 ○○구 ○○로 00</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../assets/main.js" defer></script>
+</body>
+</html>

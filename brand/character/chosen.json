@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-03",
+  "model": "gpt-image-2",
+  "size": "1536x1024",
+  "quality": "medium",
+  "style": "none",
+  "chosen_by": "claude 육안(컨택트 시트) — 사용자 최종 승인 대기",
+  "items": [
+    {
+      "id": "p2-hold-blackboard",
+      "file": "p2-hold-blackboard.png",
+      "sha256": "20b96035f021cbc5",
+      "note": "v1 채택 — 히어로 정본"
+    },
+    {
+      "id": "p2-hold-graphpaper",
+      "file": "p2-hold-graphpaper.png",
+      "sha256": "532fe7614e3ab1c2",
+      "note": "v1 채택"
+    },
+    {
+      "id": "p1-ready-graphpaper",
+      "file": "p1-ready-graphpaper.png",
+      "sha256": "297fe5aa51eae5b8",
+      "note": "v1 격자 없음 → v2 채택"
+    },
+    {
+      "id": "p3-downbeat-graphpaper",
+      "file": "p3-downbeat-graphpaper.png",
+      "sha256": "787434e67edcab65",
+      "note": "v1 정지로 그려짐 → v2 채택"
+    },
+    {
+      "id": "p4-lower-graphpaper",
+      "file": "p4-lower-graphpaper.png",
+      "sha256": "c18d16d3246ab1eb",
+      "note": "v1 채택"
+    },
+    {
+      "id": "p5-cutoff-graphpaper",
+      "file": "p5-cutoff-graphpaper.png",
+      "sha256": "779202eaf89dc49f",
+      "note": "v1 채택"
+    },
+    {
+      "id": "states-triptych-blackboard",
+      "file": "states-triptych-blackboard.png",
+      "sha256": "e8fa5c0491a4ec55",
+      "note": "v1 연미복+방사선 → v2 방사선 재발 → edit 1회로 제거 후 채택"
+    }
+  ]
+}
