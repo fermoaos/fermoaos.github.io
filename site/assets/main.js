@@ -58,6 +58,7 @@
   }
 
   // 3-step contact form -> mailto
+  const CONTACT_EMAIL = "hyojunguy@gmail.com";
   const form = document.querySelector("[data-steps]");
   if (form) {
     const steps = [...form.querySelectorAll("[data-step]")];
@@ -90,7 +91,7 @@
       if (!valid()) return;
       const d = Object.fromEntries(new FormData(form).entries());
       const body = `이름: ${d.name}\n이메일: ${d.email}\n소속: ${d.org} (${d.role || "-"})\n\n${d.msg}`;
-      location.href = `mailto:hello@fermoa.kr?subject=${encodeURIComponent("[Fermoa] 문의")}&body=${encodeURIComponent(body)}`;
+      location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent("[Fermoa] 문의")}&body=${encodeURIComponent(body)}`;
     });
     show();
   }

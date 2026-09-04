@@ -14,17 +14,37 @@ T = {
              theme="칠판", theme_light="칠판", theme_dark="그래프지", contact="문의하기", other="ENG",
              kinds={"agentos":"AgentOS","cases":"Use Cases"}, facts="실측과 사실", impl="구현", status="지금 상태",
              related={"agentos":"다른 계층","cases":"다른 사례"}, cta_h="이 계층을 붙잡아 보시겠어요?", cta_p="실험에서 실행까지 같이 갑니다.",
-             biz="(주)페르모아 | 대표 ○○○ | 사업자등록번호 000-00-00000 | 서울특별시 ○○구 ○○로 00", back="목록으로"),
+             biz="페르모아 (Fermoa), 서울", back="목록으로"),
   "en": dict(lang="en", home="../../../", skip="Skip to content", nav=["AgentOS","Agentic Ops","Use Cases","Insights","Company"],
              theme="Blackboard", theme_light="Blackboard", theme_dark="Graph paper", contact="Contact", other="KOR",
              kinds={"agentos":"AgentOS","cases":"Use Cases"}, facts="Measured and factual", impl="Implementation", status="Current state",
              related={"agentos":"Other layers","cases":"Other cases"}, cta_h="Want to hold this layer?", cta_p="From experiment to execution, together.",
-             biz="Fermoa Inc. | CEO ○○○ | Business registration 000-00-00000 | Seoul, Korea", back="Back to the list"),
+             biz="Fermoa, Seoul, Korea", back="Back to the list"),
 }
 ANCH = {"AgentOS":"#agentos","Agentic Ops":"#ops","Use Cases":"#cases","Insights":"#insights","Company":"#company"}
 MARK = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>'
 
 def e(s): return html.escape(s, quote=True)
+
+POSE_ALT = {
+  "p1-ready": {"ko": "양손을 들어 올린 준비 자세의 지휘자 — 계획", "en": "Both hands raised in the preparatory position — plan"},
+  "p2-hold": {"ko": "지휘봉을 정점에서 멈춘 지휘자, 왼손은 멈춤 신호 — 승인 대기", "en": "The baton held still at its peak, left hand raised in a stop — waiting for approval"},
+  "p3-downbeat": {"ko": "점으로 그린 지휘자가 다운비트를 내리는 순간, 오케스트라 한 구역이 켜진다 — 실행", "en": "A conductor drawn in dots on the downbeat; one section of the orchestra lights up — run"},
+  "p4-lower": {"ko": "왼손 손바닥을 아래로 내리는 지휘자 — 롤백과 감속", "en": "Left palm slowly pressing downward — rollback and slowing"},
+  "p5-cutoff": {"ko": "손을 안쪽으로 닫는 컷오프, 점이 흩어지기 시작한다 — 종료", "en": "Hands closing inward in a cutoff as the dots begin to scatter — done"},
+}
+AGENTOS_POSE = {"runtime": "p3-downbeat", "contract": "p2-hold", "pipeline": "p1-ready", "gateway": "p4-lower", "edge": "p5-cutoff"}
+
+def char_fig(pose, css_class, lang, assets):
+    alt = e(POSE_ALT[pose][lang])
+    base = f"{assets}character/{pose}-graphpaper"
+    def img(variant, cls):
+        return (f'<img class="mod-img {cls}" src="{base}-{variant}-768.webp" '
+                f'srcset="{base}-{variant}-768.webp 768w, {base}-{variant}-1536.webp 1536w" '
+                f'sizes="(max-width:768px) 100vw, 34rem" width="1536" height="1024" '
+                f'loading="lazy" decoding="async" alt="{alt}">')
+    return f'<figure class="mod-fig {css_class}">{img("ink", "img-light")}{img("chalk", "img-dark")}</figure>'
+
 
 def page(kind, item, lang):
     t = T[lang]; c = item[lang]; home = t["home"]
@@ -74,7 +94,7 @@ def page(kind, item, lang):
       <h1>{e(title)}</h1>
       <p class="lede">{e(c['lede'])}</p>
     </div>
-    <div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div>
+    {char_fig(AGENTOS_POSE.get(item["slug"], "p2-hold") if kind == "agentos" else "p3-downbeat", "mod-fig--hero", lang, assets)}
   </div>
 </section>
 <section class="page-body">
@@ -241,7 +261,7 @@ def render_home(lang):
     s = re.sub(r"<!-- hold:start -->.*?<!-- hold:end -->", "<!-- hold:start -->" + hold_svg() + "<!-- hold:end -->", s, flags=re.S)
     s = re.sub(r"<!-- usecases:start -->.*?<!-- usecases:end -->", "<!-- usecases:start -->" + render_usecases_home(lang, "" if lang == "ko" else "../") + "<!-- usecases:end -->", s, flags=re.S)
     s = re.sub(r"<!-- atlas:start -->.*?<!-- atlas:end -->", "<!-- atlas:start -->" + atlas + "<!-- atlas:end -->", s, flags=re.S)
-    cards = "".join(f'<article><div class="xbox" data-label="IMG 3:2" style="--ar:3/2"></div><h3><a href="{"" if lang=="ko" else ""}cases/{c["slug"]}/index.html">{e(c[lang]["title"])}</a></h3><p>{e(c[lang]["lede"])}</p></article>' for c in DATA["cases"])
+    cards = "".join(f'<article>{char_fig("p1-ready", "mod-fig--card", lang, "" if lang == "ko" else "../")}<h3><a href="{"" if lang=="ko" else ""}cases/{c["slug"]}/index.html">{e(c[lang]["title"])}</a></h3><p>{e(c[lang]["lede"])}</p></article>' for c in DATA["cases"])
     s = re.sub(r"<!-- cases:start -->.*?<!-- cases:end -->", "<!-- cases:start -->" + cards + "<!-- cases:end -->", s, flags=re.S)
     s = re.sub(r"<!-- papers:start -->.*?<!-- papers:end -->", f'<!-- papers:start --><p class="atlas-more"><a class="btn btn-line" href="{L["company_papers"]}">{t["papers"]}</a></p><!-- papers:end -->', s, flags=re.S)
     path.write_text(s, encoding="utf-8")
