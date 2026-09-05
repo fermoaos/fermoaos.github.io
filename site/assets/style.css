@@ -2,6 +2,7 @@
 :root{
   --paper:#F7F8F6; --ink:#171A19; --muted:#5F6663; --grid:#D3DAD6; --rule:#B9C2BD;
   --hold:#F2E640; --hold-ink:#171A19;
+  --focus:var(--ink);   /* 포커스 링: 라이트=잉크(16.3:1). 노랑은 halo 로만 남는다 */
   --amber:#8A5A12; --danger:#8E2A22;   /* risk semantics only: hairline + label, never a fill */
   --film-ink:#ECE9DF; --film-bg:#1B2321;   /* the film is one look in both themes: chalk lines on its dark frame */
   --font-display:"Bricolage Grotesque","Pretendard Variable",Pretendard,sans-serif;
@@ -18,7 +19,7 @@
 [data-theme="dark"]{
   --amber:#E0B15E; --danger:#E08880;
   --paper:#1B2321; --ink:#ECE9DF; --muted:#A7ADA6; --grid:rgba(236,233,223,.09); --rule:rgba(236,233,223,.28);
-  --hold:#F5EA6A; --hold-ink:#1B2321; color-scheme:dark;
+  --hold:#F5EA6A; --hold-ink:#1B2321; --focus:var(--hold);   /* 다크: 노랑이 12.9:1 로 충분하다 */ color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -36,7 +37,7 @@ h3{font-size:1.35rem; font-weight:600}
 p{margin:0}
 a{color:inherit}
 mark{background:var(--hold); color:var(--hold-ink); padding:0 .15em; box-decoration-break:clone; -webkit-box-decoration-break:clone}
-:focus-visible{outline:3px solid var(--hold); outline-offset:3px}
+:focus-visible{outline:3px solid var(--focus); outline-offset:3px; box-shadow:0 0 0 3px var(--hold)}
 .skip{position:absolute; left:-999px; top:.5rem; background:var(--ink); color:var(--paper); padding:.5rem 1rem; z-index:100}
 .skip:focus{left:.5rem}
 
@@ -156,7 +157,7 @@ section:not(.hero):not(.manifesto){padding:var(--space-section) var(--gutter)}
 .steps input,.steps textarea{display:block; width:100%; margin-top:.35rem; min-height:44px; padding:.6rem .8rem; font:inherit; color:var(--ink);
   background:var(--paper); border:1.5px solid var(--rule); border-radius:.3rem; transition:border-color 150ms var(--ease-out-expo)}
 .steps input:hover,.steps textarea:hover{border-color:var(--ink)}
-.steps input:focus,.steps textarea:focus{border-color:var(--ink); outline:3px solid var(--hold); outline-offset:1px}
+.steps input:focus,.steps textarea:focus{border-color:var(--ink); outline:3px solid var(--focus); outline-offset:1px}
 .steps input[aria-invalid="true"],.steps textarea[aria-invalid="true"]{border-color:var(--ink); background:color-mix(in srgb,var(--hold) 22%,var(--paper))}
 .step-nav{display:flex; align-items:center; gap:.75rem}
 .step-count{margin-left:auto; color:var(--muted); font-size:.9rem}
@@ -165,7 +166,7 @@ section:not(.hero):not(.manifesto){padding:var(--space-section) var(--gutter)}
 /* footer */
 .foot{border-top:2px solid var(--ink); padding:3rem var(--gutter) 2rem; background:var(--paper)}
 .foot-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:var(--gutter)}
-.foot h4{font-size:1rem; margin-bottom:.8rem}
+.foot h3{font-size:1rem; margin-bottom:.8rem}
 .foot-grid a{display:block; text-decoration:none; color:var(--muted); padding:.2rem 0; transition:color 150ms var(--ease-out-expo)}
 .foot-grid a:hover{color:var(--ink)}
 .foot-base{display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 2rem; margin-top:3rem; padding-top:1.2rem; border-top:1px solid var(--rule); font-size:.85rem; color:var(--muted)}
@@ -307,7 +308,7 @@ img.img-dark{display:none}
 .demo{border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
 .demo a{display:block; height:100%; padding:1.2rem 1.2rem 1.4rem; text-decoration:none; transition:background-color 150ms var(--ease-out-expo)}
 .demo a:hover{background:color-mix(in srgb,var(--hold) 18%,var(--paper))}
-.demo h4{font-size:1.08rem}
+.demo h3{font-size:1.08rem}
 .demo p{margin-top:.6rem; color:var(--muted); font-size:.93rem; line-height:1.55}
 .chips{display:flex; flex-wrap:wrap; gap:.35rem; margin-top:.9rem}
 .chips span{font-family:var(--font-display); font-size:.78rem; color:var(--muted); border:1px solid var(--rule); padding:.1rem .45rem}
@@ -343,7 +344,7 @@ img.img-dark{display:none}
 /* player */
 .player{position:relative; display:grid; grid-template-rows:auto minmax(0,1fr) auto; min-height:28rem; max-height:72vh;
   border:1px solid var(--rule); background:var(--paper)}
-.player:focus-visible{outline:3px solid var(--hold); outline-offset:2px}
+.player:focus-visible{outline:3px solid var(--focus); outline-offset:2px; box-shadow:0 0 0 2px var(--hold)}
 .player-head{display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; padding:.65rem .8rem; border-bottom:1px solid var(--rule)}
 .p-agent{font-family:var(--font-display); font-weight:600; font-size:.98rem}
 .p-dot{display:inline-block; width:.55rem; height:.55rem; border-radius:50%; background:var(--hold); border:1.5px solid var(--ink); flex:none}

@@ -236,7 +236,7 @@ def demo_card(d, lang):
     ti = d["title"] if lang == "ko" else d.get("title_en", d["title"]); bl = d["blurb"] if lang == "ko" else d.get("blurb_en", d["blurb"])
     tech = d.get("tech", []) if lang == "ko" else d.get("tech_en", d.get("tech", []))
     chips = "".join(f"<span>{e(x)}</span>" for x in tech[:3])
-    inner = f'<h4>{e(ti)}</h4><p>{e(bl)}</p><span class="chips">{chips}</span>'
+    inner = f'<h3>{e(ti)}</h3><p>{e(bl)}</p><span class="chips">{chips}</span>'
     if d.get("url"):
         return f'<li class="demo"><a href="{e(d["url"])}" target="_blank" rel="noopener">{inner}</a></li>'
     note = d.get("note" if lang == "ko" else "note_en", "")
