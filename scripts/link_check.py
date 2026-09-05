@@ -66,6 +66,9 @@ def main() -> int:
                     external.setdefault(href, []).append(str(rel))
                 continue
             n_int += 1
+            if href == "#":          # 아무 데도 안 가는 자리표시자 (2026-09-05 푸터 3개)
+                fails.append(f"{rel} -> href=\"#\" (빈 자리표시자 링크)")
+                continue
             t = resolve(f, href)
             if not t.exists():
                 fails.append(f"{rel} -> {href} (파일 없음)")
