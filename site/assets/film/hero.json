@@ -1,10 +1,12 @@
 {
   "src": "draft-v2-48s.mp4",
   "trim_s": 0.9,
+  "crf": 28,
+  "bytes": 4726897,
   "duration_s": 47.17,
   "release_s": 5.1,
   "tip": [
-    0.4454,
+    0.4452,
     0.4235
   ],
   "width": 1280,

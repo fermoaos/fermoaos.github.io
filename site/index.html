@@ -7,9 +7,11 @@
 <meta name="description" content="Fermoa(페르모아)는 기업의 실제 업무를 에이전트가 사고하고 실행하는 운영체계, AgentOS입니다. 일은 완료 상태가 아니라 사고하는 순간에 있습니다.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="preload" as="image" href="assets/film/hero-poster.webp" fetchpriority="high">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
 <!-- meta:start -->
 <link rel="canonical" href="https://fermoaos.github.io/">
@@ -70,8 +72,8 @@
     </div>
   </div>
   <div class="hero-stage hero-stage--film">
-    <!-- hold:start --><svg class="hold" viewBox="0 0 600 338" preserveAspectRatio="xMidYMid meet"><g class="hold-lines"><path d="M-20 3.0999999999999943 L267.2 143.1"/><path d="M-20 143.1 L267.2 143.1"/><path d="M-20 283.1 L267.2 143.1"/><path class="hold-out" d="M267.2 143.1 L620 73.1"/></g><path class="hold-arc" d="M227.2 103.1 A40 40 0 0 1 307.2 103.1"/><circle class="hold-dot" cx="267.2" cy="143.1" r="7"/></svg><!-- hold:end -->
-    <video class="hero-film" poster="assets/film/hero-poster.webp" width="1280" height="720" muted loop playsinline preload="auto" aria-label="사무실에서 손을 든 사람 주위로 종이가 멈춘다. 사람은 알갱이로 풀려 세계선을 따라 병원 근무표까지 가서 빈칸을 채우고, 다시 모여 손을 내리면 시간이 흐른다" data-release="5.1">
+    <!-- hold:start --><svg class="hold" viewBox="0 0 600 338" preserveAspectRatio="xMidYMid meet"><g class="hold-lines"><path d="M-20 3.0999999999999943 L267.1 143.1"/><path d="M-20 143.1 L267.1 143.1"/><path d="M-20 283.1 L267.1 143.1"/><path class="hold-out" d="M267.1 143.1 L620 73.1"/></g><path class="hold-arc" d="M227.10000000000002 103.1 A40 40 0 0 1 307.1 103.1"/><circle class="hold-dot" cx="267.1" cy="143.1" r="7"/></svg><!-- hold:end -->
+    <video class="hero-film" poster="assets/film/hero-poster.webp" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="사무실에서 손을 든 사람 주위로 종이가 멈춘다. 사람은 알갱이로 풀려 세계선을 따라 병원 근무표까지 가서 빈칸을 채우고, 다시 모여 손을 내리면 시간이 흐른다" data-release="5.1">
       <source src="assets/film/hero.mp4" type="video/mp4">
     </video>
     <button class="film-toggle" type="button" data-film-toggle data-label-pause="정지" data-label-play="재생" aria-pressed="false">재생</button>

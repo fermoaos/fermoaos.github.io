@@ -17,6 +17,7 @@ from PIL import Image
 ROOT = pathlib.Path(__file__).resolve().parent
 SRC = ROOT / "brand" / "film" / "draft-v2-48s.mp4"
 DST = ROOT / "site" / "assets" / "film"
+CRF = 28              # 위 인코드 주석 참조 — 올리기 전에 크롭 비교부터
 TRIM_S = 0.9          # fade-from-black ends here (luma plateau measured 2026-09-03)
 S2_AT_SRC = 6.0       # scenario §2: S1 정지 0–6s, S2 풀림 starts here (source time)
 TIP_SAMPLES = (0.0, 0.2, 0.4, 0.6)   # seconds into the web cut where the film's dot is still lit
@@ -44,7 +45,9 @@ def main():
     DST.mkdir(parents=True, exist_ok=True)
     mp4 = DST / "hero.mp4"
     run("ffmpeg", "-v", "error", "-y", "-ss", str(TRIM_S), "-i", str(SRC), "-an",
-        "-c:v", "libx264", "-preset", "slow", "-crf", "22", "-pix_fmt", "yuv420p",
+        # crf 28: 히어로는 자동재생 루프라 무게가 곧 이탈이다. 22 → 28 로 9.2MB → 4.5MB.
+        # 2026-09-05 실측: 100% 크롭(7.5s 정지 · 12s 분해 · 20s 손 · 30s 궤적)에서 22 와 구분 불가.
+        "-c:v", "libx264", "-preset", "slow", "-crf", str(CRF), "-pix_fmt", "yuv420p",
         "-vf", "scale=1280:720", "-r", "24", "-movflags", "+faststart", str(mp4))
     tmp = pathlib.Path(tempfile.mkdtemp())
     first = frame(mp4, 0, tmp / "f0.png")
@@ -55,7 +58,8 @@ def main():
     tip = [round(float(np.mean([t[0] for t in tips])), 4), round(float(np.mean([t[1] for t in tips])), 4)]
     dur = float(subprocess.check_output(["ffprobe", "-v", "error", "-show_entries", "format=duration",
                                          "-of", "csv=p=0", str(mp4)]).strip())
-    meta = {"src": SRC.name, "trim_s": TRIM_S, "duration_s": round(dur, 2),
+    meta = {"src": SRC.name, "trim_s": TRIM_S, "crf": CRF,
+            "bytes": mp4.stat().st_size, "duration_s": round(dur, 2),
             "release_s": round(S2_AT_SRC - TRIM_S, 2), "tip": tip, "width": 1280, "height": 720}
     (DST / "hero.json").write_text(json.dumps(meta, indent=2))
     shutil.rmtree(tmp, ignore_errors=True)

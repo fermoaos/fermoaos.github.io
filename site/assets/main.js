@@ -38,7 +38,10 @@
   const filmBtn = stage?.querySelector("[data-film-toggle]");
   if (film && filmBtn) {
     const release = parseFloat(film.dataset.release || "6");
-    const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // 4.5MB 를 아껴 쓰라는 신호가 오면 자동재생하지 않는다 — 포스터로 두고 버튼은 살려 둔다.
+    const net = navigator.connection || {};
+    const thrifty = net.saveData === true || /(^|-)2g$/.test(net.effectiveType || "");
+    const still = matchMedia("(prefers-reduced-motion: reduce)").matches || thrifty;
     const label = () => {
       const playing = !film.paused;
       filmBtn.textContent = playing ? filmBtn.dataset.labelPause : filmBtn.dataset.labelPlay;

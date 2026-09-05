@@ -7,9 +7,11 @@
 <meta name="description" content="Fermoa is an AgentOS where agents think through and execute real enterprise work. Work lives in the moment of thinking, not in a 'done' state.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="../assets/style.css">
+<link rel="preload" as="image" href="../assets/film/hero-poster.webp" fetchpriority="high">
 <link rel="icon" href="../assets/mark.svg" type="image/svg+xml">
 <!-- meta:start -->
 <link rel="canonical" href="https://fermoaos.github.io/en/">
@@ -70,8 +72,8 @@
     </div>
   </div>
   <div class="hero-stage hero-stage--film">
-    <!-- hold:start --><svg class="hold" viewBox="0 0 600 338" preserveAspectRatio="xMidYMid meet"><g class="hold-lines"><path d="M-20 3.0999999999999943 L267.2 143.1"/><path d="M-20 143.1 L267.2 143.1"/><path d="M-20 283.1 L267.2 143.1"/><path class="hold-out" d="M267.2 143.1 L620 73.1"/></g><path class="hold-arc" d="M227.2 103.1 A40 40 0 0 1 307.2 103.1"/><circle class="hold-dot" cx="267.2" cy="143.1" r="7"/></svg><!-- hold:end -->
-    <video class="hero-film" poster="../assets/film/hero-poster.webp" width="1280" height="720" muted loop playsinline preload="auto" aria-label="In an office a person raises a hand and the paper stops mid-air. The person dissolves into grains, travels along worldlines to a hospital roster, fills it, and returns; the hand lowers and time resumes" data-release="5.1">
+    <!-- hold:start --><svg class="hold" viewBox="0 0 600 338" preserveAspectRatio="xMidYMid meet"><g class="hold-lines"><path d="M-20 3.0999999999999943 L267.1 143.1"/><path d="M-20 143.1 L267.1 143.1"/><path d="M-20 283.1 L267.1 143.1"/><path class="hold-out" d="M267.1 143.1 L620 73.1"/></g><path class="hold-arc" d="M227.10000000000002 103.1 A40 40 0 0 1 307.1 103.1"/><circle class="hold-dot" cx="267.1" cy="143.1" r="7"/></svg><!-- hold:end -->
+    <video class="hero-film" poster="../assets/film/hero-poster.webp" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="In an office a person raises a hand and the paper stops mid-air. The person dissolves into grains, travels along worldlines to a hospital roster, fills it, and returns; the hand lowers and time resumes" data-release="5.1">
       <source src="../assets/film/hero.mp4" type="video/mp4">
     </video>
     <button class="film-toggle" type="button" data-film-toggle data-label-pause="Pause" data-label-play="Play" aria-pressed="false">Play</button>
