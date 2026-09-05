@@ -24,7 +24,8 @@
     sec: 's', inTok: 'in', outTok: 'out', tokens: 'tokens',
     noRecord: 'No recording for this question yet. In the real product the agent answers it right away.',
     loadErr: 'Recordings could not be loaded here. Open the site over http (or GitHub Pages) and the player runs.',
-    latest: 'Jump to latest', live: 'Assistant is answering.', y: 'yes', n: 'no'
+    latest: 'Jump to latest', live: 'Assistant is answering.', y: 'yes', n: 'no',
+    more: 'Show {n} more rows', less: 'Collapse'
   } : {
     idle: '대기', loading: '기록 여는 중', playing: '재생 중', paused: '멈춤',
     waiting: '승인 기다리는 중', ended: '끝',
@@ -40,7 +41,8 @@
     sec: '초', inTok: '입력', outTok: '출력', tokens: '토큰',
     noRecord: '이 질문의 기록은 아직 없습니다. 실제 제품에서는 바로 이어서 답합니다.',
     loadErr: '이 환경에서는 기록을 열 수 없습니다. http 로 열면(깃허브 페이지 포함) 재생됩니다.',
-    latest: '최신으로 내리기', live: '에이전트가 답하는 중입니다.', y: '예', n: '아니오'
+    latest: '최신으로 내리기', live: '에이전트가 답하는 중입니다.', y: '예', n: '아니오',
+    more: '외 {n}행 펼치기', less: '접기'
   };
 
   var log = root.querySelector('[data-log]');
@@ -119,14 +121,27 @@
     var w = el('div', 'tbl-wrap'), tb = document.createElement('table');
     var cols = p.columns || [], rows = p.rows || [];
     var h = '<thead><tr>' + cols.map(function (c) { return '<th scope="col">' + esc(c) + '</th>'; }).join('') + '</tr></thead>';
-    var b = rows.slice(0, ROWCAP).map(function (r) {
-      return '<tr>' + (r || []).map(function (v) { var c = cell(v); return '<td' + (c.n ? ' class="num"' : '') + '>' + esc(c.t) + '</td>'; }).join('') + '</tr>';
+    var b = rows.map(function (r, i) {
+      return '<tr' + (i >= ROWCAP ? ' class="is-extra" hidden' : '') + '>' + (r || []).map(function (v) { var c = cell(v); return '<td' + (c.n ? ' class="num"' : '') + '>' + esc(c.t) + '</td>'; }).join('') + '</tr>';
     }).join('');
     tb.innerHTML = h + '<tbody>' + b + '</tbody>';
     w.appendChild(tb);
     var box = document.createDocumentFragment();
     box.appendChild(w);
-    if (rows.length > ROWCAP) box.appendChild(el('p', 'more', (EN ? 'and ' + num(rows.length - ROWCAP) + ' more rows' : '외 ' + num(rows.length - ROWCAP) + '행')));
+    if (rows.length > ROWCAP) {
+      var extra = rows.length - ROWCAP;
+      var more = el('button', 'more', T.more.replace('{n}', num(extra)));
+      more.type = 'button'; more.setAttribute('aria-expanded', 'false'); more.setAttribute('data-rows', String(rows.length));
+      more.addEventListener('click', function () {
+        var open = more.getAttribute('aria-expanded') !== 'true';
+        more.setAttribute('aria-expanded', open ? 'true' : 'false');
+        more.textContent = open ? T.less : T.more.replace('{n}', num(extra));
+        w.classList.toggle('is-open', open);
+        Array.prototype.forEach.call(tb.querySelectorAll('tr.is-extra'), function (tr) { tr.hidden = !open; });
+        if (!open) w.scrollTop = 0;
+      });
+      box.appendChild(more);
+    }
     return box;
   }
   function cardPlan(p) {
@@ -173,7 +188,7 @@
     var all = [];
     series.forEach(function (s) { s.values.forEach(function (v) { if (typeof v === 'number') all.push(v); }); });
     if (!all.length || !labels.length) return svg;
-    var mx = Math.max.apply(null, all), mn = Math.min.apply(null, all, 0);
+    var mx = Math.max.apply(null, all), mn = Math.min(0, Math.min.apply(null, all));
     if (mx === mn) mx = mn + 1;
     var iw = W - PL - PR, ih = H - PT - PB;
     var X = function (i) { return PL + (labels.length === 1 ? iw / 2 : iw * i / (labels.length - 1)); };

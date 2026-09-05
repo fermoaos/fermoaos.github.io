@@ -403,7 +403,11 @@ img.img-dark{display:none}
   border-bottom:1px solid var(--ink); padding:.3rem 1rem .3rem 0}
 .ui-card td{padding:.3rem 1rem .3rem 0; border-bottom:1px solid var(--rule); white-space:nowrap}
 .ui-card td.num{text-align:right; font-variant-numeric:tabular-nums}
-.ui-card .more{margin-top:.4rem; color:var(--muted); font-size:.8rem}
+.ui-card .more{margin-top:.4rem; color:var(--muted); font-size:.8rem; font-family:inherit; background:none; border:0; padding:0;
+  cursor:pointer; text-decoration:underline; text-underline-offset:.2em; min-height:44px}
+.ui-card .more:hover,.ui-card .more:focus-visible{color:var(--ink); outline:none}
+.ui-card .more:focus-visible{text-decoration-style:double}
+.tbl-wrap.is-open{max-height:22rem; overflow-y:auto}
 .plan-sec{margin-top:.6rem}
 .plan-sec h5{font-family:var(--font-display); font-size:.88rem; margin:0 0 .25rem}
 .plan-sec ul{list-style:none; margin:0; padding:0; display:grid; gap:.22rem}

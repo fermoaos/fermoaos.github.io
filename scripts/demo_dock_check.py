@@ -61,6 +61,26 @@ def main() -> int:
         need(tools >= 1, "dormant: no tool chip")
         need(tables >= 1, "dormant: no table card")
         need(sugg == 3, f"dormant: {sugg} follow-up chips (want exactly 3)")
+        # 1b) chart card from the real recording: line + one point per label
+        charts = page.query_selector_all("#demo .ui-card--chart")
+        need(len(charts) >= 1, "dormant: no chart card (the recording has one)")
+        pts = len(page.query_selector_all("#demo .ui-card--chart .chart .pt"))
+        lines = len(page.query_selector_all("#demo .ui-card--chart .chart .lin"))
+        need(lines >= 1 and pts >= 12, f"dormant: chart drew {lines} lines / {pts} points (want >=1 / >=12)")
+        # 1c) tables past ROWCAP collapse to 8 rows and expand on click to every row
+        more = page.query_selector('#demo .ui-card--table .more[aria-expanded="false"]')
+        need(more is not None, "dormant: no expand button on a >8-row table")
+        if more:
+            card = more.evaluate_handle("b => b.closest('.ui-card')")
+            vis = lambda: card.evaluate("c => Array.from(c.querySelectorAll('tbody tr')).filter(t => !t.hidden).length")
+            total = int(more.get_attribute("data-rows"))
+            before = vis(); more.click(); page.wait_for_timeout(100); after = vis()
+            need(before == 8 and after == total, f"dormant: table expand {before} -> {after} (want 8 -> {total})")
+            need(more.get_attribute("aria-expanded") == "true", "dormant: aria-expanded did not flip")
+            more.click(); page.wait_for_timeout(100)
+            need(vis() == 8, "dormant: collapse did not hide the extra rows")
+            NOTES["table_expand"] = {"before": before, "after": after, "total": total}
+        NOTES["chart"] = {"cards": len(charts), "points": pts, "lines": lines}
         NOTES["dormant"] = {"tool_chips": tools, "resolved": ok_tools, "tables": tables,
                             "cards": len(page.query_selector_all("#demo .ui-card")),
                             "subagents": subs, "followups": sugg,
@@ -151,6 +171,8 @@ def main() -> int:
         page.set_viewport_size({"width": 375, "height": 800})
         page.wait_for_timeout(400)
         play(page, "subscription")
+        m375 = page.query_selector('#demo .ui-card--table .more[aria-expanded="false"]')
+        if m375: m375.click(); page.wait_for_timeout(150)
         sw, iw = page.evaluate("() => [document.documentElement.scrollWidth, innerWidth]")
         need(sw <= iw, f"horizontal overflow at 375: {sw}/{iw}")
         page.locator("#demo").screenshot(path=str(SHOTS / "dock-375.png"))
