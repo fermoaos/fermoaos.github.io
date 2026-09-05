@@ -17,6 +17,7 @@ AXE = "https://cdn.jsdelivr.net/npm/axe-core@4.10.2/axe.min.js"
 PAGES = ["/", "/en/", "/usecases/", "/cases/mildo/", "/agentos/runtime/", "/404.html"]
 TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"]
 MIN_FOCUS_CONTRAST = 3.0          # WCAG 2.2 SC 1.4.11 non-text contrast
+MIN_OVERLAY_CONTRAST = 4.5        # 영상 위 컨트롤 텍스트 (SC 1.4.3)
 
 
 def _lin(c):
@@ -81,6 +82,23 @@ def main() -> int:
                     c = contrast(px["focus"], px["paper"])
                     if c < MIN_FOCUS_CONTRAST:
                         fails.append(f"{path}[{theme}] 포커스 링 대비 {c:.2f}:1 < {MIN_FOCUS_CONTRAST}")
+                    # 영상 위에 얹힌 컨트롤은 뒤에 흐르는 프레임마다 대비가 달라진다.
+                    # 최악(뒤가 흰 프레임)을 가정해 자기 배경을 흰색에 합성한 뒤 잰다.
+                    ov = pg.evaluate("""() => {
+                      const el = document.querySelector('.film-toggle');
+                      if (!el) return null;
+                      const cs = getComputedStyle(el);
+                      const p = v => (v.match(/[\\d.]+/g)||[]).map(Number);
+                      return {fg: p(cs.color), bg: p(cs.backgroundColor)};
+                    }""")
+                    if ov:
+                        bg, fg = ov["bg"], ov["fg"]
+                        a = bg[3] if len(bg) > 3 else 1.0
+                        over_white = [bg[i] * a + 255 * (1 - a) for i in range(3)]
+                        c2 = contrast(fg[:3], over_white)
+                        if c2 < MIN_OVERLAY_CONTRAST:
+                            fails.append(f"{path}[{theme}] 영상 위 컨트롤 최악 대비 {c2:.2f}:1 "
+                                         f"< {MIN_OVERLAY_CONTRAST} (배경 알파 {a})")
                     pg.add_script_tag(url=AXE)
                     v = pg.evaluate("""async (tags) => {
                       const r = await axe.run(document, {resultTypes:['violations'],

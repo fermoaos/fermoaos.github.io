@@ -102,9 +102,15 @@ mark{background:var(--hold); color:var(--hold-ink); padding:0 .15em; box-decorat
 .hero-stage--film .hold-dot{fill:var(--film-bg); stroke:var(--film-ink)}
 .hero-stage--film.is-released .hold{opacity:0}
 .film-toggle{position:absolute; z-index:2; right:.75rem; bottom:.75rem; min-height:44px; padding:.5rem .9rem; font:inherit; font-family:var(--font-display); font-size:.9rem;
-  color:var(--film-ink); background:transparent; border:1px solid var(--film-ink); border-radius:.35rem; cursor:pointer; opacity:.7; transition:opacity 150ms var(--ease-out-expo)}
-.film-toggle:hover,.film-toggle:focus-visible{opacity:1}
-.film-toggle:active{opacity:.85}
+  color:var(--film-ink); border:1px solid var(--film-ink); border-radius:.35rem; cursor:pointer;
+  /* WCAG 2.2 의 자동재생 일시정지 컨트롤이다. 투명 + opacity:.7 이면 대비가 뒤에 흐르는
+     프레임마다 달라진다 — 밝은 사무실 컷에서는 사실상 사라졌다. 자기 바닥을 준다:
+     최악(뒤가 흰색)에도 7.4:1. */
+  background:color-mix(in srgb, var(--film-bg) 85%, transparent);
+  -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px);
+  transition:background-color 150ms var(--ease-out-expo)}
+.film-toggle:hover,.film-toggle:focus-visible{background:var(--film-bg)}
+.film-toggle:active{background:color-mix(in srgb, var(--film-bg) 92%, transparent)}
 .film-toggle[disabled]{opacity:.3; cursor:default}
 
 /* manifesto */
