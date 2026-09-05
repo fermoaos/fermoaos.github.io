@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://fermoaos.github.io/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/usecases/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/usecases/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/usecases/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/usecases/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/usecases/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/usecases/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/usecases/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/usecases/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/agentos/runtime/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/runtime/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/runtime/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/runtime/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/agentos/runtime/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/runtime/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/runtime/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/runtime/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/agentos/contract/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/contract/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/contract/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/contract/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/agentos/contract/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/contract/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/contract/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/contract/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/agentos/pipeline/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/pipeline/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/pipeline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/pipeline/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/agentos/pipeline/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/pipeline/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/pipeline/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/pipeline/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/agentos/gateway/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/gateway/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/gateway/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/gateway/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/agentos/gateway/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/gateway/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/gateway/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/gateway/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/agentos/edge/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/edge/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/edge/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/edge/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/agentos/edge/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/edge/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/edge/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/edge/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/mildo/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/mildo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/mildo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/mildo/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/mildo/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/mildo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/mildo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/mildo/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/cafe24/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/cafe24/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/cafe24/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/cafe24/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/cafe24/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/cafe24/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/cafe24/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/cafe24/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/agency/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/agency/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/agency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/agency/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/agency/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/agency/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/agency/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/agency/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/payroll/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/payroll/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/payroll/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/payroll/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/payroll/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/payroll/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/payroll/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/payroll/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/visibility/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/visibility/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/visibility/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/visibility/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/visibility/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/visibility/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/visibility/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/visibility/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/privacy-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/privacy-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/privacy-ads/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/privacy-ads/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/privacy-ads/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/privacy-ads/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/privacy-ads/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/privacy-ads/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/interference/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/interference/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/interference/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/interference/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/interference/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/interference/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/interference/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/interference/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/cases/roster/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/roster/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/roster/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/roster/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/cases/roster/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/roster/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/roster/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/roster/"/>
+  </url>
+</urlset>

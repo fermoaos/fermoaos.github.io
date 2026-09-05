@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fermoaos.github.io/sitemap.xml

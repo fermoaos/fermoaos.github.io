@@ -26,6 +26,67 @@ MARK = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><
 
 def e(s): return html.escape(s, quote=True)
 
+# ── 공유·검색 메타 (코드가 소유한다 — 손으로 head 를 고치지 마라) ─────────────
+ORIGIN = "https://fermoaos.github.io"
+OG_IMAGE = {"ko": ORIGIN + "/assets/og.png", "en": ORIGIN + "/assets/og-en.png"}
+OG_ALT = {
+  "ko": "페르모아 — 붙잡아, 모은다. 그래프지 위 지휘자가 지휘봉을 정점에서 멈춘 순간",
+  "en": "Fermoa — Hold, and gather. A conductor on graph paper, baton stilled at its peak",
+}
+LOCALE = {"ko": "ko_KR", "en": "en_US"}
+
+def _abs(rel):
+    """site-root-relative dir path -> absolute URL (trailing slash; '' = home)."""
+    return ORIGIN + "/" + rel
+
+def head_meta(*, lang, rel_ko, rel_en, title, desc, jsonld=None):
+    """canonical · Open Graph · Twitter · absolute hreflang(self/other/x-default) · JSON-LD."""
+    rel = rel_ko if lang == "ko" else rel_en
+    url, other = _abs(rel), LOCALE["en" if lang == "ko" else "ko"]
+    ld = ""
+    if jsonld:
+        ld = ('\n<script type="application/ld+json">'
+              + json.dumps(jsonld, ensure_ascii=False, separators=(",", ":"))
+              + "</script>")
+    return f"""<link rel="canonical" href="{url}">
+<link rel="alternate" hreflang="ko" href="{_abs(rel_ko)}">
+<link rel="alternate" hreflang="en" href="{_abs(rel_en)}">
+<link rel="alternate" hreflang="x-default" href="{_abs(rel_ko)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fermoa">
+<meta property="og:locale" content="{LOCALE[lang]}">
+<meta property="og:locale:alternate" content="{other}">
+<meta property="og:url" content="{url}">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(desc)}">
+<meta property="og:image" content="{OG_IMAGE[lang]}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(OG_ALT[lang])}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(title)}">
+<meta name="twitter:description" content="{e(desc)}">
+<meta name="twitter:image" content="{OG_IMAGE[lang]}">
+<meta name="theme-color" content="#f7f6f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">{ld}"""
+
+def org_jsonld(lang, desc):
+    name = "페르모아" if lang == "ko" else "Fermoa"
+    return {"@context": "https://schema.org", "@type": "Organization", "name": name,
+            "alternateName": "Fermoa" if lang == "ko" else "페르모아",
+            "url": _abs("" if lang == "ko" else "en/"),
+            "logo": ORIGIN + "/assets/mark.svg", "image": OG_IMAGE[lang],
+            "slogan": "붙잡아, 모은다." if lang == "ko" else "Hold, and gather.",
+            "description": desc,
+            "address": {"@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR"}}
+
+def crumb_jsonld(lang, trail):
+    """trail: [(name, site-root-relative dir), ...] — home 부터 현재 페이지까지."""
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": _abs(r)}
+                                for i, (n, r) in enumerate(trail)]}
+
+
 POSE_ALT = {
   "p1-ready": {"ko": "양손을 들어 올린 준비 자세의 지휘자 — 계획", "en": "Both hands raised in the preparatory position — plan"},
   "p2-hold": {"ko": "지휘봉을 정점에서 멈춘 지휘자, 왼손은 멈춤 신호 — 승인 대기", "en": "The baton held still at its peak, left hand raised in a stop — waiting for approval"},
@@ -60,6 +121,12 @@ def page(kind, item, lang):
     siblings = [x for x in DATA[kind] if x["slug"] != item["slug"]]
     rel = "".join(f'<li><a href="../{x["slug"]}/index.html">{e(x[lang]["title"])}</a></li>' for x in siblings)
     kind_label = t["kinds"][kind]
+    rel_ko, rel_en = f"{kind}/{item['slug']}/", f"en/{kind}/{item['slug']}/"
+    anchor = "#agentos" if kind == "agentos" else "#cases"
+    base = "" if lang == "ko" else "en/"
+    meta = head_meta(lang=lang, rel_ko=rel_ko, rel_en=rel_en, title=f"{title} — Fermoa", desc=c["lede"],
+                     jsonld=crumb_jsonld(lang, [("Fermoa", base), (kind_label, base + anchor),
+                                                (title, rel_ko if lang == "ko" else rel_en)]))
     return f"""<!doctype html>
 <html lang="{lang}" data-theme="light">
 <head>
@@ -73,7 +140,7 @@ def page(kind, item, lang):
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="{assets}style.css">
 <link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
-<link rel="alternate" hreflang="{'en' if lang=='ko' else 'ko'}" href="{other_page}">
+{meta}
 </head>
 <body class="sub">
 <a class="skip" href="#main">{t['skip']}</a>
@@ -201,6 +268,10 @@ def usecases_page(lang):
                  f'<ul class="demo-grid">' + "".join(demo_card(d, lang) for d in ds) + '</ul></section>')
     jump = "".join(f'<a href="#{f["id"]}">{e(f[lang]["name"])}</a>' for f in DEMOS["families"])
     ol = 'en' if lang == 'ko' else 'ko'
+    base = "" if lang == "ko" else "en/"
+    meta = head_meta(lang=lang, rel_ko="usecases/", rel_en="en/usecases/",
+                     title=f'{u["h"]} — Fermoa', desc=u["page_p"].format(n=n),
+                     jsonld=crumb_jsonld(lang, [("Fermoa", base), (u["h"], base + "usecases/")]))
     return f"""<!doctype html>
 <html lang="{lang}" data-theme="light">
 <head>
@@ -214,7 +285,7 @@ def usecases_page(lang):
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="{assets}style.css">
 <link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
-<link rel="alternate" hreflang="{ol}" href="{other_page}">
+{meta}
 </head>
 <body class="sub">
 <a class="skip" href="#main">{t['skip']}</a>
@@ -258,6 +329,11 @@ def render_home(lang):
         return f'<li><a href="{a["href"]}">{inner}</a></li>' if a.get("href") else f'<li><div class="atlas-card">{inner}</div></li>'
     items = "".join(atlas_item(a) for a in DATA["atlas"])
     atlas = f'<section id="atlas" class="atlas" aria-labelledby="atlas-h"><div class="section-head"><h2 id="atlas-h">{t["atlas_h"]}</h2><p>{t["atlas_p"]}</p></div><ul class="atlas-grid">{items}</ul></section>'
+    title = html.unescape(re.search(r"<title>(.*?)</title>", s, re.S).group(1).strip())
+    desc = html.unescape(re.search(r'<meta name="description" content="(.*?)">', s, re.S).group(1).strip())
+    meta = head_meta(lang=lang, rel_ko="", rel_en="en/", title=title, desc=desc,
+                     jsonld=org_jsonld(lang, desc))
+    s = re.sub(r"<!-- meta:start -->.*?<!-- meta:end -->", "<!-- meta:start -->\n" + meta + "\n<!-- meta:end -->", s, flags=re.S)
     s = re.sub(r"<!-- hold:start -->.*?<!-- hold:end -->", "<!-- hold:start -->" + hold_svg() + "<!-- hold:end -->", s, flags=re.S)
     s = re.sub(r"<!-- usecases:start -->.*?<!-- usecases:end -->", "<!-- usecases:start -->" + render_usecases_home(lang, "" if lang == "ko" else "../") + "<!-- usecases:end -->", s, flags=re.S)
     s = re.sub(r"<!-- atlas:start -->.*?<!-- atlas:end -->", "<!-- atlas:start -->" + atlas + "<!-- atlas:end -->", s, flags=re.S)
@@ -265,6 +341,27 @@ def render_home(lang):
     s = re.sub(r"<!-- cases:start -->.*?<!-- cases:end -->", "<!-- cases:start -->" + cards + "<!-- cases:end -->", s, flags=re.S)
     s = re.sub(r"<!-- papers:start -->.*?<!-- papers:end -->", f'<!-- papers:start --><p class="atlas-more"><a class="btn btn-line" href="{L["company_papers"]}">{t["papers"]}</a></p><!-- papers:end -->', s, flags=re.S)
     path.write_text(s, encoding="utf-8")
+
+def write_sitemap():
+    """모든 페이지를 ko/en 쌍으로 — 링크는 canonical 과 같은 절대 경로다."""
+    pairs = [("", "en/"), ("usecases/", "en/usecases/")]
+    for kind in ("agentos", "cases"):
+        for item in DATA[kind]:
+            pairs.append((f"{kind}/{item['slug']}/", f"en/{kind}/{item['slug']}/"))
+    rows = []
+    for ko, en in pairs:
+        for rel in (ko, en):
+            alts = "".join(
+                f'\n    <xhtml:link rel="alternate" hreflang="{lg}" href="{_abs(r)}"/>'
+                for lg, r in (("ko", ko), ("en", en), ("x-default", ko)))
+            rows.append(f"  <url>\n    <loc>{_abs(rel)}</loc>{alts}\n  </url>")
+    body = "\n".join(rows)
+    (ROOT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        ' xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + body + "\n</urlset>\n",
+        encoding="utf-8")
+
 
 def main():
     n = 0
@@ -277,7 +374,10 @@ def main():
     for lang in ("ko","en"): render_home(lang)
     for lang in ("ko", "en"):
         p = ROOT / ("usecases" if lang == "ko" else "en/usecases") / "index.html"; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(usecases_page(lang), encoding="utf-8")
-    print(f"wrote {n} pages + 2 homes")
+    write_sitemap()
+    (ROOT / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {ORIGIN}/sitemap.xml\n", encoding="utf-8")
+    print(f"wrote {n} pages + 2 homes + sitemap.xml + robots.txt")
 
 if __name__ == "__main__":
     main()
