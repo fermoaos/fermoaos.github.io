@@ -1,0 +1,56 @@
+{
+  "privacy": {
+    "slug": "privacy",
+    "updated": "2026-09-06",
+    "ko": {
+      "title": "개인정보 처리방침",
+      "lede": "이 사이트는 방문자에 대해 아무것도 수집하지 않습니다. 계정도 로그인도 분석 도구도 광고 추적도 없습니다. 아래는 그 말이 정확히 무슨 뜻인지입니다.",
+      "updated_label": "개정일",
+      "sections": [
+        {"h": "우리가 저장하는 것",
+         "p": ["없습니다. 이 사이트는 정적 파일로만 돌아가고, 우리가 소유한 서버나 데이터베이스가 없습니다. 방문 기록을 우리 쪽에 남기는 코드가 존재하지 않습니다."]},
+        {"h": "브라우저에 남는 것",
+         "p": ["`fermoa-theme` 키 하나입니다. 그래프지와 칠판 중 어느 화면을 골랐는지만 담고 방문자의 브라우저 안에만 있습니다. 우리에게 전송되지 않고, 지우면 다음 방문에 시스템 설정을 따릅니다.",
+               "쿠키는 쓰지 않습니다."]},
+        {"h": "문의 양식",
+         "p": ["세 단계 양식은 입력한 내용을 방문자의 메일 프로그램에 넘겨 편지 초안을 엽니다. 보내기를 누르는 것은 방문자이고, 편지는 우리 서버가 아니라 방문자가 쓰는 메일 서비스를 거쳐 도착합니다. 우리가 받는 것은 그 편지 한 통뿐입니다.",
+               "받은 편지에 담긴 내용은 그 문의에 답하는 목적으로만 씁니다. 다른 곳으로 옮기거나 광고에 쓰지 않습니다."]},
+        {"h": "제3자에게 가는 요청",
+         "p": ["페이지를 열면 방문자의 브라우저가 세 곳에 직접 요청을 보냅니다. 제목과 본문 서체를 위해 Google Fonts(fonts.googleapis.com, fonts.gstatic.com)에, 한글 서체를 위해 jsDelivr(cdn.jsdelivr.net)에 갑니다. 이 요청에는 IP 주소와 브라우저 정보가 담기며 각 회사의 방침을 따릅니다.",
+               "사이트 자체는 GitHub Pages 가 호스팅합니다. 따라서 GitHub 도 접속 기록을 봅니다.",
+               "Use Cases 에 있는 데모 링크는 눌렀을 때만 다른 주소로 이동합니다. 누르지 않으면 아무 요청도 가지 않습니다."]},
+        {"h": "없는 것",
+         "p": ["분석 도구, 태그 매니저, 추적 픽셀, 광고 네트워크, A/B 테스트 도구, 세션 리플레이, 채팅 위젯. 하나도 쓰지 않습니다. 이 문장은 확인할 수 있습니다 — 브라우저 개발자 도구의 네트워크 탭을 열고 이 사이트를 새로고침해 보시면 위에 적은 세 곳 말고는 나가는 요청이 없습니다."]},
+        {"h": "재생 데모",
+         "p": ["홈의 에이전트 데모는 미리 녹화해 둔 실행 기록을 이 사이트 안에서 재생합니다. 입력을 받지 않고, 바깥으로 나가는 요청도 없습니다. 승인 버튼을 눌러도 그 클릭은 재생을 이어가는 것 외에 아무 데도 가지 않습니다."]},
+        {"h": "이 방침에 대한 문의",
+         "p": ["같은 주소로 보내 주시면 됩니다. 방침이 바뀌면 이 페이지의 개정일을 고칩니다."]}
+      ]
+    },
+    "en": {
+      "title": "Privacy",
+      "lede": "This site collects nothing about its visitors. No accounts, no logins, no analytics, no ad tracking. Here is exactly what that means.",
+      "updated_label": "Last updated",
+      "sections": [
+        {"h": "What we store",
+         "p": ["Nothing. The site is static files with no server and no database of ours behind it. There is no code here that records your visit on our side."]},
+        {"h": "What stays in your browser",
+         "p": ["One key, `fermoa-theme`. It holds whether you chose graph paper or blackboard, and it stays in your browser. It is never sent to us, and clearing it means the next visit follows your system setting.",
+               "We use no cookies."]},
+        {"h": "The contact form",
+         "p": ["The three-step form hands what you typed to your own mail program and opens a draft. You are the one who presses send, and the message travels through your mail provider rather than any server of ours. What we receive is that one email.",
+               "We use what is in it to answer that enquiry. We do not move it elsewhere or use it for advertising."]},
+        {"h": "Requests that go to third parties",
+         "p": ["Opening a page makes your browser reach three places directly: Google Fonts (fonts.googleapis.com, fonts.gstatic.com) for the display and body faces, and jsDelivr (cdn.jsdelivr.net) for the Korean face. Those requests carry your IP address and browser details and are governed by each company's own policy.",
+               "The site itself is hosted on GitHub Pages, so GitHub also sees access logs.",
+               "The demo links under Use Cases go elsewhere only when you click them. Leave them alone and no request is made."]},
+        {"h": "What is not here",
+         "p": ["No analytics, tag manager, tracking pixel, ad network, A/B testing tool, session replay or chat widget. None of it. You can check this claim: open your browser's network tab and reload the site — nothing leaves except the three destinations named above."]},
+        {"h": "The replay demo",
+         "p": ["The agent demo on the homepage replays a recording that ships with the site. It takes no input and makes no outbound request. Pressing the approve button advances the playback and goes nowhere else."]},
+        {"h": "Questions about this policy",
+         "p": ["Send them to the same address. If the policy changes, the date on this page changes with it."]}
+      ]
+    }
+  }
+}

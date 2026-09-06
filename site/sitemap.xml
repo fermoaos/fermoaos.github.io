@@ -37,6 +37,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/program/"/>
   </url>
   <url>
+    <loc>https://fermoaos.github.io/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/privacy/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/privacy/"/>
+  </url>
+  <url>
     <loc>https://fermoaos.github.io/agentos/runtime/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/runtime/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/runtime/"/>

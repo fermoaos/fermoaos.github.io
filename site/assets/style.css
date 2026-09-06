@@ -192,6 +192,18 @@ section:not(.hero):not(.manifesto){padding:var(--space-section) var(--gutter)}
 @media (max-width:1024px){.fab-fams{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:760px){.fab-fams,.fab-grid{grid-template-columns:1fr}}
 
+/* 법적 고지 — 산문 한 장. 케이스 페이지의 2단 레이아웃과 큰 h2 는 정책 문서에 안 맞는다 */
+section.page-hero.legal-hero{padding-bottom:2.6rem}
+.legal-hero .lede{max-width:34rem}
+section.page-body.legal-body{grid-template-columns:minmax(0,1fr); padding-block:2.6rem 4.5rem;
+  padding-inline:var(--gutter)}
+.legal-body .prose{max-width:38rem}
+.legal-body h2{font-size:1.4rem; letter-spacing:-.02em; margin-top:2.6rem; margin-bottom:.7rem}
+.legal-body h2:first-child{margin-top:0}
+.legal-body .prose p{font-size:1.02rem; line-height:1.75}
+.legal-body code{font-family:ui-monospace,Menlo,monospace; font-size:.9em;
+  background:color-mix(in srgb,var(--rule) 35%,transparent); padding:0 .25em}
+
 /* contact */
 .contact{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:var(--gutter); border-top:1px solid var(--rule)}
 .contact-copy p{margin-top:1rem; color:var(--muted); max-width:30rem}

@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parent / "site"
 DATA = json.loads((ROOT / "content" / "pages.json").read_text(encoding="utf-8"))
 DEMOS = json.loads((ROOT / "content" / "demos.json").read_text(encoding="utf-8"))
 PROGRAM = json.loads((ROOT / "content" / "program.json").read_text(encoding="utf-8"))
+LEGAL = json.loads((ROOT / "content" / "legal.json").read_text(encoding="utf-8"))
 
 T = {
   "ko": dict(lang="ko", home="../../", skip="본문으로 건너뛰기", nav=["AgentOS","Agentic Ops","Use Cases","AI Fabric","Insights","Company"],
@@ -347,6 +348,7 @@ def render_home(lang):
 def write_sitemap():
     """모든 페이지를 ko/en 쌍으로 — 링크는 canonical 과 같은 절대 경로다."""
     pairs = [("", "en/"), ("usecases/", "en/usecases/"), ("program/", "en/program/")]
+    pairs += [(f"{d['slug']}/", f"en/{d['slug']}/") for d in LEGAL.values()]
     for kind in ("agentos", "cases"):
         for item in DATA[kind]:
             pairs.append((f"{kind}/{item['slug']}/", f"en/{kind}/{item['slug']}/"))
@@ -550,6 +552,74 @@ def render_program_home(lang, prefix):
             f'</section>')
 
 
+# ── 법적 고지 (개인정보 처리방침) ────────────────────────────────────────────
+CODE = re.compile(r"`([^`]+)`")
+CODE_SPAN = r"<code>\g<1></code>"
+
+def legal_page(key, lang):
+    """산문 한 장. 문장은 콘텐츠가, 마크업은 여기가 소유한다."""
+    d = LEGAL[key]; c = d[lang]; t = T[lang]
+    home = "../" if lang == "ko" else "../../"
+    assets = home + "assets/"
+    site_home = home + ("index.html" if lang == "ko" else "en/index.html")
+    other_page = (home + f"en/{d['slug']}/index.html") if lang == "ko" else (home + f"{d['slug']}/index.html")
+    nav = "".join(f'<a href="{site_home}{ANCH[x]}">{x}</a>' for x in t["nav"])
+    body = ""
+    for sec in c["sections"]:
+        paras = "".join("<p>" + CODE.sub(CODE_SPAN, e(x)) + "</p>" for x in sec["p"])
+        body += f"<h2>{e(sec['h'])}</h2>{paras}"
+    rel_ko, rel_en = f"{d['slug']}/", f"en/{d['slug']}/"
+    meta = head_meta(lang=lang, rel_ko=rel_ko, rel_en=rel_en,
+                     title=f"{c['title']} — Fermoa", desc=c["lede"],
+                     jsonld=crumb_jsonld(lang, [("Fermoa", "" if lang == "ko" else "en/"),
+                                                (c["title"], rel_ko if lang == "ko" else rel_en)]))
+    return f"""<!doctype html>
+<html lang="{lang}" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(c['title'])} — Fermoa</title>
+<meta name="description" content="{e(c['lede'])}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="{assets}style.css">
+<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{meta}
+</head>
+<body class="sub">
+<a class="skip" href="#main">{t['skip']}</a>
+<header class="top">
+  <a class="brand" href="{site_home}" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main">{nav}</nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="{t['theme_light']}" data-label-dark="{t['theme_dark']}">{t['theme']}</button>
+    <span class="lang"><a href="{other_page}" hreflang="{'en' if lang=='ko' else 'ko'}">{t['other']}</a></span>
+    <a class="btn btn-ink" href="{site_home}#contact">{t['contact']}</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero legal-hero">
+  <p class="crumb">{e(c['updated_label'])} {d['updated']}</p>
+  <h1>{e(c['title'])}</h1>
+  <p class="lede">{e(c['lede'])}</p>
+</section>
+<section class="page-body legal-body">
+  <div class="prose">{body}</div>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">{t['biz']}</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+{MARK}
+<script src="{assets}main.js" defer></script>
+</body>
+</html>
+"""
+
+
 def main():
     n = 0
     for kind in ("agentos", "cases"):
@@ -562,6 +632,9 @@ def main():
     for lang in ("ko", "en"):
         p = ROOT / ("usecases" if lang == "ko" else "en/usecases") / "index.html"; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(usecases_page(lang), encoding="utf-8")
         q = ROOT / ("program" if lang == "ko" else "en/program") / "index.html"; q.parent.mkdir(parents=True, exist_ok=True); q.write_text(program_page(lang), encoding="utf-8")
+        for key, d in LEGAL.items():
+            r = ROOT / (d["slug"] if lang == "ko" else f"en/{d['slug']}") / "index.html"
+            r.parent.mkdir(parents=True, exist_ok=True); r.write_text(legal_page(key, lang), encoding="utf-8")
     (ROOT / "404.html").write_text(four_oh_four(), encoding="utf-8")
     write_sitemap()
     (ROOT / "robots.txt").write_text(
