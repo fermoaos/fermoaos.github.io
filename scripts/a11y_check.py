@@ -14,7 +14,17 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 AXE = "https://cdn.jsdelivr.net/npm/axe-core@4.10.2/axe.min.js"
-PAGES = ["/", "/en/", "/usecases/", "/cases/mildo/", "/agentos/runtime/", "/404.html"]
+def _pages():
+    fixed = ["/", "/en/", "/usecases/", "/program/", "/privacy/", "/404.html"]
+    for kind in ("cases", "agentos"):
+        d = sorted(x for x in (SITE / kind).iterdir() if x.is_dir()) if (SITE / kind).is_dir() else []
+        if d:
+            fixed.append(f"/{kind}/{d[0].name}/")
+    missing = [x for x in fixed
+               if not (SITE / x.lstrip("/")).exists() and not (SITE / x.lstrip("/") / "index.html").exists()]
+    if missing:
+        raise SystemExit(f"a11y_check: 없는 경로를 검사하려 한다 — {missing}")
+    return fixed
 TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"]
 MIN_FOCUS_CONTRAST = 3.0          # WCAG 2.2 SC 1.4.11 non-text contrast
 MIN_OVERLAY_CONTRAST = 4.5        # 영상 위 컨트롤 텍스트 (SC 1.4.3)
@@ -55,13 +65,14 @@ def main() -> int:
     args = ap.parse_args()
     from playwright.sync_api import sync_playwright
 
+    pages = _pages()
     fails, checked = [], 0
     srv = serve(args.port)
     base = f"http://127.0.0.1:{args.port}"
     try:
         with sync_playwright() as pw:
             b = pw.chromium.launch(channel="chrome")
-            for path in PAGES:
+            for path in pages:
                 for theme in ("light", "dark"):
                     pg = b.new_page(viewport={"width": 1280, "height": 900})
                     pg.goto(base + path)

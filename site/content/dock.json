@@ -1,0 +1,9 @@
+{
+  "dormant":         {"ko": "휴면 고객을 찾아 복귀 캠페인까지", "en": "Dormant customers, then a win-back campaign"},
+  "diagnose":        {"ko": "매출 진단과 3개월 계획", "en": "Revenue diagnosis and a 3 month plan"},
+  "groupbuy":        {"ko": "인플루언서 공구와 제안 DM 발송", "en": "Influencer group buy and the outreach DM"},
+  "subscription":    {"ko": "구독 전환 후보와 오퍼 설계", "en": "Subscription candidates and a first offer"},
+  "groupbuy-result": {"ko": "끝난 공구 성과와 후속 전환", "en": "Group-buy results and the follow-up"},
+  "b2b":             {"ko": "재주문 임박 거래처와 견적 초안", "en": "Accounts due to reorder, and a quote"},
+  "curation":        {"ko": "객단가를 올리는 세트 구성", "en": "Bundles that lift basket size"}
+}

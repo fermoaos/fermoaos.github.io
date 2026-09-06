@@ -6,11 +6,23 @@
 파일의 다음 `segment` 로 붙인다. PII 는 API 의 READ 마스킹 + 아래 정규식 이중 스크럽.
     GCOS=http://127.0.0.1:8787 python3 scripts/record_demo.py
 """
-import json, os, re, time, urllib.request, pathlib, uuid
+import json, os, re, sys, time, urllib.request, pathlib, uuid
 
 BASE = os.environ.get("GCOS", "http://127.0.0.1:8787")
 OUT = pathlib.Path(__file__).resolve().parents[1] / "site" / "assets" / "demo"
-SCRUB = [(re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "***@***"), (re.compile(r"01[016789]-?\d{3,4}-?\d{4}"), "010-****-****")]
+# PII 와 **가상 회사의 브랜드명**을 같은 자리에서 가린다. 브랜드는 소스(gcos)의 시드 회사 이름이라
+# 모델 출력·툴 인자·카드 어디에나 나타난다 — 손으로 지우면 다음 녹화에서 되돌아온다.
+SCRUB = [
+    (re.compile(r"[\w.+-]+@[\w-]+\.[\w.]+"), "***@***"),
+    (re.compile(r"01[016789]-?\d{3,4}-?\d{4}"), "010-****-****"),
+    (re.compile(r"밀도\s*베이커리\s*\(\s*MILDO\s*Bakery\s*\)"), "우리 베이커리"),
+    (re.compile(r"밀도\s*베이커리\s*\(\s*가상 회사[^)]*\)"), "가상 D2C 베이커리(합성 데이터)"),
+    (re.compile(r"MILDO\s*Bakery", re.I), "our bakery"),
+    (re.compile(r"\bMILDO\b", re.I), "Our Bakery"),
+    (re.compile(r"밀도\s*베이커리"), "우리 베이커리"),
+    (re.compile(r"밀도\s*공구"), "공구"),
+    (re.compile(r"밀도"), "우리"),
+]
 KEEP = {"turn_start", "thinking_delta", "thinking_end", "content_delta", "tool_use", "tool_result", "gen_ui",
         "approval_request", "approval_auto", "agent_spawned", "agent_progress", "agent_done", "model_fallback", "error", "done"}
 SCENARIOS = [
@@ -18,6 +30,9 @@ SCENARIOS = [
     {"slug": "diagnose", "title": "매출 진단과 3개월 계획 (위임)", "turns": ["매출이 안 나오는 이유를 진단하고 앞으로 3개월 계획을 제안해줘."]},
     {"slug": "groupbuy", "title": "인플루언서 공구 시작 → 제안 DM 발송 (승인)", "turns": ["적합도 1위 인플루언서로 공구를 시작하고 제안 DM 초안을 만들어서 보내줘"], "approve": True},
     {"slug": "subscription", "title": "구독 전환 후보와 오퍼 설계", "turns": ["구독 전환 후보를 뽑고 첫 오퍼를 설계해줘"]},
+    {"slug": "groupbuy-result", "title": "끝난 공구 성과 분석 → 후속 전환", "turns": ["최근에 끝난 공구의 성과를 분석하고 구매자를 재구매로 잇는 후속 캠페인을 설계해줘"]},
+    {"slug": "b2b", "title": "재주문 임박 거래처와 견적 초안", "turns": ["재주문 시점이 다가온 B2B 거래처를 뽑고 상위 한 곳의 견적 초안을 만들어줘"]},
+    {"slug": "curation", "title": "객단가를 올리는 세트 구성", "turns": ["객단가를 분석하고 함께 잘 팔리는 조합으로 세트를 제안해줘"]},
 ]
 
 def scrub(s):
@@ -43,8 +58,16 @@ def stream(path, body):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    only = {a for a in sys.argv[1:] if not a.startswith("-")}
+    prev = {}
+    idx_path = OUT / "index.json"
+    if idx_path.exists():
+        prev = {x["slug"]: x for x in json.loads(idx_path.read_text(encoding="utf-8"))["scenarios"]}
     index = []
     for sc in SCENARIOS:
+        if only and sc["slug"] not in only:
+            if sc["slug"] in prev: index.append(prev[sc["slug"]])
+            continue
         sid = f"demo-{sc['slug']}-{uuid.uuid4().hex[:6]}"
         segments = []
         for msg in sc["turns"]:
@@ -58,7 +81,7 @@ def main():
                 dec = json.loads(urllib.request.urlopen(req, timeout=60).read() or b"{}")
                 segments.append({"user": None, "approval": {"approval_id": ap["approval_id"], "decision": "approve", "decided_by": dec.get("decided_by", "대표")},
                                  "events": stream("/v1/chat", {"session_id": sid, "message": ""})})
-        rec = {"slug": sc["slug"], "title": sc["title"], "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "source": "growth-commerce-os · 밀도 베이커리(가상 회사, 합성 데이터)",
+        rec = {"slug": sc["slug"], "title": sc["title"], "recorded_at": time.strftime("%Y-%m-%dT%H:%M:%S%z"), "source": "growth-commerce-os · 가상 D2C 베이커리(합성 데이터)",
                "model": next((e["data"].get("run", {}).get("model") for s in segments for e in s["events"] if e["event"] == "done" and e["data"].get("run")), None),
                "segments": segments}
         (OUT / f"{sc['slug']}.json").write_text(json.dumps(rec, ensure_ascii=False))

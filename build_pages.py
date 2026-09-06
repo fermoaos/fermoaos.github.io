@@ -10,6 +10,8 @@ DATA = json.loads((ROOT / "content" / "pages.json").read_text(encoding="utf-8"))
 DEMOS = json.loads((ROOT / "content" / "demos.json").read_text(encoding="utf-8"))
 PROGRAM = json.loads((ROOT / "content" / "program.json").read_text(encoding="utf-8"))
 LEGAL = json.loads((ROOT / "content" / "legal.json").read_text(encoding="utf-8"))
+DOCK = json.loads((ROOT / "content" / "dock.json").read_text(encoding="utf-8"))
+DEMO_IDX = json.loads((ROOT / "assets" / "demo" / "index.json").read_text(encoding="utf-8"))
 
 T = {
   "ko": dict(lang="ko", home="../../", skip="본문으로 건너뛰기", nav=["AgentOS","Agentic Ops","Use Cases","AI Fabric","Insights","Company"],
@@ -80,7 +82,11 @@ def org_jsonld(lang, desc):
             "logo": ORIGIN + "/assets/mark.svg", "image": OG_IMAGE[lang],
             "slogan": "붙잡아, 모은다." if lang == "ko" else "Hold, and gather.",
             "description": desc,
-            "address": {"@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR"}}
+            "address": {"@type": "PostalAddress", "addressLocality": "Seoul", "addressCountry": "KR"},
+            "email": "hyojunguy@gmail.com", "telephone": "+821094820309",
+            "contactPoint": {"@type": "ContactPoint", "contactType": "sales",
+                             "name": "Hyojung Han", "email": "hyojunguy@gmail.com", "telephone": "+821094820309",
+                             "availableLanguage": ["ko", "en"]}}
 
 def crumb_jsonld(lang, trail):
     """trail: [(name, site-root-relative dir), ...] — home 부터 현재 페이지까지."""
@@ -338,6 +344,8 @@ def render_home(lang):
     s = re.sub(r"<!-- meta:start -->.*?<!-- meta:end -->", "<!-- meta:start -->\n" + meta + "\n<!-- meta:end -->", s, flags=re.S)
     s = re.sub(r"<!-- hold:start -->.*?<!-- hold:end -->", "<!-- hold:start -->" + hold_svg() + "<!-- hold:end -->", s, flags=re.S)
     s = re.sub(r"<!-- usecases:start -->.*?<!-- usecases:end -->", "<!-- usecases:start -->" + render_usecases_home(lang, "" if lang == "ko" else "../") + "<!-- usecases:end -->", s, flags=re.S)
+    s = re.sub(r"<!-- scn:start -->.*?<!-- scn:end -->", "<!-- scn:start -->" + dock_buttons(lang) + "<!-- scn:end -->", s, flags=re.S)
+    s = re.sub(r"<!-- scnN:start -->.*?<!-- scnN:end -->", "<!-- scnN:start -->" + dock_count(lang) + "<!-- scnN:end -->", s, flags=re.S)
     s = re.sub(r"<!-- fabric:start -->.*?<!-- fabric:end -->", "<!-- fabric:start -->" + render_program_home(lang, "" if lang == "ko" else "../") + "<!-- fabric:end -->", s, flags=re.S)
     s = re.sub(r"<!-- atlas:start -->.*?<!-- atlas:end -->", "<!-- atlas:start -->" + atlas + "<!-- atlas:end -->", s, flags=re.S)
     cards = "".join(f'<article>{char_fig("p1-ready", "mod-fig--card", lang, "" if lang == "ko" else "../")}<h3><a href="{"" if lang=="ko" else ""}cases/{c["slug"]}/index.html">{e(c[lang]["title"])}</a></h3><p>{e(c[lang]["lede"])}</p></article>' for c in DATA["cases"])
@@ -618,6 +626,49 @@ def legal_page(key, lang):
 </body>
 </html>
 """
+
+
+# ── 재생 도크 시나리오 버튼 ──────────────────────────────────────────────────
+# 부제(위임·카드·승인 수)는 손으로 쓰지 않고 **기록 자체에서 센다** — 녹화를 다시 하면 따라 움직인다.
+DOCK_T = {"ko": dict(delegation="위임 {n}건", card="카드 {n}장", approval="승인 {n}건",
+                     count=["", "한", "두", "세", "네", "다섯", "여섯", "일곱", "여덟", "아홉"]),
+          "en": dict(delegation="{n} delegation", card="{n} cards", approval="{n} approval",
+                     count=["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"])}
+
+def _demo_counts(slug):
+    f = ROOT / "assets" / "demo" / f"{slug}.json"
+    d = json.loads(f.read_text(encoding="utf-8"))
+    evs = [e for seg in d["segments"] for e in seg.get("events", [])]
+    c = {}
+    for e in evs:
+        c[e["event"]] = c.get(e["event"], 0) + 1
+    return c
+
+def dock_buttons(lang):
+    t = DOCK_T[lang]
+    out = ""
+    for i, sc in enumerate(DEMO_IDX["scenarios"]):
+        slug = sc["slug"]
+        c = _demo_counts(slug)
+        bits = []
+        if c.get("agent_spawned"):
+            bits.append(t["delegation"].format(n=c["agent_spawned"]))
+        if c.get("approval_request"):
+            bits.append(t["approval"].format(n=c["approval_request"]))
+        if c.get("gen_ui"):
+            bits.append(t["card"].format(n=c["gen_ui"]))
+        title = DOCK[slug][lang]
+        out += (f'<li><button class="scn" type="button" data-scn="{slug}" '
+                f'aria-current="{"true" if i == 0 else "false"}">'
+                f'<b>{e(title)}</b><span>{e(", ".join(bits))}</span></button></li>')
+    return out
+
+def dock_count(lang):
+    n = len(DEMO_IDX["scenarios"])
+    words = DOCK_T[lang]["count"]
+    if not words or n >= len(words):
+        return str(n)
+    return f"{words[n]} 가지" if lang == "ko" else words[n]
 
 
 def main():

@@ -385,19 +385,19 @@
   ],
   "cases": [
     {
-      "slug": "mildo",
+      "slug": "bakery",
       "impl": "growth-commerce-os",
       "status": {
         "ko": "가상 브랜드 · 합성 데이터 · 대표 승인 필수",
         "en": "Fictional brand, synthetic data, owner approval required"
       },
       "ko": {
-        "title": "밀도 베이커리, D2C 성장",
+        "title": "D2C 베이커리, 성장 커머스",
         "lede": "재구매 CRM 과 정기구독 전환, 인플루언서 공구 전 과정을 챗봇 하나가 운영합니다.",
         "body": [
-          "밀도 베이커리는 가상의 D2C 브랜드입니다. 채용하려던 Growth Commerce Manager 의 직무를 그대로 에이전트에 옮겼습니다. 재구매 CRM, 정기구독 전환, 인플루언서 공구 9단계, 그리고 매출이 안 나오는 이유와 3개월 계획.",
+          "12년 된 D2C 베이커리를 가정한 가상 회사입니다. 채용하려던 Growth Commerce Manager 의 직무를 그대로 에이전트에 옮겼습니다. 재구매 CRM, 정기구독 전환, 인플루언서 공구 9단계, 그리고 매출이 안 나오는 이유와 3개월 계획.",
           "대표는 채팅으로 지시하고 결재합니다. 에이전트는 툴 루프를 돌지만 계산하지 않습니다. RFM, 구매주기, 구독 퍼널과 이탈, 공구 결과, 객단가 분석은 전부 결정론 코드입니다. 외부로 나가는 발신과 계약은 승인 게이트에서 멈추고 대표가 엽니다.",
-          "JD 의 15개 요구 항목이 오퍼레이션과 화면 단위로 매핑돼 있고, 무엇이 구현됐고 무엇이 부분인지 매트릭스로 보입니다. 스마트스토어 미연동, 합성 데이터라는 한계도 같은 문서에 적혀 있습니다."
+          "JD 의 15개 요구 항목이 오퍼레이션과 화면 단위로 매핑돼 있고, 무엇이 구현됐고 무엇이 부분인지 매트릭스로 보입니다. 마켓플레이스 미연동, 합성 데이터라는 한계도 같은 문서에 적혀 있습니다."
         ],
         "facts": [
           [
@@ -423,10 +423,10 @@
         ]
       },
       "en": {
-        "title": "Mildo Bakery, D2C growth",
+        "title": "A D2C bakery, growth commerce",
         "lede": "Repeat-purchase CRM, subscription conversion and the whole influencer group-buy cycle, run by one chat agent.",
         "body": [
-          "Mildo Bakery is a fictional D2C brand. The job description of a Growth Commerce Manager the company meant to hire was moved, as written, onto an agent: repeat-purchase CRM, subscription conversion, a nine-step influencer group buy, and why revenue is flat plus a three-month plan.",
+          "A fictional company modelled on a twelve-year-old D2C bakery. The job description of a Growth Commerce Manager it meant to hire was moved, as written, onto an agent: repeat-purchase CRM, subscription conversion, a nine-step influencer group buy, and why revenue is flat plus a three-month plan.",
           "The owner instructs and approves in chat. The agent runs a tool loop but never calculates: RFM, purchase cycle, subscription funnel and churn, group-buy results and basket-size analysis are all deterministic code. Outbound messages and contracts stop at an approval gate the owner opens.",
           "The fifteen requirements in the job description are mapped to operations and screens, with a matrix showing what is built and what is partial. The limits, no marketplace integration and synthetic data, are written in the same document."
         ],

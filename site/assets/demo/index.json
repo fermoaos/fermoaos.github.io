@@ -1,5 +1,5 @@
 {
- "recorded_at": "2026-09-04",
+ "recorded_at": "2026-09-06",
  "scenarios": [
   {
    "slug": "dormant",
@@ -23,6 +23,24 @@
    "slug": "subscription",
    "title": "구독 전환 후보와 오퍼 설계",
    "events": 396,
+   "segments": 1
+  },
+  {
+   "slug": "groupbuy-result",
+   "title": "끝난 공구 성과 분석 → 후속 전환",
+   "events": 521,
+   "segments": 1
+  },
+  {
+   "slug": "b2b",
+   "title": "재주문 임박 거래처와 견적 초안",
+   "events": 502,
+   "segments": 1
+  },
+  {
+   "slug": "curation",
+   "title": "객단가를 올리는 세트 구성",
+   "events": 918,
    "segments": 1
   }
  ]

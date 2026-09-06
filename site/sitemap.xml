@@ -109,16 +109,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/agentos/edge/"/>
   </url>
   <url>
-    <loc>https://fermoaos.github.io/cases/mildo/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/mildo/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/mildo/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/mildo/"/>
+    <loc>https://fermoaos.github.io/cases/bakery/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/bakery/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/bakery/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/bakery/"/>
   </url>
   <url>
-    <loc>https://fermoaos.github.io/en/cases/mildo/</loc>
-    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/mildo/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/mildo/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/mildo/"/>
+    <loc>https://fermoaos.github.io/en/cases/bakery/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/cases/bakery/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/bakery/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/bakery/"/>
   </url>
   <url>
     <loc>https://fermoaos.github.io/cases/cafe24/</loc>

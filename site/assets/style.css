@@ -205,6 +205,12 @@ section.page-body.legal-body{grid-template-columns:minmax(0,1fr); padding-block:
   background:color-mix(in srgb,var(--rule) 35%,transparent); padding:0 .25em}
 
 /* contact */
+.who{margin:2rem 0 0; display:grid; gap:.5rem; font-size:.98rem}
+.who div{display:flex; gap:.8rem}
+.who dt{color:var(--muted); min-width:4.5rem}
+.who dd{margin:0}
+.who a{text-decoration:none; border-bottom:1px solid var(--rule)}
+.who a:hover{border-bottom-color:var(--ink)}
 .contact{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:var(--gutter); border-top:1px solid var(--rule)}
 .contact-copy p{margin-top:1rem; color:var(--muted); max-width:30rem}
 .steps{max-width:36rem}
