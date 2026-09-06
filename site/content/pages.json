@@ -397,28 +397,33 @@
         "body": [
           "12년 된 D2C 베이커리를 가정한 가상 회사입니다. 채용하려던 Growth Commerce Manager 의 직무를 그대로 에이전트에 옮겼습니다. 재구매 CRM, 정기구독 전환, 인플루언서 공구 9단계, 그리고 매출이 안 나오는 이유와 3개월 계획.",
           "대표는 채팅으로 지시하고 결재합니다. 에이전트는 툴 루프를 돌지만 계산하지 않습니다. RFM, 구매주기, 구독 퍼널과 이탈, 공구 결과, 객단가 분석은 전부 결정론 코드입니다. 외부로 나가는 발신과 계약은 승인 게이트에서 멈추고 대표가 엽니다.",
-          "JD 의 15개 요구 항목이 오퍼레이션과 화면 단위로 매핑돼 있고, 무엇이 구현됐고 무엇이 부분인지 매트릭스로 보입니다. 마켓플레이스 미연동, 합성 데이터라는 한계도 같은 문서에 적혀 있습니다."
+          "JD 의 15개 요구 항목이 오퍼레이션과 화면 단위로 매핑돼 있고, 무엇이 구현됐고 무엇이 부분인지 매트릭스로 보입니다. 마켓플레이스 미연동, 합성 데이터라는 한계도 같은 문서에 적혀 있습니다.",
+          "여기서 안 내보낸 것도 적어 둡니다. 재구매 성향 모델(LightGBM)을 붙여 AUC 0.925 로 이겼지만, 공정한 상대 — 학습하지 않은 빈도 규칙 — 이 0.880 이었습니다. 그 차이로는 모델을 운영에 얹을 이유가 안 된다고 판단해 내보내지 않았습니다. 이길 때까지가 아니라 값싼 기준선을 이기는지로 정합니다."
         ],
         "facts": [
           [
             "구조",
-            "내부 시스템 11 도메인 위 에이전트 챗봇 하나"
+            "내부 시스템 11 도메인 위 에이전트 챗봇 하나, 위임받는 전문 에이전트 6명"
           ],
           [
-            "워크플로",
-            "공구 9단계 상태기계 · CRM 캠페인 · 구독 전환 · 3개월 계획"
+            "데이터",
+            "합성 시드 고객 8,000, 주문 47,000, 구독 1,053, 공구 32, 인플루언서 200"
           ],
           [
             "분석",
-            "RFM · 구매주기 · 구독 퍼널 · 객단가, 전부 결정론"
+            "RFM, 구매주기, 구독 퍼널, 객단가 등 12종. 모델이 아니라 결정론 코드가 계산"
           ],
           [
             "승인",
-            "외부 발신 · 계약은 승인 게이트"
+            "외부 발신과 계약은 승인 게이트. 자동승인 규칙을 켜면 월 9건이 0건"
           ],
           [
-            "커버리지",
-            "JD 15개 항목 매트릭스"
+            "안 내보낸 것",
+            "재구매 모델 AUC 0.925 대 빈도 규칙 0.880, 차이가 부족해 미탑재"
+          ],
+          [
+            "검증",
+            "vitest 301, pytest 438, 화면 핸즈온 95개 검사 무실패"
           ]
         ]
       },
@@ -428,28 +433,33 @@
         "body": [
           "A fictional company modelled on a twelve-year-old D2C bakery. The job description of a Growth Commerce Manager it meant to hire was moved, as written, onto an agent: repeat-purchase CRM, subscription conversion, a nine-step influencer group buy, and why revenue is flat plus a three-month plan.",
           "The owner instructs and approves in chat. The agent runs a tool loop but never calculates: RFM, purchase cycle, subscription funnel and churn, group-buy results and basket-size analysis are all deterministic code. Outbound messages and contracts stop at an approval gate the owner opens.",
-          "The fifteen requirements in the job description are mapped to operations and screens, with a matrix showing what is built and what is partial. The limits, no marketplace integration and synthetic data, are written in the same document."
+          "The fifteen requirements in the job description are mapped to operations and screens, with a matrix showing what is built and what is partial. The limits, no marketplace integration and synthetic data, are written in the same document.",
+          "What did not ship is recorded too. A repurchase-propensity model (LightGBM) was wired and won at AUC 0.925 — but a fair opponent, an untrained frequency rule, scored 0.880. That margin did not justify putting a model into operations, so it was not shipped. The test is whether it beats a cheap baseline, not whether it wins eventually."
         ],
         "facts": [
           [
             "Shape",
-            "One chat agent over 11 internal domains"
+            "One chat agent over 11 internal domains, delegating to 6 specialists"
           ],
           [
-            "Workflows",
-            "9-step group buy, CRM campaigns, subscription conversion, 3-month plan"
+            "Data",
+            "Synthetic seed: 8,000 customers, 47,000 orders, 1,053 subscriptions, 32 group buys, 200 influencers"
           ],
           [
             "Analytics",
-            "RFM, purchase cycle, funnel, basket size; all deterministic"
+            "12 of them — RFM, purchase cycle, subscription funnel, basket size. Deterministic code, not the model"
           ],
           [
             "Approval",
-            "Outbound and contracts gated"
+            "Outbound and contracts gated. Turning on auto-approval rules takes a month from 9 approvals to 0"
           ],
           [
-            "Coverage",
-            "15 JD requirements mapped"
+            "Not shipped",
+            "Repurchase model at AUC 0.925 against a frequency rule at 0.880 — margin too thin"
+          ],
+          [
+            "Verification",
+            "vitest 301, pytest 438, 95 hands-on screen checks with no failures"
           ]
         ]
       }
