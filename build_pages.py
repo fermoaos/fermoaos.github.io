@@ -8,20 +8,21 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent / "site"
 DATA = json.loads((ROOT / "content" / "pages.json").read_text(encoding="utf-8"))
 DEMOS = json.loads((ROOT / "content" / "demos.json").read_text(encoding="utf-8"))
+PROGRAM = json.loads((ROOT / "content" / "program.json").read_text(encoding="utf-8"))
 
 T = {
-  "ko": dict(lang="ko", home="../../", skip="본문으로 건너뛰기", nav=["AgentOS","Agentic Ops","Use Cases","Insights","Company"],
+  "ko": dict(lang="ko", home="../../", skip="본문으로 건너뛰기", nav=["AgentOS","Agentic Ops","Use Cases","AI Fabric","Insights","Company"],
              theme="칠판", theme_light="칠판", theme_dark="그래프지", contact="문의하기", other="ENG",
              kinds={"agentos":"AgentOS","cases":"Use Cases"}, facts="실측과 사실", impl="구현", status="지금 상태",
              related={"agentos":"다른 계층","cases":"다른 사례"}, cta_h="이 계층을 붙잡아 보시겠어요?", cta_p="실험에서 실행까지 같이 갑니다.",
              biz="페르모아 (Fermoa), 서울", back="목록으로"),
-  "en": dict(lang="en", home="../../../", skip="Skip to content", nav=["AgentOS","Agentic Ops","Use Cases","Insights","Company"],
+  "en": dict(lang="en", home="../../../", skip="Skip to content", nav=["AgentOS","Agentic Ops","Use Cases","AI Fabric","Insights","Company"],
              theme="Blackboard", theme_light="Blackboard", theme_dark="Graph paper", contact="Contact", other="KOR",
              kinds={"agentos":"AgentOS","cases":"Use Cases"}, facts="Measured and factual", impl="Implementation", status="Current state",
              related={"agentos":"Other layers","cases":"Other cases"}, cta_h="Want to hold this layer?", cta_p="From experiment to execution, together.",
              biz="Fermoa, Seoul, Korea", back="Back to the list"),
 }
-ANCH = {"AgentOS":"#agentos","Agentic Ops":"#ops","Use Cases":"#cases","Insights":"#insights","Company":"#company"}
+ANCH = {"AgentOS":"#agentos","Agentic Ops":"#ops","Use Cases":"#cases","AI Fabric":"#fabric","Insights":"#insights","Company":"#company"}
 MARK = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>'
 
 def e(s): return html.escape(s, quote=True)
@@ -336,6 +337,7 @@ def render_home(lang):
     s = re.sub(r"<!-- meta:start -->.*?<!-- meta:end -->", "<!-- meta:start -->\n" + meta + "\n<!-- meta:end -->", s, flags=re.S)
     s = re.sub(r"<!-- hold:start -->.*?<!-- hold:end -->", "<!-- hold:start -->" + hold_svg() + "<!-- hold:end -->", s, flags=re.S)
     s = re.sub(r"<!-- usecases:start -->.*?<!-- usecases:end -->", "<!-- usecases:start -->" + render_usecases_home(lang, "" if lang == "ko" else "../") + "<!-- usecases:end -->", s, flags=re.S)
+    s = re.sub(r"<!-- fabric:start -->.*?<!-- fabric:end -->", "<!-- fabric:start -->" + render_program_home(lang, "" if lang == "ko" else "../") + "<!-- fabric:end -->", s, flags=re.S)
     s = re.sub(r"<!-- atlas:start -->.*?<!-- atlas:end -->", "<!-- atlas:start -->" + atlas + "<!-- atlas:end -->", s, flags=re.S)
     cards = "".join(f'<article>{char_fig("p1-ready", "mod-fig--card", lang, "" if lang == "ko" else "../")}<h3><a href="{"" if lang=="ko" else ""}cases/{c["slug"]}/index.html">{e(c[lang]["title"])}</a></h3><p>{e(c[lang]["lede"])}</p></article>' for c in DATA["cases"])
     s = re.sub(r"<!-- cases:start -->.*?<!-- cases:end -->", "<!-- cases:start -->" + cards + "<!-- cases:end -->", s, flags=re.S)
@@ -344,7 +346,7 @@ def render_home(lang):
 
 def write_sitemap():
     """모든 페이지를 ko/en 쌍으로 — 링크는 canonical 과 같은 절대 경로다."""
-    pairs = [("", "en/"), ("usecases/", "en/usecases/")]
+    pairs = [("", "en/"), ("usecases/", "en/usecases/"), ("program/", "en/program/")]
     for kind in ("agentos", "cases"):
         for item in DATA[kind]:
             pairs.append((f"{kind}/{item['slug']}/", f"en/{kind}/{item['slug']}/"))
@@ -421,6 +423,133 @@ def four_oh_four():
 """
 
 
+# ── AI Fabric 프로그램 (25개 항목) ────────────────────────────────────────────
+PT = {
+  "ko": dict(back="프로그램 전체 보기", crumb="AI Fabric", jump="번들로 이동",
+             home_more="25개 항목 전부 보기",
+             cta_h="어느 항목부터 보시겠어요?", cta_p="여섯 개는 이미 게이트가 돌고 있습니다. 나머지도 같은 방식으로 짓습니다."),
+  "en": dict(back="See the whole program", crumb="AI Fabric", jump="Jump to a bundle",
+             home_more="See all twenty-five",
+             cta_h="Which piece should we start with?", cta_p="Six already run behind a gate. The rest get built the same way."),
+}
+
+def program_counts():
+    n = len(PROGRAM["items"])
+    built = sum(1 for i in PROGRAM["items"] if i["state"] == "built")
+    return n, built, n - built
+
+
+def program_item(it, lang):
+    """한 항목. 상태는 코드가 붙인다 — 근거 문장이 있는 항목만 built 로 렌더된다."""
+    c, m = it[lang], PROGRAM["meta"][lang]
+    label = m["built_label"] if it["state"] == "built" else m["scaffold_label"]
+    ev = f'<p class="fab-ev">{e(c["evidence"])}</p>' if it["state"] == "built" and c.get("evidence") else ""
+    return (f'<li class="fab-item fab-{it["state"]}">'
+            f'<p class="fab-no"><span class="fab-num">{it["no"]:02d}</span>'
+            f'<span class="fab-state">{e(label)}</span></p>'
+            f'<h3>{e(c["title"])}</h3><p class="fab-lede">{e(c["lede"])}</p>'
+            f'<p class="fab-note">{e(c["note"])}</p>{ev}</li>')
+
+
+def program_page(lang):
+    t, m, pt = T[lang], PROGRAM["meta"][lang], PT[lang]
+    n, built, scaffold = program_counts()
+    home = "../" if lang == "ko" else "../../"
+    assets = home + "assets/"
+    site_home = home + ("index.html" if lang == "ko" else "en/index.html")
+    other_page = (home + "en/program/index.html") if lang == "ko" else (home + "program/index.html")
+    nav = "".join(f'<a href="{site_home}{ANCH[x]}">{x}</a>' for x in t["nav"])
+    secs = ""
+    for b in PROGRAM["bundles"]:
+        items = [i for i in PROGRAM["items"] if i["bundle"] == b["id"]]
+        secs += (f'<section class="fab-sec" id="{b["id"]}"><div class="section-head">'
+                 f'<h2><span class="fab-letter">{b["letter"]}</span> {e(b[lang]["name"])} '
+                 f'<span class="count">{len(items)}</span></h2><p>{e(b[lang]["blurb"])}</p></div>'
+                 f'<ul class="fab-grid">' + "".join(program_item(i, lang) for i in items) + "</ul></section>")
+    jump = "".join(f'<a href="#{b["id"]}">{b["letter"]}. {e(b[lang]["name"])}</a>' for b in PROGRAM["bundles"])
+    meta = head_meta(lang=lang, rel_ko="program/", rel_en="en/program/",
+                     title=f'{m["name"]} — {m["h"]} — Fermoa', desc=m["lede"],
+                     jsonld=crumb_jsonld(lang, [("Fermoa", "" if lang == "ko" else "en/"),
+                                                (m["name"], ("" if lang == "ko" else "en/") + "program/")]))
+    return f"""<!doctype html>
+<html lang="{lang}" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(m["name"])} — {e(m["h"])} — Fermoa</title>
+<meta name="description" content="{e(m["lede"])}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="{assets}style.css">
+<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{meta}
+</head>
+<body class="sub">
+<a class="skip" href="#main">{t['skip']}</a>
+<header class="top">
+  <a class="brand" href="{site_home}" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main">{nav}</nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="{t['theme_light']}" data-label-dark="{t['theme_dark']}">{t['theme']}</button>
+    <span class="lang"><a href="{other_page}" hreflang="{'en' if lang=='ko' else 'ko'}">{t['other']}</a></span>
+    <a class="btn btn-ink" href="{site_home}#contact">{t['contact']}</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb">{e(pt["crumb"])}</p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>{e(m["h"])}</h1>
+      <p class="lede">{e(m["lede"])}</p>
+      <p class="fab-honest">{e(m["honest"])}</p>
+    </div>
+    {char_fig("p1-ready", "mod-fig--hero", lang, assets)}
+  </div>
+</section>
+<nav class="jump" aria-label="{e(pt['jump'])}">{jump}</nav>
+{secs}
+<section class="page-cta">
+  <h2>{e(pt['cta_h'])}</h2>
+  <p>{e(pt['cta_p'])}</p>
+  <a class="btn btn-ink" href="{site_home}#contact">{t['contact']}</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">{t['biz']}</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+{MARK}
+<script src="{assets}main.js" defer></script>
+</body>
+</html>
+"""
+
+
+def render_program_home(lang, prefix):
+    """홈 섹션 — 번들 7개와 정직한 집계만. 25개 전체는 서브페이지가 소유한다."""
+    m, pt = PROGRAM["meta"][lang], PT[lang]
+    n, built, scaffold = program_counts()
+    cards = ""
+    for b in PROGRAM["bundles"]:
+        items = [i for i in PROGRAM["items"] if i["bundle"] == b["id"]]
+        nb = sum(1 for i in items if i["state"] == "built")
+        tally = (f'<span class="fab-chip">{nb} {e(m["built_label"])}</span>' if nb else "")
+        cards += (f'<li><a href="{prefix}program/index.html#{b["id"]}">'
+                  f'<h3><span class="fab-letter">{b["letter"]}</span> {e(b[lang]["name"])}'
+                  f'<span class="count">{len(items)}</span></h3>'
+                  f'<p>{e(b[lang]["blurb"])}</p>{tally}</a></li>')
+    return (f'<section id="fabric" class="fabric" aria-labelledby="fabric-h">'
+            f'<div class="section-head"><h2 id="fabric-h">{e(m["name"])}</h2>'
+            f'<p>{e(m["lede"])}</p></div>'
+            f'<p class="fab-tally"><b>{built}</b>{e(m["built_tally"])}, <b>{scaffold}</b>{e(m["scaffold_tally"])}</p>'
+            f'<ul class="fab-fams">{cards}</ul>'
+            f'<p class="atlas-more"><a class="btn btn-line" href="{prefix}program/index.html">{e(pt["home_more"])}</a></p>'
+            f'</section>')
+
+
 def main():
     n = 0
     for kind in ("agentos", "cases"):
@@ -432,6 +561,7 @@ def main():
     for lang in ("ko","en"): render_home(lang)
     for lang in ("ko", "en"):
         p = ROOT / ("usecases" if lang == "ko" else "en/usecases") / "index.html"; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(usecases_page(lang), encoding="utf-8")
+        q = ROOT / ("program" if lang == "ko" else "en/program") / "index.html"; q.parent.mkdir(parents=True, exist_ok=True); q.write_text(program_page(lang), encoding="utf-8")
     (ROOT / "404.html").write_text(four_oh_four(), encoding="utf-8")
     write_sitemap()
     (ROOT / "robots.txt").write_text(

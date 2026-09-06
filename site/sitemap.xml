@@ -25,6 +25,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/usecases/"/>
   </url>
   <url>
+    <loc>https://fermoaos.github.io/program/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/program/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/program/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/program/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/program/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/program/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/program/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/program/"/>
+  </url>
+  <url>
     <loc>https://fermoaos.github.io/agentos/runtime/</loc>
     <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/agentos/runtime/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/agentos/runtime/"/>

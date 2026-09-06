@@ -153,6 +153,45 @@ section:not(.hero):not(.manifesto){padding:var(--space-section) var(--gutter)}
 .insight:hover h3{color:var(--muted)}
 .insight .date{display:block; margin-top:.3rem; color:var(--muted); font-size:.9rem}
 
+/* AI Fabric — 프로그램 25개 항목 */
+.fab-tally{margin:0 0 1.6rem; color:var(--muted); font-size:.97rem}
+.fab-tally b{color:var(--ink); font-weight:700}
+.fab-letter{display:inline-block; font-family:var(--font-display); font-weight:700;
+  border:1px solid var(--rule); padding:0 .4rem; margin-right:.45rem; font-size:.8em}
+.fab-fams{list-style:none; margin:0; padding:0; display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr)); border-top:1px solid var(--rule); border-left:1px solid var(--rule)}
+.fab-fams li{border-right:1px solid var(--rule); border-bottom:1px solid var(--rule)}
+.fab-fams a{display:block; height:100%; padding:1.4rem 1.3rem 1.6rem; text-decoration:none;
+  transition:background-color 150ms var(--ease-out-expo)}
+.fab-fams a:hover{background:color-mix(in srgb,var(--hold) 18%,var(--paper))}
+.fab-fams h3{font-size:1.12rem}
+.fab-fams .count{color:var(--muted); font-weight:400; margin-left:.4rem; font-size:.85em}
+.fab-fams p{margin-top:.8rem; color:var(--muted); font-size:.95rem; line-height:1.55}
+.fab-chip{display:inline-block; margin-top:.9rem; font-family:var(--font-display); font-size:.78rem;
+  background:var(--hold); color:var(--hold-ink); padding:.1rem .45rem}
+
+.fab-sec{padding-top:2.5rem}
+.fab-sec .count{font-size:.6em; color:var(--muted); font-weight:400; margin-left:.4rem}
+.fab-grid{list-style:none; margin:1.6rem 0 0; padding:0; display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid var(--rule); border-left:1px solid var(--rule)}
+.fab-item{border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:1.4rem 1.4rem 1.7rem}
+.fab-no{display:flex; align-items:baseline; gap:.7rem; margin-bottom:.5rem}
+.fab-num{font-family:var(--font-display); font-size:1.6rem; font-weight:700; line-height:1;
+  letter-spacing:-.03em; color:var(--rule)}
+.fab-state{font-family:var(--font-display); font-size:.76rem; letter-spacing:.01em;
+  border:1px solid var(--rule); padding:.08rem .42rem; color:var(--muted)}
+.fab-built .fab-num{color:var(--ink)}
+.fab-built .fab-state{background:var(--hold); color:var(--hold-ink); border-color:var(--hold)}
+.fab-item h3{font-size:1.14rem}
+.fab-lede{margin-top:.6rem; font-size:1rem; line-height:1.55}
+.fab-note{margin-top:.7rem; color:var(--muted); font-size:.94rem; line-height:1.6}
+.fab-ev{margin-top:.8rem; padding-top:.7rem; border-top:1px solid var(--rule);
+  font-size:.9rem; line-height:1.6; color:var(--muted)}
+.fab-ev::before{content:""; display:inline-block; width:.45rem; height:.45rem; border-radius:50%;
+  background:var(--hold); margin-right:.45rem; vertical-align:.08em}
+@media (max-width:1024px){.fab-fams{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){.fab-fams,.fab-grid{grid-template-columns:1fr}}
+
 /* contact */
 .contact{display:grid; grid-template-columns:minmax(0,5fr) minmax(0,7fr); gap:var(--gutter); border-top:1px solid var(--rule)}
 .contact-copy p{margin-top:1rem; color:var(--muted); max-width:30rem}

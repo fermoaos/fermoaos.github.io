@@ -19,6 +19,9 @@ ID = re.compile(r'\sid="([^"]+)"')
 SKIP_SCHEME = re.compile(r"^(mailto:|tel:|javascript:|data:)")
 # 폰트 CDN 은 우리 자산이 아니다 — 죽으면 폰트만 폴백된다
 VENDOR = ("fonts.googleapis.com", "fonts.gstatic.com", "cdn.jsdelivr.net")
+# canonical·hreflang·og:url 은 우리 자신을 절대 URL 로 가리킨다. 아직 배포 안 된 새 페이지가
+# 404 로 잡히면 배포 전에는 영원히 빨간불이다 — 자기 origin 검증은 meta_check 가 소유한다.
+SELF = "https://fermoaos.github.io"
 UA = "Mozilla/5.0 (compatible; fermoa-link-check)"
 
 
@@ -62,7 +65,7 @@ def main() -> int:
             if SKIP_SCHEME.match(href):
                 continue
             if href.startswith(("http://", "https://")):
-                if not any(v in href for v in VENDOR):
+                if not href.startswith(SELF) and not any(v in href for v in VENDOR):
                     external.setdefault(href, []).append(str(rel))
                 continue
             n_int += 1
