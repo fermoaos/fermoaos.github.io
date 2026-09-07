@@ -47,7 +47,9 @@ def main() -> int:
         page.wait_for_selector("#demo .player", timeout=10000)
 
         scns = page.query_selector_all("#demo .scn")
-        need(len(scns) == 4, f"scenario buttons: {len(scns)} (want 4)")
+        want = len(json.loads((ROOT / "site" / "assets" / "demo" / "index.json")
+                              .read_text(encoding="utf-8"))["scenarios"])
+        need(len(scns) == want, f"scenario buttons: {len(scns)} (want {want}, from index.json)")
         NOTES["scenarios"] = len(scns)
 
         # 1) dormant: tools, cards, exactly three follow-ups

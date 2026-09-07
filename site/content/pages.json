@@ -625,67 +625,77 @@
       "impl": "agent-companyos",
       "status": {
         "ko": "구축 중 — 기반과 대화 루프 완료, 급여 도메인은 다음 트랙",
-        "en": "In build: foundation and loop done, payroll domain is the next track"
+        "en": "Under construction: foundation and chat loop done, payroll domain next"
       },
       "ko": {
-        "title": "급여 마감과 4대보험",
-        "lede": "법정 의무를 룰팩이 판정하고 임금명세서까지 만듭니다. 사람은 결과를 확인하고 승인만 합니다.",
+        "title": "회사 운영 의무, 근로계약에서 급여 마감까지",
+        "lede": "한국에서 회사를 굴리는 데 필요한 법정 의무를, 사람이 그 업무를 이해하지 않아도 한 문장으로 끝까지 실행합니다.",
         "body": [
-          "한국에서 회사를 운영하는 데 필요한 의무 업무를, 사람이 업무를 이해하지 않아도 자연어 한 문장으로 끝까지 실행하는 것이 목표입니다. 근로계약, 급여 마감, 4대보험, 법정 의무 판정이 그 첫 범위입니다.",
-          "법령과 요율은 연도와 반기 단위 룰팩에 데이터로 들어가고, 계산은 순수 함수만 합니다. 돈은 십진수이고 반올림은 룰팩이 소유합니다. 세무사와 노무사의 판단이 필요한 경계는 타입으로 표현되어 자동 실행 경로가 없습니다. 에이전트는 설명하고, 사람은 승인합니다.",
-          "지금 상태를 정직하게 적습니다. 기반, 격리, 대화 루프, tool parity 는 완료됐고 급여 도메인 오퍼레이션은 다음 트랙에서 들어옵니다. 이 페이지의 문장은 그때 바뀝니다."
+          "근로계약, 급여 마감, 4대보험, 법정 의무 판정이 첫 범위입니다. 인사·급여 서비스도, 챗봇을 붙인 ERP 도 아닙니다. 언어모델은 이 제품에서 가장 쉽게 대체되는 부품이고, 대체되지 않는 것은 다섯 가지입니다 — 컴플라이언스 룰셋, 회사 그래프, 트랜잭션 워크플로, 정부와 금융 연동, 증거 원장.",
+          "규율은 열 개의 불변식으로 코드에 박혀 있습니다. 언어모델은 계산하지 않습니다. 화면과 API 와 에이전트 도구는 같은 것 하나이고, 테스트가 그 일치를 검사합니다. 계산은 입출력도 시계도 없는 순수 함수이고, 돈은 부동소수가 아니라 십진수이며, 달력 날짜와 시각은 다른 타입입니다. 법령과 요율은 코드가 아니라 시행일과 출처가 붙은 룰팩 데이터입니다.",
+          "되돌릴 수 없는 단계는 사람이 엽니다. 승인 토큰이 없으면 거부되고, 증거는 덧붙이기만 되는 해시 체인이라 데이터베이스 역할에 수정과 삭제 권한 자체가 없습니다. 세무사와 노무사의 판단이 필요한 경계는 타입이 소유해서, 그 영역은 에이전트 도구로 노출되지 않습니다. 막는 것이 규칙이 아니라 타입이면 우회로가 생기지 않습니다.",
+          "지금 상태를 정직하게 적습니다. 기반과 격리와 대화 루프와 도구 일치는 완료됐습니다. 다만 짧은 문장으로는 통과하는 입사 등록이 이름과 날짜와 금액이 다 들어간 실제 발화에서는 도구 표면에 뜨지 않습니다. 원인은 예산이 아니라 도메인 순위였습니다 — 한도를 42,000 에서 70,000 으로 올려도 실패가 성공으로 바뀌는 것을 확인해 예산 가설을 버렸습니다. 이 문단은 그것이 고쳐지면 바뀝니다."
         ],
         "facts": [
           [
             "범위",
-            "근로계약 · 급여 마감 · 4대보험 · 법정 의무 판정"
+            "근로계약, 급여 마감, 4대보험, 법정 의무 판정"
           ],
           [
-            "룰팩",
-            "kr/2026, 시행일 + 출처"
+            "해자",
+            "룰셋, 회사 그래프, 트랜잭션 워크플로, 정부·금융 연동, 증거 원장"
           ],
           [
-            "계산",
-            "순수 함수, Money 는 Decimal"
+            "불변식",
+            "10개가 코드에 박혀 있음. 계산은 순수 함수, 돈은 십진수, 법령은 데이터"
+          ],
+          [
+            "증거",
+            "덧붙이기만 되는 해시 체인. DB 역할에 수정·삭제 권한 없음"
           ],
           [
             "경계",
-            "ExpertRequired 타입, 자동 실행 없음"
+            "전문자격사 판단 영역은 타입이 막아 에이전트 도구로 노출 안 됨"
           ],
           [
             "상태",
-            "P0 · Track A1/A2 완료, 도메인 오퍼레이션 다음"
+            "기반·격리·대화 루프·도구 일치 완료. 긴 발화에서 입사 등록이 순위에 밀림"
           ]
         ]
       },
       "en": {
-        "title": "Payroll close and social insurance",
-        "lede": "Rulepacks decide statutory duties and produce pay statements. People review the result and approve.",
+        "title": "Statutory company operations, from contract to payroll close",
+        "lede": "The statutory work of running a company in Korea, carried end to end from one sentence, without the person needing to understand the work.",
         "body": [
-          "The goal is to carry the mandatory work of running a company in Korea through to the end from a single sentence, without the person having to understand the work. Employment contracts, payroll close, social insurance and statutory-duty decisions are the first scope.",
-          "Laws and rates enter as data in rulepacks versioned by year and half; calculation is pure functions only. Money is decimal and rounding belongs to the rulepack. Where a licensed tax or labor professional must decide, the boundary is a type with no automatic path. The agent explains; a person approves.",
-          "The current state, honestly: foundation, isolation, conversation loop and tool parity are done, and payroll domain operations arrive in the next track. The sentences on this page change then."
+          "Employment contracts, payroll close, the four social insurances and statutory-obligation decisions are the first scope. This is not an HR/payroll service, and not an ERP with a chatbot on it. The language model is the most replaceable part here; what is not replaceable is five things — the compliance ruleset, the company graph, the transactional workflow, the government and banking integrations, and the evidence ledger.",
+          "The discipline sits in code as ten invariants. The model does not calculate. Screen, API and agent tool are one and the same thing, and a test checks that they agree. Calculations are pure functions with no I/O and no clock; money is decimal, not floating point; a calendar date and an instant are different types. Statutes and rates are not code but rulepack data carrying an effective date and a source.",
+          "A human opens anything irreversible. Without an approval token it is refused, and evidence is an append-only hash chain — the database role has no update or delete permission at all. The boundary where a licensed tax or labour professional must judge is owned by the type system, so that area is never exposed as an agent tool. When the thing that blocks is a type rather than a rule, there is no way around it.",
+          "The current state, stated plainly. The foundation, the isolation, the conversation loop and tool parity are done. But hiring registration, which passes as a short sentence, does not surface on the tool surface when the real utterance carries a name, a date and an amount. The cause was domain ranking, not budget — raising the limit from 42,000 to 70,000 turned failures into passes, which is how the budget hypothesis was discarded. This paragraph changes when that is fixed."
         ],
         "facts": [
           [
             "Scope",
-            "Employment contracts, payroll close, social insurance, statutory duties"
+            "Employment contracts, payroll close, social insurance, statutory obligations"
           ],
           [
-            "Rulepacks",
-            "kr/2026 with effective date and source"
+            "Moat",
+            "Ruleset, company graph, transactional workflow, gov/banking integration, evidence ledger"
           ],
           [
-            "Calculation",
-            "Pure functions; Money is Decimal"
+            "Invariants",
+            "Ten, held in code. Pure-function calculation, decimal money, statutes as data"
+          ],
+          [
+            "Evidence",
+            "Append-only hash chain. The DB role holds no update or delete permission"
           ],
           [
             "Boundary",
-            "ExpertRequired type, no auto path"
+            "Licensed-professional judgement is owned by types and never exposed as a tool"
           ],
           [
-            "Status",
-            "P0 and Track A1/A2 done; domain operations next"
+            "State",
+            "Foundation, isolation, chat loop and tool parity done. Hiring loses the ranking on long utterances"
           ]
         ]
       }
