@@ -11,18 +11,19 @@ DEMOS = json.loads((ROOT / "content" / "demos.json").read_text(encoding="utf-8")
 PROGRAM = json.loads((ROOT / "content" / "program.json").read_text(encoding="utf-8"))
 LEGAL = json.loads((ROOT / "content" / "legal.json").read_text(encoding="utf-8"))
 DOCK = json.loads((ROOT / "content" / "dock.json").read_text(encoding="utf-8"))
+INSIGHTS = json.loads((ROOT / "content" / "insights.json").read_text(encoding="utf-8"))
 DEMO_IDX = json.loads((ROOT / "assets" / "demo" / "index.json").read_text(encoding="utf-8"))
 
 T = {
   "ko": dict(lang="ko", home="../../", skip="본문으로 건너뛰기", nav=["AgentOS","Agentic Ops","Use Cases","AI Fabric","Insights","Company"],
              theme="칠판", theme_light="칠판", theme_dark="그래프지", contact="문의하기", other="ENG",
-             kinds={"agentos":"AgentOS","cases":"Use Cases"}, facts="실측과 사실", impl="구현", status="지금 상태",
-             related={"agentos":"다른 계층","cases":"다른 사례"}, cta_h="이 계층을 붙잡아 보시겠어요?", cta_p="실험에서 실행까지 같이 갑니다.",
+             kinds={"agentos":"AgentOS","cases":"Use Cases","insights":"Insights"}, facts="실측과 사실", impl="구현", status="지금 상태",
+             evid="이 글의 근거", related={"agentos":"다른 계층","cases":"다른 사례","insights":"다른 글"}, cta_h="이 계층을 붙잡아 보시겠어요?", cta_p="실험에서 실행까지 같이 갑니다.",
              biz="페르모아 (Fermoa), 서울", back="목록으로"),
   "en": dict(lang="en", home="../../../", skip="Skip to content", nav=["AgentOS","Agentic Ops","Use Cases","AI Fabric","Insights","Company"],
              theme="Blackboard", theme_light="Blackboard", theme_dark="Graph paper", contact="Contact", other="KOR",
-             kinds={"agentos":"AgentOS","cases":"Use Cases"}, facts="Measured and factual", impl="Implementation", status="Current state",
-             related={"agentos":"Other layers","cases":"Other cases"}, cta_h="Want to hold this layer?", cta_p="From experiment to execution, together.",
+             kinds={"agentos":"AgentOS","cases":"Use Cases","insights":"Insights"}, facts="Measured and factual", impl="Implementation", status="Current state",
+             evid="What this post rests on", related={"agentos":"Other layers","cases":"Other cases","insights":"Other posts"}, cta_h="Want to hold this layer?", cta_p="From experiment to execution, together.",
              biz="Fermoa, Seoul, Korea", back="Back to the list"),
 }
 ANCH = {"AgentOS":"#agentos","Agentic Ops":"#ops","Use Cases":"#cases","AI Fabric":"#fabric","Insights":"#insights","Company":"#company"}
@@ -347,6 +348,7 @@ def render_home(lang):
     s = re.sub(r"<!-- scn:start -->.*?<!-- scn:end -->", "<!-- scn:start -->" + dock_buttons(lang) + "<!-- scn:end -->", s, flags=re.S)
     s = re.sub(r"<!-- scnN:start -->.*?<!-- scnN:end -->", "<!-- scnN:start -->" + dock_count(lang) + "<!-- scnN:end -->", s, flags=re.S)
     s = re.sub(r"<!-- fabric:start -->.*?<!-- fabric:end -->", "<!-- fabric:start -->" + render_program_home(lang, "" if lang == "ko" else "../") + "<!-- fabric:end -->", s, flags=re.S)
+    s = re.sub(r"<!-- insights:start -->.*?<!-- insights:end -->", "<!-- insights:start -->" + render_insights_home(lang, "" if lang == "ko" else "../") + "<!-- insights:end -->", s, flags=re.S)
     s = re.sub(r"<!-- atlas:start -->.*?<!-- atlas:end -->", "<!-- atlas:start -->" + atlas + "<!-- atlas:end -->", s, flags=re.S)
     cards = "".join(f'<article>{char_fig("p1-ready", "mod-fig--card", lang, "" if lang == "ko" else "../")}<h3><a href="{"" if lang=="ko" else ""}cases/{c["slug"]}/index.html">{e(c[lang]["title"])}</a></h3><p>{e(c[lang]["lede"])}</p></article>' for c in DATA["cases"])
     s = re.sub(r"<!-- cases:start -->.*?<!-- cases:end -->", "<!-- cases:start -->" + cards + "<!-- cases:end -->", s, flags=re.S)
@@ -360,6 +362,8 @@ def write_sitemap():
     for kind in ("agentos", "cases"):
         for item in DATA[kind]:
             pairs.append((f"{kind}/{item['slug']}/", f"en/{kind}/{item['slug']}/"))
+    for post in INSIGHTS["posts"]:
+        pairs.append((f"insights/{post['slug']}/", f"en/insights/{post['slug']}/"))
     rows = []
     for ko, en in pairs:
         for rel in (ko, en):
@@ -635,6 +639,124 @@ DOCK_T = {"ko": dict(delegation="위임 {n}건", card="카드 {n}장", approval=
           "en": dict(delegation="{n} delegation", card="{n} cards", approval="{n} approval",
                      count=["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"])}
 
+# ── Insights (에세이) — 문장은 insights.json 이, 마크업은 여기가 소유한다 ──────────
+MONTH_EN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+def fmt_date(iso, lang):
+    y, m, d = (int(x) for x in iso.split("-"))
+    return f"{y}. {m}. {d}." if lang == "ko" else f"{MONTH_EN[m-1]} {d}, {y}"
+
+
+def article_jsonld(lang, post, rel):
+    c = post[lang]
+    return {"@context": "https://schema.org", "@type": "BlogPosting",
+            "headline": c["title"], "description": c["lede"],
+            "datePublished": post["date"], "dateModified": post["date"],
+            "inLanguage": "ko-KR" if lang == "ko" else "en-US",
+            "mainEntityOfPage": _abs(rel), "image": OG_IMAGE[lang],
+            "author": {"@type": "Organization", "name": "Fermoa"},
+            "publisher": {"@type": "Organization", "name": "Fermoa"}}
+
+
+def insight_page(post, lang):
+    c = post[lang]; t = T[lang]; home = t["home"]
+    assets = home + "assets/"
+    site_home = home + ("index.html" if lang == "ko" else "en/index.html")
+    other_page = home + (f"en/insights/{post['slug']}/index.html" if lang == "ko"
+                         else f"insights/{post['slug']}/index.html")
+    nav = "".join(f'<a href="{site_home}{ANCH[x]}">{x}</a>' for x in t["nav"])
+    body = ""
+    for sec in c["sections"]:
+        paras = "".join("<p>" + CODE.sub(CODE_SPAN, e(x)) + "</p>" for x in sec["p"])
+        body += f"<h2>{e(sec['h'])}</h2>{paras}"
+    evid = "".join(f"<div><dt>{e(k)}</dt><dd>{CODE.sub(CODE_SPAN, e(v))}</dd></div>" for k, v in c["evidence"])
+    sibs = [x for x in INSIGHTS["posts"] if x["slug"] != post["slug"]]
+    rel_list = "".join(f'<li><a href="../{x["slug"]}/index.html">{e(x[lang]["title"])}</a></li>' for x in sibs)
+    rel_ko, rel_en = f"insights/{post['slug']}/", f"en/insights/{post['slug']}/"
+    rel = rel_ko if lang == "ko" else rel_en
+    meta = head_meta(lang=lang, rel_ko=rel_ko, rel_en=rel_en, title=f"{c['title']} — Fermoa",
+                     desc=c["lede"], jsonld=article_jsonld(lang, post, rel))
+    return f"""<!doctype html>
+<html lang="{lang}" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(c['title'])} — Fermoa</title>
+<meta name="description" content="{e(c['lede'])}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="{assets}style.css">
+<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{meta}
+</head>
+<body class="sub">
+<a class="skip" href="#main">{t['skip']}</a>
+<header class="top">
+  <a class="brand" href="{site_home}" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main">{nav}</nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="{t['theme_light']}" data-label-dark="{t['theme_dark']}">{t['theme']}</button>
+    <span class="lang"><a href="{other_page}" hreflang="{'en' if lang=='ko' else 'ko'}">{t['other']}</a></span>
+    <a class="btn btn-ink" href="{site_home}#contact">{t['contact']}</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="{site_home}#insights">Insights</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>{e(c['title'])}</h1>
+      <p class="lede">{e(c['lede'])}</p>
+      <p class="byline"><time datetime="{post['date']}">{fmt_date(post['date'], lang)}</time></p>
+    </div>
+    {char_fig(post['pose'], "mod-fig--hero", lang, assets)}
+  </div>
+</section>
+<section class="page-body insight-body">
+  <div class="prose">{body}</div>
+  <aside class="facts" aria-label="{t['evid']}">
+    <h2>{t['evid']}</h2>
+    <dl>{evid}</dl>
+  </aside>
+</section>
+<section class="related">
+  <h2>{t['related']['insights']}</h2>
+  <ul>{rel_list}</ul>
+  <p><a class="btn btn-line" href="{site_home}#insights">{t['back']}</a></p>
+</section>
+<section class="page-cta">
+  <h2>{t['cta_h']}</h2>
+  <p>{t['cta_p']}</p>
+  <a class="btn btn-ink" href="{site_home}#contact">{t['contact']}</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">{t['biz']}</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+{MARK}
+<script src="{assets}main.js" defer></script>
+</body>
+</html>
+"""
+
+
+def render_insights_home(lang, prefix):
+    """홈 #insights 카드 3장 — 글이 있으므로 <a> 다(hover·포커스가 같이 산다)."""
+    out = ""
+    for post in INSIGHTS["posts"]:
+        c = post[lang]
+        href = f"{prefix}insights/{post['slug']}/index.html"
+        out += (f'<a class="insight" href="{href}">'
+                + char_fig(post["pose"], "mod-fig--insight", lang, prefix + "assets/")
+                + f'<h3>{e(c["title"])}</h3>'
+                + f'<p class="insight-dek">{e(c["dek"])}</p>'
+                + f'<time class="date" datetime="{post["date"]}">{fmt_date(post["date"], lang)}</time></a>')
+    return f'<div class="insight-row">{out}</div>'
+
+
 def _demo_counts(slug):
     f = ROOT / "assets" / "demo" / f"{slug}.json"
     d = json.loads(f.read_text(encoding="utf-8"))
@@ -679,6 +801,11 @@ def main():
                 out = ROOT / (f"{kind}/{item['slug']}" if lang == "ko" else f"en/{kind}/{item['slug']}") / "index.html"
                 out.parent.mkdir(parents=True, exist_ok=True)
                 out.write_text(page(kind, item, lang), encoding="utf-8"); n += 1
+    for post in INSIGHTS["posts"]:
+        for lang in ("ko", "en"):
+            out = ROOT / (f"insights/{post['slug']}" if lang == "ko" else f"en/insights/{post['slug']}") / "index.html"
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_text(insight_page(post, lang), encoding="utf-8"); n += 1
     for lang in ("ko","en"): render_home(lang)
     for lang in ("ko", "en"):
         p = ROOT / ("usecases" if lang == "ko" else "en/usecases") / "index.html"; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(usecases_page(lang), encoding="utf-8")

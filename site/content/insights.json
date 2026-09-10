@@ -1,0 +1,561 @@
+{
+  "posts": [
+    {
+      "slug": "do-not-trust-done",
+      "date": "2026-09-10",
+      "pose": "p2-hold",
+      "ko": {
+        "title": "에이전트의 “완료”를 믿지 않는 법",
+        "dek": "자기 보고는 검증이 아닙니다. 통과했다는 말을 세 번 뜯어본 기록입니다.",
+        "lede": "에이전트에게 실제 업무를 맡기려는 분께 드리는 글입니다. 결론부터 말하면, 에이전트가 끝났다고 말하는 지점과 일이 실제로 끝난 지점은 다릅니다. 그 간격을 사람의 주의력이 아니라 코드로 메우는 방법을 씁니다.",
+        "sections": [
+          {
+            "h": "0.925 는 성능이 아니라 누수였습니다",
+            "p": [
+              "재구매 성향 모델을 학습시켰습니다. 홀드아웃 AUC 0.925. 이 정도면 보통은 붙이고 다음 일로 넘어갑니다. 그런데 학습을 아예 하지 않은 한 줄짜리 빈도 룰을 같은 홀드아웃에 세워 보니 0.880 이 나왔습니다. 학습이 사는 폭이 0.044 였습니다.",
+              "왜 그 정도밖에 안 되는지를 파고들자 답이 나왔습니다. 모델이 배운 것은 “누가 살까”가 아니라 “주문이 몇 건 있나”였습니다. 중요도 상위 피처는 최근 1년 주문 수가 42.3%, 구매 금액이 19.0% 였습니다. 합성 데이터를 만들 때 생성기가 먼저 정해 둔 숨은 상수를, 모델이 그대로 되읽고 있었던 겁니다. 높은 점수는 실력의 증거가 아니라 누수의 신호였습니다.",
+              "그래서 이 모델은 팔지 않기로 했습니다. 배선은 전부 해 두었지만 기본 경로는 룰이고, 모델은 비권위로 표시해 두었습니다. 사이트의 베이커리 사례에 그 결정이 그대로 적혀 있습니다."
+            ]
+          },
+          {
+            "h": "진짜 문제는 아무도 기준선을 재지 않았다는 것이었습니다",
+            "p": [
+              "같은 조사에서 훨씬 불편한 사실이 나왔습니다. 그때 저장소가 실제로 쓰고 있던 룰, 그러니까 개인별 구매 주기가 도래했는지로 고객을 줄세우는 방식은 AUC 0.284 였습니다. 무작위인 0.5 보다 나쁩니다. 그 룰로 고른 상위 10% 의 재구매율은 전체 평균의 0.287 배였습니다. 타게팅을 하면 아무나 고르는 것보다 3.5 배 나쁜 명단이 나왔다는 뜻입니다.",
+              "원인은 허무할 만큼 단순했습니다. 이 데이터에서 “오래 안 샀다”는 “곧 살 때가 됐다”가 아니라 “원래 잘 안 사는 사람이다”를 뜻했습니다. 반대로 다음 달에 확실히 사는 구독 고객은 주기가 짧아 늘 최근에 샀고, 그래서 도래 룰이 그들을 명단 바닥으로 보내고 있었습니다.",
+              "이 룰이 쓸모없다는 뜻은 아닙니다. 원래 용도인 “리마인더를 언제 보낼까”에는 지금도 유효합니다. 다만 재구매 확률 랭킹에 쓰면 안 되는 것이었고, 그걸 알아낸 유일한 방법은 공정한 대조군을 세워 같은 자로 재 본 것이었습니다. 모델을 검증하려던 작업이 정작 붙잡은 것은 모델이 아니라 이미 돌고 있던 룰이었습니다."
+            ]
+          },
+          {
+            "h": "도구가 통과시켰다는 말은 대개 다른 질문에 답한 것입니다",
+            "p": [
+              "접근성도 같은 모양이었습니다. 이 사이트는 axe 로 전 페이지를 양쪽 테마에서 검사하고 위반 0 을 유지합니다. 그런데 라이트 테마에서 키보드 포커스 링이 형광 노랑이었고, 종이색 배경 위에서 대비가 1.22 대 1 이었습니다. WCAG 2.2 는 3 대 1 을 요구합니다. 사실상 보이지 않는 표시자를 달고 검사는 계속 초록이었습니다.",
+              "axe 가 고장난 것이 아닙니다. 포커스 표시자의 대비는 axe 가 보는 항목이 아닐 뿐입니다. 도구의 침묵을 안전으로 읽은 쪽이 틀렸습니다. 지금은 게이트가 브라우저에서 실제 계산값을 읽어 대비를 직접 재고, 3 대 1 미만이면 떨어뜨립니다. 고친 뒤에는 CSS 를 일부러 되돌려 게이트가 정말 1.21 대 1 을 잡아내며 실패하는지 확인했습니다. 잡지 못하는 게이트는 게이트가 아니기 때문입니다."
+            ]
+          },
+          {
+            "h": "게이트도 거짓말을 합니다",
+            "p": [
+              "게이트를 믿기 시작하면 게이트 자신이 다음 함정이 됩니다. 데모 도크 검사기는 시나리오가 네 개라는 숫자를 코드에 박아 두고 있었습니다. 시나리오를 일곱 개로 늘린 순간, 아무 문제가 없는데 검사가 실패했습니다. 하루 전에는 접근성 검사기가 이름이 바뀐 페이지 경로를 박아 두고 있어 삼십 초 동안 없는 주소를 두드리다 멈췄습니다. 이틀 연속 같은 결함이었습니다.",
+              "지금은 둘 다 데이터에서 숫자를 유도합니다. 시나리오 개수는 목록 파일이 알고 있고, 검사할 페이지 목록은 디스크가 알고 있으며, 경로가 없으면 조용히 넘어가지 않고 큰 소리로 죽습니다. 새 게이트를 쓸 때 코드에 상수가 보이면 그것이 다음 거짓 판정의 자리입니다.",
+              "가장 값싸게 배운 것도 적어 둡니다. 셸에서 명령의 출력을 잘라 보면서 종료 코드를 찍으면, 그 코드는 명령이 아니라 자르는 도구의 것입니다. 통과했다고 읽었지만 아무것도 읽지 않은 것이었습니다."
+            ]
+          },
+          {
+            "h": "그래서 지키는 세 줄",
+            "p": [
+              "판정은 코드가 소유합니다. 모델도 에이전트도 사람도 자기 결과를 채점하지 않습니다. 통과는 누군가의 문장이 아니라 종료 코드입니다.",
+              "모든 처치에는 공정한 대조군을 세웁니다. 학습한 모델은 학습하지 않은 룰과, 새 방법은 지금 돌고 있는 방법과 같은 자로 비교합니다. 대조군이 없는 숫자는 크든 작든 아무 말도 하지 않습니다.",
+              "게이트의 상수는 데이터에서 유도합니다. 그리고 게이트를 만들면 한 번은 일부러 부러뜨려 봅니다. 실패하는 것을 본 적 없는 게이트는 통과했다는 사실을 증명하지 않습니다."
+            ]
+          }
+        ],
+        "evidence": [
+          [
+            "재구매 모델 판정",
+            "`growth-commerce-os/docs/research/2026-09-03-repurchase-propensity.md` — LightGBM 홀드아웃 AUC 0.925, 학습 없는 빈도 룰 0.880, 차이 0.044. 모델은 비권위로 표시하고 기본 경로는 룰"
+          ],
+          [
+            "피처 중요도",
+            "같은 문서 §3.2 — `orders_365d` 0.423, `monetary_365d` 0.190"
+          ],
+          [
+            "도래 룰 역상관",
+            "같은 문서 §3.1 — AUC 0.284, 상위 10% 재구매율이 전체 평균의 0.287배"
+          ],
+          [
+            "포커스 링 대비",
+            "`fermoa-site/scripts/a11y_check.py` — axe 사각지대라 게이트가 직접 계산, `MIN_FOCUS_CONTRAST = 3.0`. 되돌려 실패(1.21:1)를 확인"
+          ],
+          [
+            "게이트 상수 제거",
+            "`scripts/demo_dock_check.py` 는 `assets/demo/index.json` 에서 개수를, `scripts/a11y_check.py` 는 디스크에서 페이지 목록을 유도"
+          ],
+          [
+            "페이지 대조",
+            "`scripts/meta_check.py` — sitemap 의 URL 수와 디스크의 페이지 수가 다르면 실패"
+          ]
+        ]
+      },
+      "en": {
+        "title": "How not to believe an agent’s “done”",
+        "dek": "A self-report is not verification. Three times we took “it passed” apart.",
+        "lede": "For anyone about to hand real work to an agent. The short version: the point where an agent says it is finished and the point where the work is actually finished are not the same place. We close that gap with code rather than with human attention.",
+        "sections": [
+          {
+            "h": "0.925 was not performance, it was leakage",
+            "p": [
+              "We trained a repurchase propensity model. Holdout AUC 0.925. Normally you ship that and move on. Then we put an untrained one-line frequency rule against the same holdout and it scored 0.880. Training was buying us 0.044.",
+              "Digging into why gave us the answer. The model had not learned who buys; it had learned how many orders a customer has. The top features by gain were orders in the last 365 days at 42.3% and spend at 19.0%. It was reading back a hidden constant the synthetic generator had fixed before it made the data. The high score was evidence of leakage, not of skill.",
+              "So we do not sell that model. The wiring is all there, but the default path is the rule and the model is marked non-authoritative. The decision is written into the bakery case on this site."
+            ]
+          },
+          {
+            "h": "The real problem was that nobody had measured the baseline",
+            "p": [
+              "The same investigation turned up something far more uncomfortable. The rule the store was actually running, which ranks customers by whether their personal purchase cycle has come due, scored AUC 0.284. That is worse than the 0.5 you get from guessing. The top 10% it selected repurchased at 0.287 times the overall average, meaning targeting with it produced a list 3.5 times worse than picking at random.",
+              "The cause was almost disappointingly simple. In this data, a long gap since the last order does not mean due to buy soon; it means this person rarely buys. The subscribers who were certain to buy next month had short cycles and had therefore always bought recently, so the due-date rule was pushing them to the bottom of the list.",
+              "This does not make the rule useless. For its original job, deciding when to send a reminder, it still holds. It simply must not be used to rank repurchase probability, and the only thing that revealed that was standing up a fair opponent and measuring both with the same ruler. Work that set out to validate a model ended up catching the rule that was already running."
+            ]
+          },
+          {
+            "h": "A tool passing you usually means it answered a different question",
+            "p": [
+              "Accessibility had the same shape. This site runs axe across every page in both themes and holds violations at zero. Meanwhile the keyboard focus ring in the light theme was highlighter yellow, and against the paper background its contrast was 1.22 to 1. WCAG 2.2 asks for 3 to 1. A focus indicator that was effectively invisible sat there while the checks stayed green.",
+              "axe was not broken. Focus-indicator contrast is simply not something axe looks at. The mistake was reading a tool’s silence as safety. The gate now reads the computed values out of the browser, measures the contrast itself, and fails below 3 to 1. After fixing it we deliberately reverted the CSS to confirm the gate really does catch 1.21 to 1 and fail, because a gate you have never seen fail is not a gate."
+            ]
+          },
+          {
+            "h": "Gates lie too",
+            "p": [
+              "Once you start trusting gates, the gates become the next trap. Our demo dock checker had the number four hardcoded as the scenario count. The moment we grew to seven scenarios, a perfectly healthy build failed its check. The day before, the accessibility checker had a renamed page path baked in and spent thirty seconds knocking on an address that no longer existed. The same defect twice in two days.",
+              "Both now derive their numbers from data. The scenario count is known by the manifest, the page list is known by the disk, and a missing path dies loudly instead of passing quietly. When you write a new gate, any constant you see in it is where the next false verdict will come from.",
+              "The cheapest lesson deserves recording too. If you pipe a command’s output through something to trim it and then print the exit code, that code belongs to the trimmer, not the command. We read it as a pass, and it had read nothing at all."
+            ]
+          },
+          {
+            "h": "The three lines we keep",
+            "p": [
+              "Code owns the verdict. Not the model, not the agent, not the person; nobody grades their own output. Passing is an exit code, not somebody’s sentence.",
+              "Every treatment gets a fair control. A trained model is measured against the untrained rule, and a new method against the one currently running, on the same ruler. A number with no control says nothing, however large it is.",
+              "Gate constants are derived from data. And once a gate exists, break it on purpose once. A gate you have never watched fail does not prove that anything passed."
+            ]
+          }
+        ],
+        "evidence": [
+          [
+            "Model verdict",
+            "`growth-commerce-os/docs/research/2026-09-03-repurchase-propensity.md` — LightGBM holdout AUC 0.925 against an untrained frequency rule at 0.880, a gap of 0.044. The model ships non-authoritative; the rule is the default path"
+          ],
+          [
+            "Feature gain",
+            "same document §3.2 — `orders_365d` 0.423, `monetary_365d` 0.190"
+          ],
+          [
+            "Due-date rule inverted",
+            "same document §3.1 — AUC 0.284, top 10% repurchasing at 0.287× the overall average"
+          ],
+          [
+            "Focus ring contrast",
+            "`fermoa-site/scripts/a11y_check.py` — an axe blind spot, so the gate computes it, `MIN_FOCUS_CONTRAST = 3.0`. Verified by reverting and watching it fail at 1.21:1"
+          ],
+          [
+            "Constants removed from gates",
+            "`scripts/demo_dock_check.py` derives the count from `assets/demo/index.json`; `scripts/a11y_check.py` derives the page list from disk"
+          ],
+          [
+            "Page reconciliation",
+            "`scripts/meta_check.py` — fails when the sitemap URL count differs from the page count on disk"
+          ]
+        ]
+      }
+    },
+    {
+      "slug": "contract-first-rollback-free",
+      "date": "2026-09-10",
+      "pose": "p4-lower",
+      "ko": {
+        "title": "계약을 먼저 쓰면 롤백이 공짜가 된다",
+        "dek": "승인과 되돌리기는 나중에 붙이는 기능이 아니라, 자료구조를 어떻게 잡느냐의 결과였습니다.",
+        "lede": "에이전트에게 돈 쓰는 일을 맡기려는 분께 드리는 글입니다. 광고 매체 운영 계층을 만들면서 배운 것은, 승인과 감사와 롤백이 뒤에 얹는 기능이 아니라 처음에 무엇을 타입으로 적었는지의 부산물이라는 점이었습니다.",
+        "sections": [
+          {
+            "h": "ROAS 3.2 는 그 자체로는 아무 뜻이 없습니다",
+            "p": [
+              "같은 이름의 지표가 매체마다 다른 것을 셉니다. 귀속 창이 다르고, 통화와 시간대가 다르고, 플랫폼이 스스로 귀속한 값인지 자사 전환인지가 다르고, 환불이 반영됐는지가 다르고, 비용에 부가세가 들어 있는지가 다릅니다. 이 여섯 가지를 모르면 3.2 라는 숫자는 문자에 불과합니다.",
+              "그래서 모든 수치는 근거를 달고 다니고, 근거가 다른 값끼리는 코드가 합치기를 거부합니다. 경고가 아니라 타입이 있는 오류입니다. 합칠 수 없는 것을 합치려 하면 어느 축이 어긋났는지를 이름으로 말하며 실패합니다. 파생 지표도 한 함수에서만 계산합니다. 모델은 산술하지 않습니다.",
+              "부가세 처리의 기본값은 “모름”입니다. 그리고 모름끼리 통과하는 것은 같다는 증거가 아니라 다르다는 증거가 없다는 뜻이라고 코드 주석에 적어 두었습니다. 이 구분이 다음 이야기를 만듭니다."
+            ]
+          },
+          {
+            "h": "그 계약이 제일 먼저 잡은 것은 우리 자신이었습니다",
+            "p": [
+              "테스트 데이터에서 네이버를 15일 클릭 창 하나로 적어 두고 있었습니다. 그런데 네이버의 총 전환수는 직접전환수와 간접전환수를 더한 값이고, 두 열은 정의가 다릅니다. 정의가 다른 두 열을 하나로 합친 숫자, 그러니까 이 제품이 남에게 금지하는 바로 그 합산을 우리 데이터가 하고 있었습니다.",
+              "확인하는 과정이 더 남습니다. 매체 공식 도움말이 자바스크립트로 그려지는 탓에 평범하게는 읽히지 않아, 서버가 그려 주는 FAQ 경로로 771건을 전수 조회해 뒤졌습니다. 업계에서 널리 인용되는 “직접 30분, 간접 15일”이라는 숫자는 771건 어디에도 없었습니다. 출처는 2012년 대행사 블로그였습니다. 같은 조회에서, 추적 기간은 플랫폼 상수가 아니라 광고주가 타겟마다 정하는 값이고, 대량 보고서의 비용 열은 2026년 3월 30일을 기점으로 부가세 제외에서 포함으로 조용히 바뀌었다는 것도 나왔습니다. 같은 채널, 같은 열, 기간 중간에 달라진 의미입니다.",
+              "그래서 고칠 때 없는 숫자를 채워 넣지 않았습니다. 창을 합성 구조로 바꾸고, 알 수 없는 구간의 기간은 비워 두었으며, 부가세를 별도 축으로 올렸습니다. 계약을 지키는 유일한 방법은 모르는 것을 모른다고 적는 것이었습니다."
+            ]
+          },
+          {
+            "h": "되돌릴 값이 없으면 롤백은 희망사항입니다",
+            "p": [
+              "모든 계획된 액션은 바꿀 값만이 아니라 바꾸기 전의 값을 함께 들고 다닙니다. 이 한 줄 때문에 롤백이 기능이 아니라 성질이 됩니다. 되돌리기는 적용된 순서의 역순으로 각 액션의 역을 재생하는 것이고, 새로 설계할 것이 없습니다.",
+              "그리고 되돌릴 때는 정책 임계를 다시 묻지 않습니다. 예산을 올릴 때는 승인이 필요하지만, 우리가 바꾸기 전에 세계가 실제로 갖고 있던 값으로 돌아가는 일에는 필요하지 않기 때문입니다. 승인 절차를 우회한 것이 아니라, 되돌리기가 무엇인지를 정확히 적었더니 물어볼 것이 없어진 겁니다."
+            ]
+          },
+          {
+            "h": "승인은 계획의 해시에 묶입니다",
+            "p": [
+              "계획의 식별자는 내용의 해시입니다. 계획이 한 글자라도 바뀌면 식별자가 바뀌고 옛 승인은 자동으로 무효가 됩니다. 승인을 받은 뒤에 내용을 바꿔치기하는 경로가 원천적으로 없습니다. 거부된 액션은 승인으로도 열리지 않습니다. 실행 대상을 고르는 함수가 거부 항목을 먼저 걷어내기 때문에, 권한을 높여도 그 문은 열리지 않습니다.",
+              "여기에 우리가 놓쳤던 구멍이 있었습니다. 처음에는 해시가 단계 목록만 덮고 있어서, 누가 만들었는지와 왜 만들었는지가 승인 밖에 있었습니다. 사람이 승인한 것은 “김 아무개가 이 이유로 올린 계획”인데 묶인 것은 단계뿐이었던 겁니다. 사용자가 아니라 내부 감사 축이 잡았고, 지금은 세 가지를 구조화해 함께 해싱합니다. 문자열을 이어 붙이지 않고 구조로 직렬화한 이유는 경계가 다른 조합이 같은 입력이 되는 종류의 버그까지 같이 막기 위해서입니다.",
+              "같은 날 액션 스키마에 모르는 필드를 거부하는 규칙도 넣었습니다. 모르는 필드가 조용히 통과하면 다시 직렬화할 때 사라지고, 화면에서 사람이 승인한 것과 엔진이 실행하는 것이 더 이상 같은 바이트가 아니게 됩니다."
+            ]
+          },
+          {
+            "h": "원장은 이어 붙이는 것만으로는 부족했습니다",
+            "p": [
+              "감사 원장은 해시로 이어지는 추가 전용 사슬입니다. 이것만으로 위조를 잡을 수 있다고 생각하기 쉽지만, 꼬리 절단은 원리적으로 못 잡습니다. 마지막 세 줄을 지워도 남은 줄들은 번호가 연속이고 해시도 맞습니다. 검증기는 초록을 찍고 사라진 세 건은 아무 흔적도 남기지 않습니다.",
+              "그래서 사슬의 머리를 곁파일에 따로 적고, 몸통과 머리를 같은 잠금 안에서 함께 씁니다. 검증할 때 머리가 앞서 있으면 잘렸다는 뜻입니다. 그리고 판정하지 못한 경우를 통과로 처리하지 않습니다. 원장에는 모름을 모름으로 내는 함수가 따로 있습니다.",
+              "증분 성과도 같은 규율을 씁니다. 모든 수치는 기본적으로 상관 등급이고, 무작위 배정을 거친 것만 증분이라고 부를 수 있습니다. 지역 단위 실험은 데이터에 지역 차원이 없어서 자동으로 불가 판정이 납니다. 할 수 없다고 말하는 편이 할 수 있는 척하는 것보다 쓸모 있습니다. 사전사후 비교는 평행추세 전제가 깨지면 결과에 인용하지 말라는 경고를 붙여 내보냅니다. 중간에 자꾸 들여다보면 위양성이 5%에서 30% 넘게 부푸는 것을 알기 때문에, 순차 검정에는 언제 봐도 유효한 p값을 씁니다."
+            ]
+          },
+          {
+            "h": "계약이 먼저인 이유",
+            "p": [
+              "이 계층에서 승인과 감사와 롤백은 따로 만든 기능이 아닙니다. 지표에 근거를 붙이고, 액션에 되돌릴 값을 붙이고, 계획에 해시를 붙였더니 따라온 것들입니다. 반대 순서로는 이만큼 싸게 오지 않습니다. 나중에 붙이는 롤백은 언제나 “그때 값이 뭐였더라”에서 막힙니다.",
+              "그리고 계약은 남을 검사하기 전에 자기부터 검사합니다. 이 글에 적은 두 번의 발견은 고객이 알려 준 것이 아니라 우리 데이터와 우리 승인 경로에서 나왔습니다. 그게 계약을 먼저 쓰는 값어치입니다."
+            ]
+          }
+        ],
+        "evidence": [
+          [
+            "측정 기준 여섯 축",
+            "`crates/plataid-core/src/metric.rs` — `MeasurementBasis`(시간대·귀속·출처·환불·통화·부가세), 불일치는 `MetricError::IncompatibleBasis` 라는 타입 있는 오류"
+          ],
+          [
+            "파생은 코드가 계산",
+            "같은 파일 `derive()` — ROAS·CPA·CTR·CVR·CPM·AOV 전부 한 함수. 모델은 산술하지 않는다"
+          ],
+          [
+            "네이버 전환 창 정정",
+            "커밋 `67d3258` — 단일 창을 `AttributionWindow::Composite` 로. 공식 FAQ 771건 전수 조회, 통용되던 “직접 30분·간접 15일” 은 0건 (`docs/data/synthetic-dataset.md`)"
+          ],
+          [
+            "부가세 축 신설",
+            "`TaxTreatment` 기본값 `Unknown` — 2026-03-30 부터 대량 보고서 비용 열의 의미가 바뀐 것을 반영"
+          ],
+          [
+            "롤백의 전제",
+            "`crates/plataid-core/src/plan.rs` — 모든 액션이 이전 값을 들고 다닌다. `plan.rollback` 은 역순 재생이며 정책 임계를 다시 묻지 않는다"
+          ],
+          [
+            "승인 결속",
+            "계획 id = blake3(created_by, rationale, steps). 초기에는 steps 만 덮고 있었고 내부 감사가 발견해 교정. 회귀 테스트 `plan_id_binds_created_by_and_rationale_too`"
+          ],
+          [
+            "거부는 승인으로 안 열림",
+            "`Plan::executable()` 이 `Deny` 를 먼저 제외"
+          ],
+          [
+            "꼬리 절단 탐지",
+            "`crates/plataid-ledger/src/lib.rs` — blake3 추가 전용 사슬 + `.head` 곁파일, 판정 불가를 통과로 치지 않는 `completeness()`"
+          ],
+          [
+            "증분 등급",
+            "`CausalGrade` 기본 상관, 무작위만 증분. geo 실험은 지역 차원 부재로 자동 불가 판정. 순차 검정은 mSPRT (`crates/plataid-experiment/src/stats.rs`)"
+          ],
+          [
+            "테스트",
+            "`crates/` 전체에서 `#[test]` 함수 298개 / 파일 34개 (2026-09-10 직접 집계)"
+          ]
+        ]
+      },
+      "en": {
+        "title": "Write the contract first and rollback becomes free",
+        "dek": "Approval and undo were not features we added later. They fell out of how the data was shaped.",
+        "lede": "For anyone about to let an agent spend money. Building a control layer for ad operations taught us that approval, audit and rollback are not bolted on afterwards; they are byproducts of what you wrote down as types on day one.",
+        "sections": [
+          {
+            "h": "A ROAS of 3.2 means nothing by itself",
+            "p": [
+              "Metrics with the same name count different things on different channels. The attribution window differs, the currency and timezone differ, whether the platform attributed it to itself or your own conversion tracking did differs, whether refunds are reflected differs, and whether tax is inside the cost differs. Without those six facts, 3.2 is just a character.",
+              "So every value carries its provenance, and code refuses to merge values whose bases differ. Not a warning, a typed error. Try to combine what cannot be combined and it fails by naming the axis that disagreed. Derived metrics are computed in exactly one function. The model does no arithmetic.",
+              "Tax treatment defaults to unknown. And a comment in the code says that two unknowns passing each other is not evidence that they match, only the absence of evidence that they differ. That distinction is what produced the next story."
+            ]
+          },
+          {
+            "h": "The first thing the contract caught was us",
+            "p": [
+              "Our own fixture described Naver as a single fifteen-day click window. But Naver’s total conversions are direct plus indirect, and those two columns are defined differently. A number that sums two differently-defined columns is precisely the thing this product forbids, and our data was doing it.",
+              "Verifying it took some work. The official help pages render in JavaScript and cannot be read normally, so we pulled all 771 server-rendered FAQ pages and searched them. The figure the industry widely quotes, thirty minutes for direct and fifteen days for indirect, appears in none of the 771. Its source is an agency blog post from 2012. The same sweep also showed that the tracking period is not a platform constant but a value the advertiser sets per target, and that the cost column in the bulk report quietly changed from tax-excluded to tax-included on 30 March 2026. Same channel, same column, a different meaning mid-period.",
+              "So the fix did not invent the missing numbers. We changed the window into a composite structure, left the duration of the unknown parts empty, and promoted tax to its own axis. The only way to honour the contract was to write down that we did not know."
+            ]
+          },
+          {
+            "h": "Without the old value, rollback is a wish",
+            "p": [
+              "Every planned action carries not only the value it will set but the value it is replacing. That one line turns rollback from a feature into a property. Undoing is replaying each action’s inverse in reverse order, and there is nothing left to design.",
+              "Rollback also does not re-ask the policy thresholds. Raising a budget needs approval; returning the world to a value it actually held before we touched it does not. That is not a bypass. We wrote down what rollback is precisely enough that there was nothing left to ask."
+            ]
+          },
+          {
+            "h": "Approval binds to the hash of the plan",
+            "p": [
+              "A plan’s identifier is the hash of its content. Change one character and the identifier changes and the old approval is void. There is no path for swapping the content after the approval. Denied actions do not open, either: the function that selects what to execute strips denials first, so raising privileges does not open that door.",
+              "Here is the hole we had. At first the hash covered only the list of steps, which left who created the plan and why outside the binding. A human had approved “the plan this person filed for this reason”, and what was bound was the steps alone. An internal audit axis caught it, not a user, and now all three are hashed together as a structure. We serialise a structure rather than concatenating strings so that the class of bug where two different splits produce the same input is closed at the same time.",
+              "The same day we made the action schema reject unknown fields. An unknown field that parses quietly disappears on the next serialisation, and then what the human approved on screen and what the engine executes are no longer the same bytes."
+            ]
+          },
+          {
+            "h": "Append-only was not enough for the ledger",
+            "p": [
+              "The audit ledger is an append-only chain linked by hashes. It is easy to assume that catches tampering, but it cannot catch truncation of the tail. Delete the last three lines and the remaining lines are still sequential and their hashes still match. The verifier goes green and the three missing entries leave no trace.",
+              "So the head of the chain is written to a side-file, and the body and the head are written inside the same lock. At verification time, a head that runs ahead means something was cut. And a case we could not adjudicate is not treated as a pass; the ledger has a separate function whose whole job is to report unknown as unknown.",
+              "Incrementality follows the same discipline. Every value is correlational by default, and only randomised assignment earns the word incremental. Geo experiments are automatically ruled infeasible because the data has no geographic dimension, and saying we cannot is more useful than pretending we can. Pre/post comparison ships with a caveat telling you not to quote the result when the parallel-trends assumption breaks. And because peeking inflates false positives from 5% to over 30%, sequential testing uses an always-valid p-value."
+            ]
+          },
+          {
+            "h": "Why the contract comes first",
+            "p": [
+              "In this layer, approval and audit and rollback are not features we built. They arrived because we attached provenance to metrics, a previous value to actions, and a hash to plans. In the other order they never come this cheaply. Rollback bolted on afterwards always stalls at the same question: what was the value before?",
+              "And a contract audits its author before it audits anyone else. Neither discovery in this post came from a customer. They came out of our own data and our own approval path. That is what writing the contract first buys."
+            ]
+          }
+        ],
+        "evidence": [
+          [
+            "Six axes of measurement basis",
+            "`crates/plataid-core/src/metric.rs` — `MeasurementBasis` (timezone, attribution, source, refunds, currency, tax); a mismatch is the typed error `MetricError::IncompatibleBasis`"
+          ],
+          [
+            "Derivation owned by code",
+            "same file, `derive()` — ROAS, CPA, CTR, CVR, CPM, AOV in one function. The model does no arithmetic"
+          ],
+          [
+            "Naver window corrected",
+            "commit `67d3258` — single window became `AttributionWindow::Composite`. All 771 official FAQ pages swept; the widely quoted “30 minutes direct, 15 days indirect” appears zero times (`docs/data/synthetic-dataset.md`)"
+          ],
+          [
+            "Tax promoted to an axis",
+            "`TaxTreatment` defaults to `Unknown`, reflecting that the bulk report’s cost column changed meaning on 2026-03-30"
+          ],
+          [
+            "What rollback requires",
+            "`crates/plataid-core/src/plan.rs` — every action carries its previous value. `plan.rollback` replays inverses in reverse and does not re-ask policy thresholds"
+          ],
+          [
+            "Approval binding",
+            "plan id = blake3(created_by, rationale, steps). It originally covered steps only; an internal audit found it. Regression test `plan_id_binds_created_by_and_rationale_too`"
+          ],
+          [
+            "Denials stay denied",
+            "`Plan::executable()` strips `Deny` before anything runs"
+          ],
+          [
+            "Truncation detection",
+            "`crates/plataid-ledger/src/lib.rs` — blake3 append-only chain plus a `.head` side-file, and `completeness()`, which refuses to score indeterminate as passing"
+          ],
+          [
+            "Causal grade",
+            "`CausalGrade` is correlational by default; only randomised counts as incremental. Geo experiments auto-fail feasibility for lack of a geo dimension. Sequential testing uses mSPRT (`crates/plataid-experiment/src/stats.rs`)"
+          ],
+          [
+            "Tests",
+            "298 `#[test]` functions across 34 files in `crates/` (counted 2026-09-10)"
+          ]
+        ]
+      }
+    },
+    {
+      "slug": "ads-that-end-on-the-device",
+      "date": "2026-09-10",
+      "pose": "p5-cutoff",
+      "ko": {
+        "title": "기기 안에서 끝나는 광고",
+        "dek": "파는 것은 더 나은 예측이 아니라 원본이 나가지 않았다는 계약입니다. 그 계약을 타입으로 적었습니다.",
+        "lede": "개인화와 프라이버시를 동시에 요구받는 분께 드리는 글입니다. 기기 안에서 의도를 추론하고 원본을 내보내지 않는 광고 스택을 만들면서, 정확도로 이기려던 주장을 한 번 철회했습니다. 남은 것이 더 단단했습니다.",
+        "sections": [
+          {
+            "h": "정확도로 이긴다는 주장을 철회했습니다",
+            "p": [
+              "처음에는 이렇게 말하려 했습니다. 2.1MB짜리 우리 기기 안 모델이 행동 데이터를 쓰면 421MB 교사 모델을 이깁니다. 실제로 그런 측정이 있었습니다. 그런데 네 번의 측정 중 표본이 가장 작고 교사에게 가장 불리한 한 번에서만 성립했습니다. 실제 로그에서는 교사도 행동 데이터를 받으면 12.8포인트 올랐습니다. 주장을 접었습니다.",
+              "접고 나니 더 정확한 문장이 남았습니다. 해자는 정확도가 아니라 접근권입니다. 서버 모델도 이 행동 이벤트를 받으면 좋아집니다. 다만 그 이벤트가 기기 밖으로 나가지 않을 뿐입니다. 이건 성능 경쟁이 아니라 데이터가 어디에 있느냐의 문제이고, 그래서 우리가 파는 것은 예측이 아니라 나가지 않았다는 계약입니다.",
+              "계약을 팔기로 한 순간부터 문제의 성격이 바뀝니다. 정확도는 좋아지면 그만이지만 계약은 지켜졌음을 보일 수 있어야 합니다."
+            ]
+          },
+          {
+            "h": "약속은 필터가 아니라 타입이어야 합니다",
+            "p": [
+              "나가면 안 되는 것을 나갈 때 걸러내는 방식은 언젠가 부르는 것을 잊습니다. 그래서 애초에 넣을 자리를 만들지 않았습니다. 서버로 올라가는 구조체에는 문자열 인자가 하나도 없습니다. 모르는 필드는 파싱 단계에서 거부됩니다. 광고 요청 구조체에도 사용자 식별자와 광고 식별자와 아이피와 브라우저 문자열을 담을 필드가 아예 없습니다. 값을 넣을 자리가 없어서 못 나가는 겁니다.",
+              "개인화의 핵심인 개인 헤드는 더 강하게 묶여 있습니다. 연합학습에서 사영 행렬은 서버가 평균 내지만 개인 헤드는 기기를 떠나지 않아야 합니다. 이걸 규칙으로 적는 대신, 추론 코어를 의존성 0으로 만들었습니다. 직렬화 라이브러리가 없으니 개인 헤드는 직렬화하는 방법 자체가 없습니다. 주석이 아니라 타입이 막습니다.",
+              "기기에 쌓이는 행동 이벤트도 같은 방식입니다. 이벤트 하나가 정확히 12바이트라는 것을 테스트가 단언합니다. 힙 포인터도 문자열 필드도 없는 고정 크기 값이라, 원문이 들어갈 자리가 없습니다. 배터리조차 퍼센트가 아니라 네 단계로만 적습니다. 정밀한 값은 그 자체로 기기를 식별하는 지문이 되기 때문입니다."
+            ]
+          },
+          {
+            "h": "그래도 실제 나가는 바이트를 봅니다",
+            "p": [
+              "타입으로 막았다는 말도 결국 주장입니다. 그래서 게이트는 실제 클라이언트 바이너리를 돌려 진짜로 직렬화된 페이로드를 받아 놓고 검사합니다. 최상위 키가 허용 목록과 정확히 일치하는지, 미리 심어 둔 일곱 개의 카나리 문자열이 페이로드 어디에도 없는지, 크기가 상한 아래인지를 봅니다. 오늘 돌린 결과는 허용된 키 여섯 개, 카나리 일곱 개 전부 미검출, 69,482바이트 대 상한 307,200바이트였습니다.",
+              "정직하게 덧붙입니다. 카나리 일곱 개는 증명이 아니라 표본입니다. 유출이 없다는 증명은 이 방식으로 얻어지지 않습니다. 다만 타입이 막고 있다는 주장이 실제 바이트에서도 성립하는지를 매번 확인하는 값은 있습니다. 광고 요청 경로에도 같은 검사를 겁니다."
+            ]
+          },
+          {
+            "h": "예산을 공개한다는 것",
+            "p": [
+              "기기 인구가 충분해지면 연합학습을 켜고 프라이버시 예산을 공개합니다. 오늘 측정으로 라운드당 ε 은 참여 기기 1,000대에서 2.20 이고, 50라운드 캠페인 합산은 1.73 입니다. 여기서 중요한 것은 두 번째 숫자에 붙은 조건입니다. 이 값은 매 라운드 전체 기기 중 일부만 무작위로 참여한다는 부표본 증폭을 가정합니다. 그 가정을 빼면 같은 캠페인이 17.67 이 되고, 게이트는 그 가정 없는 쪽을 비현실적이라고 자기 출력에 적습니다. 유리한 숫자만 인용하지 않으려면 조건을 함께 적어야 합니다.",
+              "잡음 크기는 취향이 아니라 스윕에서 나왔습니다. 더 작은 잡음은 예산을 열 배 나쁘게 만들면서 최종 손실도 더 나빴고, 더 큰 잡음은 발산했습니다. 집계에는 최소 참여 인원 바닥을 두고, 광고 정산 채널에는 별도의 예산과 서버 쪽 최소 인원 억제를 겁니다.",
+              "회계 자체에 대해서도 규칙이 있습니다. 표준 회계 라이브러리가 없으면 게이트는 손으로 계산하지 않고 미측정으로 냅니다. 미묘하게 틀린 회계는 자신 있게 틀린 숫자를 내기 때문입니다."
+            ]
+          },
+          {
+            "h": "덜 정직한 숫자는 이렇게 살아남습니다",
+            "p": [
+              "가장 배울 것이 많았던 실패는 우리 숫자를 좋아 보이게 만든 누락이었습니다. 한동안 SDK 크기 게이트가 분류 파일과 친화도 파일 206KB 를 조용히 빼고 세고 있었습니다. 게이트는 초록이었고 예산은 여유로워 보였습니다. 이 종류의 누락이 특히 위험한 이유는 결과가 우리에게 유리해서 아무도 의심하지 않기 때문입니다. 불리한 버그는 금방 잡히고 유리한 버그는 오래 삽니다.",
+              "비슷한 것이 한 번 더 있었습니다. 빠른 근사 판정기가 어떤 후보 모델을 네 라운드 연속 유의미한 개선이라고 보고했습니다. 실제 배포 경로에서 짝지은 부트스트랩으로 다시 재자 개선 폭은 절반 이하였고 신뢰구간이 0 을 지났습니다. 그 후보는 싣지 않았습니다. 판정기가 빠르다는 것과 옳다는 것은 다른 이야기였습니다.",
+              "지금 배포된 모델을 승격시킬 때는 실제로 치른 값을 그대로 적었습니다. 제품 표면 지표는 0.87포인트 올랐고, 대신 일반 언어 이해 지표는 1.21포인트 떨어졌습니다. 사전에 예상했던 교환비보다 세 배쯤 나쁜 거래였습니다. 그 사실을 기록에 남기고 승격했습니다."
+            ]
+          },
+          {
+            "h": "지금 못 하는 것",
+            "p": [
+              "소개 자료에는 4비트 3B 온디바이스 LLM 이라는 문구가 있었습니다. 5MB 예산 안에서 그건 불가능합니다. 4비트 3B 는 1.5에서 2기가바이트입니다. 그래서 두 층으로 나눴습니다. 항상 도는 것은 의존성 0 의 작은 정적 임베딩이고, 큰 모델은 운영체제가 이미 갖고 있는 것을 빌리는 선택 계층입니다. 그리고 지금 데모에서 그 선택 계층은 실제 기기 안 모델이 아니라 사내 GPU 로 뚫어 둔 대역입니다. 이걸 기기 안에서 돌고 있다고 말하지 않습니다.",
+              "지연 시간은 개발용 맥에서 p95 2.85밀리초입니다. 저사양 안드로이드에서는 아직 재지 못했고, 안드로이드 상주 메모리와 배터리 수치도 없습니다. 실제 거래소는 아직 붙지 않았고 목 서버만 있습니다. 친화도 파일은 합성입니다. 이 목록이 짧아지는 순서대로 일하고 있습니다.",
+              "여기까지가 지금 말할 수 있는 전부입니다. 개인화를 파는 회사가 자기 한계 목록을 먼저 보여 주는 편이, 나중에 그 목록이 고객 쪽에서 발견되는 것보다 낫습니다."
+            ]
+          }
+        ],
+        "evidence": [
+          [
+            "철회한 주장",
+            "`docs/spec/00-claims-to-tests.md` — “작은 모델이 교사를 이긴다” 는 네 측정 중 하나에서만 성립해 철회. 실제 로그에서 교사도 행동 데이터로 +12.8pp. 남은 주장은 접근권"
+          ],
+          [
+            "타입이 막는다",
+            "`crates/fl-client/src/upload.rs` — 공개 API 에 String 인자 없음, `#[serde(deny_unknown_fields)]`. 개인 헤드는 `sdk-core` 가 의존성 0 이라 직렬화 자체가 불가 (`crates/sdk-core/src/fedper.rs`)"
+          ],
+          [
+            "이벤트 12바이트",
+            "`crates/sdk-core/src/event.rs` — `size_of::<Event>() == 12` 를 테스트가 단언. 배터리는 퍼센트가 아니라 4단계"
+          ],
+          [
+            "나가는 바이트 검사",
+            "`gates/egress_gate.py` — 실제 바이너리 실행 후 직렬화 JSON 검사. 2026-09-10 실측: 허용 키 6개, 카나리 7/7 미검출, 69,482 / 307,200 B"
+          ],
+          [
+            "광고 요청 구조",
+            "`BidRequest` 에 user.id · device.ifa · ip · ua 필드 부재. 실측 요청 1,710 B, 카나리 7/7 미검출"
+          ],
+          [
+            "프라이버시 예산",
+            "`gates/dp_gate.py` — 라운드당 ε 2.20 (n=1,000), 50라운드 캠페인 1.73 (부표본 증폭 가정) · 증폭 없으면 17.67. clip 1.0 · σ 0.1 · δ 1e-10 · 최소 참여 8"
+          ],
+          [
+            "회계는 표준 라이브러리로",
+            "같은 파일 — `dp_accounting` PLD 사용, 없으면 손계산 대신 UNMEASURED"
+          ],
+          [
+            "유리한 누락",
+            "2026-08-27 — `taxonomy.bin` · `affinity.bin` 206KB 가 크기 게이트에서 빠진 채 초록. 결과가 유리해서 늦게 발견"
+          ],
+          [
+            "근사 판정기 오탐",
+            "라운드 52 — 근사 게이트가 4라운드 연속 “+1.15pp 유의”, 실 배포 경로 짝지은 부트스트랩에서는 +0.54pp 신뢰구간 0 통과. 미탑재"
+          ],
+          [
+            "배포 시 치른 값",
+            "`experiments/distill-ko/deployed_run.json` — 제품 표면 L2 top-5 0.7885 (+0.87pp), KLUE-YNAT −1.21pp · KLUE-STS −0.02 회귀 수용"
+          ],
+          [
+            "게이트",
+            "`gates/run_all.py` 13종 `--strict`, 원장 2026-09-08 기준 13/13 · E2E 64/64. 크기 3.30MB / 4MB (78.8%), 네이티브 추가 Android 65,203B, Rust↔wasm 차이 0.000e+00"
+          ],
+          [
+            "아직 못 잰 것",
+            "저사양 Android 지연·상주 메모리·배터리 미측정, 실 거래소 미연결, `affinity.bin` 합성"
+          ]
+        ]
+      },
+      "en": {
+        "title": "Advertising that ends inside the device",
+        "dek": "What we sell is not a better prediction. It is a contract that the raw data never left, written as a type.",
+        "lede": "For anyone asked to deliver personalisation and privacy at once. While building an ad stack that infers intent on the device and sends no raw data out, we retracted the claim we had meant to win on. What remained was sturdier.",
+        "sections": [
+          {
+            "h": "We retracted the claim that we win on accuracy",
+            "p": [
+              "The pitch was going to be this: our 2.1MB on-device model beats a 421MB teacher once it gets behavioural data. There really was a measurement saying so. But it held in only one of four runs, the one with the smallest sample and the least favourable setup for the teacher. On real logs the teacher gained 12.8 points from behavioural data too. We dropped the claim.",
+              "Dropping it left a more accurate sentence. The moat is access, not accuracy. A server model would improve from these behavioural events as well. They simply never leave the device. That is not a performance race, it is a question of where the data sits, and so what we sell is not a prediction but a contract that nothing left.",
+              "The moment you sell a contract, the problem changes shape. Accuracy only has to improve. A contract has to be demonstrable."
+            ]
+          },
+          {
+            "h": "A promise has to be a type, not a filter",
+            "p": [
+              "Filtering out what must not leave, on the way out, eventually forgets to be called. So we left nowhere to put it. The struct that goes to the server has no string parameter anywhere in its public API, and unknown fields are rejected at parse time. The ad request struct has no field at all for a user id, an advertising id, an IP, or a user-agent string. It cannot leave because there is no slot to put it in.",
+              "The personal head, which is the whole point of personalisation, is bound harder still. In federated learning the server averages the projection matrix, while the personal head must never leave the device. Rather than writing that down as a rule, we built the inference core with zero dependencies. With no serialisation library available, there is no way to serialise the personal head at all. A type stops it, not a comment.",
+              "Behavioural events on the device follow the same idea. A test asserts that one event is exactly twelve bytes: a fixed-size value with no heap pointer and no string field, so raw text has nowhere to go. Even the battery level is recorded as one of four bands rather than a percentage, because a precise value is itself a fingerprint."
+            ]
+          },
+          {
+            "h": "We still look at the bytes that actually leave",
+            "p": [
+              "Saying a type prevents it is also just a claim. So the gate runs the real client binary, captures the payload as it was actually serialised, and inspects it. Do the top-level keys match the allowlist exactly, is none of the seven planted canary strings anywhere in the payload, is the size under the cap. Today’s run: six allowed keys, all seven canaries undetected, 69,482 bytes against a cap of 307,200.",
+              "An honest footnote. Seven canaries are a sample, not a proof; you do not get a proof of no leakage this way. What you do get is a check, every time, that the claim the types make still holds in the bytes. The ad request path carries the same check."
+            ]
+          },
+          {
+            "h": "What publishing a budget means",
+            "p": [
+              "Once the device population is large enough, federated learning turns on and the privacy budget is published. As measured today, per-round ε is 2.20 with a thousand participating devices, and a fifty-round campaign totals 1.73. What matters is the condition attached to the second number. It assumes subsampling amplification, meaning only a random subset of devices participates each round. Remove that assumption and the same campaign becomes 17.67, and the gate writes into its own output that the unamplified case is the unrealistic one. Quoting only the flattering number requires leaving the condition out.",
+              "The noise scale came from a sweep, not from taste. Smaller noise made the budget ten times worse while also ending at a worse loss, and larger noise diverged. Aggregation has a floor on participants, and the ad billing channel carries its own separate budget and a server-side suppression threshold.",
+              "There is a rule about the accounting itself, too. If the standard accounting library is unavailable, the gate reports unmeasured rather than computing it by hand, because subtly wrong accounting produces confidently wrong numbers."
+            ]
+          },
+          {
+            "h": "This is how a less honest number survives",
+            "p": [
+              "The failure we learned most from was an omission that flattered us. For a stretch, the SDK size gate was quietly excluding 206KB of taxonomy and affinity files from its count. The gate was green and the budget looked comfortable. What makes this class of omission especially dangerous is that the result favours you, so nobody goes looking. Bugs that hurt get caught quickly; bugs that help live a long time.",
+              "It happened once more in a different shape. A fast approximate judge reported a candidate model as a significant improvement four rounds running. Re-measured on the real deployment path with a paired bootstrap, the gain was less than half as large and its confidence interval crossed zero. That candidate did not ship. A judge being fast and a judge being right are separate claims.",
+              "When we promoted the model that is deployed now, we wrote down the price we actually paid. The product-surface metric rose by 0.87 points, and general language understanding fell by 1.21. That is roughly three times worse a trade than we had projected. We recorded it and promoted anyway."
+            ]
+          },
+          {
+            "h": "What we cannot do yet",
+            "p": [
+              "The deck said 4-bit 3B on-device LLM. Inside a 5MB budget that is impossible; a 4-bit 3B model is one and a half to two gigabytes. So it split into two tiers. What always runs is the small zero-dependency static embedding; the large model is an optional tier that borrows what the operating system already ships. And in the current demo that optional tier is a tunnel to an internal GPU host, not a real on-device model. We do not describe it as running on the device.",
+              "Latency is a p95 of 2.85 milliseconds on a development Mac. We have not measured a low-end Android yet, and there are no Android resident-memory or battery figures. The real exchange is not connected; only a mock server exists. The affinity file is synthetic. We work in the order that shortens this list.",
+              "That is everything we can currently say. A company selling personalisation is better off showing its own list of limits first than having the customer find that list later."
+            ]
+          }
+        ],
+        "evidence": [
+          [
+            "The retracted claim",
+            "`docs/spec/00-claims-to-tests.md` — “the small model beats the teacher” held in one of four runs and was withdrawn. On real logs the teacher also gained +12.8pp from behaviour. What survives is access"
+          ],
+          [
+            "Types, not filters",
+            "`crates/fl-client/src/upload.rs` — no string parameter in the public API, `#[serde(deny_unknown_fields)]`. The personal head cannot be serialised at all because `sdk-core` has zero dependencies (`crates/sdk-core/src/fedper.rs`)"
+          ],
+          [
+            "Twelve-byte event",
+            "`crates/sdk-core/src/event.rs` — a test asserts `size_of::<Event>() == 12`. Battery is four bands, not a percentage"
+          ],
+          [
+            "Egress inspected as bytes",
+            "`gates/egress_gate.py` — runs the real binary and inspects the serialised JSON. Measured 2026-09-10: 6 allowed keys, 7/7 canaries undetected, 69,482 / 307,200 B"
+          ],
+          [
+            "Ad request shape",
+            "`BidRequest` has no user.id, device.ifa, ip or ua field. Measured request 1,710 B, 7/7 canaries undetected"
+          ],
+          [
+            "Privacy budget",
+            "`gates/dp_gate.py` — per-round ε 2.20 (n=1,000); 50-round campaign 1.73 assuming subsampling amplification, 17.67 without. clip 1.0, σ 0.1, δ 1e-10, minimum 8 participants"
+          ],
+          [
+            "Accounting by standard library",
+            "same file — uses `dp_accounting` PLD, and reports UNMEASURED rather than hand-rolling if it is missing"
+          ],
+          [
+            "The flattering omission",
+            "2026-08-27 — `taxonomy.bin` and `affinity.bin`, 206KB, were excluded from the size gate while it stayed green. Found late because the result favoured us"
+          ],
+          [
+            "Approximate judge, false green",
+            "round 52 — the approximate gate reported “+1.15pp significant” four rounds running; on the real path with a paired bootstrap it was +0.54pp with a CI crossing zero. Not shipped"
+          ],
+          [
+            "The price of the promotion",
+            "`experiments/distill-ko/deployed_run.json` — product surface L2 top-5 0.7885 (+0.87pp) against accepted regressions of −1.21pp KLUE-YNAT and −0.02 KLUE-STS"
+          ],
+          [
+            "Gates",
+            "`gates/run_all.py`, 13 gates under `--strict`; the ledger reports 13/13 and E2E 64/64 as of 2026-09-08. Size 3.30MB / 4MB (78.8%), native added on Android 65,203B, Rust↔wasm difference 0.000e+00"
+          ],
+          [
+            "Not yet measured",
+            "low-end Android latency, resident memory and battery are unmeasured; the real exchange is not connected; `affinity.bin` is synthetic"
+          ]
+        ]
+      }
+    }
+  ]
+}

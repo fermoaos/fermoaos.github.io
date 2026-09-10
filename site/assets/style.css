@@ -152,6 +152,9 @@ section:not(.hero):not(.manifesto){padding:var(--space-section) var(--gutter)}
 .insight h3{margin-top:.9rem; font-size:1.15rem; transition:color 150ms var(--ease-out-expo)}
 .insight:hover h3{color:var(--muted)}
 .insight .date{display:block; margin-top:.3rem; color:var(--muted); font-size:.9rem}
+.insight-dek{margin-top:.5rem; color:var(--muted); font-size:.97rem; line-height:1.55}
+.insight:hover .insight-dek{color:var(--ink)}
+.byline{margin-top:1.4rem; color:var(--muted); font-size:.92rem}
 
 /* AI Fabric — 프로그램 25개 항목 */
 .fab-tally{margin:0 0 1.6rem; color:var(--muted); font-size:.97rem}
@@ -202,7 +205,21 @@ section.page-body.legal-body{grid-template-columns:minmax(0,1fr); padding-block:
 .legal-body h2:first-child{margin-top:0}
 .legal-body .prose p{font-size:1.02rem; line-height:1.75}
 .legal-body code{font-family:ui-monospace,Menlo,monospace; font-size:.9em;
-  background:color-mix(in srgb,var(--rule) 35%,transparent); padding:0 .25em}
+  background:color-mix(in srgb,var(--rule) 35%,transparent); padding:0 .25em;
+  overflow-wrap:anywhere}
+
+/* 인사이트 본문 — 에세이는 한 단이다. 근거는 옆이 아니라 끝에 둔다(긴 글 옆의 짧은
+   사이드바는 오른쪽을 통째로 비운다). 특이도는 legal 과 같게 맞춘다. */
+section.page-body.insight-body{grid-template-columns:minmax(0,1fr); padding-block:3rem 4.5rem;
+  padding-inline:var(--gutter)}
+.insight-body .prose{max-width:38rem}
+.insight-body .prose h2{font-size:1.34rem; letter-spacing:-.02em; margin-top:2.6rem; margin-bottom:.6rem}
+.insight-body .prose h2:first-child{margin-top:0}
+.insight-body .prose p{font-size:1.04rem; line-height:1.75}
+.insight-body .facts{max-width:44rem; margin-top:3.5rem; padding-top:2rem; border-top:1px solid var(--rule)}
+.insight-body code{font-family:ui-monospace,Menlo,monospace; font-size:.9em;
+  background:color-mix(in srgb,var(--rule) 35%,transparent); padding:0 .25em;
+  overflow-wrap:anywhere}
 
 /* contact */
 .who{margin:2rem 0 0; display:grid; gap:.5rem; font-size:.98rem}
@@ -290,7 +307,7 @@ section.page-body.legal-body{grid-template-columns:minmax(0,1fr); padding-block:
 .facts dl{margin:0; border-top:1px solid var(--rule)}
 .facts dl > div{display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); gap:.8rem; padding:.7rem 0; border-bottom:1px solid var(--rule)}
 .facts dt{color:var(--muted); font-size:.92rem}
-.facts dd{margin:0; font-size:.98rem}
+.facts dd{margin:0; font-size:.98rem; overflow-wrap:anywhere}
 .facts .impl{margin-top:1rem; font-size:.9rem; color:var(--muted)}
 .facts .impl span{color:var(--ink); font-weight:600; margin-right:.5rem}
 .related h2{font-size:1.2rem; margin-bottom:1rem}

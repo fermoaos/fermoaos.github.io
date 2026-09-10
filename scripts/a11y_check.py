@@ -16,7 +16,7 @@ SITE = ROOT / "site"
 AXE = "https://cdn.jsdelivr.net/npm/axe-core@4.10.2/axe.min.js"
 def _pages():
     fixed = ["/", "/en/", "/usecases/", "/program/", "/privacy/", "/404.html"]
-    for kind in ("cases", "agentos"):
+    for kind in ("cases", "agentos", "insights"):
         d = sorted(x for x in (SITE / kind).iterdir() if x.is_dir()) if (SITE / kind).is_dir() else []
         if d:
             fixed.append(f"/{kind}/{d[0].name}/")
@@ -25,9 +25,20 @@ def _pages():
     if missing:
         raise SystemExit(f"a11y_check: 없는 경로를 검사하려 한다 — {missing}")
     return fixed
+def _all_pages():
+    """디스크의 모든 페이지. 320px 넘침 검사는 페이지당 0.4초라 표본이 아니라 전수로 본다
+    (2026-09-10: 대표 1장만 보던 탓에 같은 결함이 다른 인사이트 글에 남아 있었다)."""
+    out = ["/404.html"]
+    for f in sorted(SITE.rglob("index.html")):
+        rel = f.relative_to(SITE).parent.as_posix()
+        out.append("/" if rel == "." else f"/{rel}/")
+    return out
+
+
 TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa", "best-practice"]
 MIN_FOCUS_CONTRAST = 3.0          # WCAG 2.2 SC 1.4.11 non-text contrast
 MIN_OVERLAY_CONTRAST = 4.5        # 영상 위 컨트롤 텍스트 (SC 1.4.3)
+MAX_H_OVERFLOW = 0                # 320px 에서 가로 스크롤은 0 이어야 한다
 
 
 def _lin(c):
@@ -121,6 +132,47 @@ def main() -> int:
                         fails.append(f"{path}[{theme}] {x['impact']} {x['id']} ×{x['n']} — {x['sample']}")
                     checked += 1
                     pg.close()
+
+            # 320px 가로 넘침 — 안 끊기는 긴 토큰(경로·식별자)이 페이지를 밀어낸다.
+            # static_site_gate 는 index.html 만 보므로 서브페이지는 여기서 본다.
+            for path in _all_pages():
+                pg = b.new_page(viewport={"width": 320, "height": 900})
+                pg.goto(base + path); pg.wait_for_timeout(350)
+                over = pg.evaluate("document.documentElement.scrollWidth"
+                                   " - document.documentElement.clientWidth")
+                if over > MAX_H_OVERFLOW:
+                    culprit = pg.evaluate("""() => {
+                      const lim = document.documentElement.clientWidth;
+                      // 가로로 스크롤되는 조상(예: 모바일 상단 내비) 안이면 범인이 아니다.
+                      // ⛔ body 의 overflow-x:hidden 까지 세면 전부 걸러져 '범인 미상' 이 된다
+                      // (그건 넘침을 감추는 것이지 담는 것이 아니다) — body/html 앞에서 멈춘다.
+                      const clipped = el => {
+                        for (let n = el; n && n !== document.body; n = n.parentElement) {
+                          const ox = getComputedStyle(n).overflowX;
+                          if (ox === 'auto' || ox === 'scroll') return true;
+                        }
+                        return false;
+                      };
+                      const name = el => el.tagName + '.' + (el.className || '') + ' — '
+                                       + (el.textContent || '').trim().slice(0, 40);
+                      // 상자가 화면 밖으로 나간 경우
+                      for (const el of document.querySelectorAll('*')) {
+                        if (clipped(el)) continue;
+                        const r = el.getBoundingClientRect();
+                        if (r.right > lim + 1 && r.width > 0) return name(el);
+                      }
+                      // 상자는 안에 있는데 내용이 상자를 넘는 경우(안 끊기는 긴 토큰).
+                      // 가장 안쪽 = 가장 구체적인 범인이므로 자식이 없는 것을 먼저 고른다.
+                      let last = null;
+                      for (const el of document.querySelectorAll('*')) {
+                        if (clipped(el) || el === document.body) continue;
+                        if (el.scrollWidth > el.clientWidth + 1 && el.clientWidth > 0) last = el;
+                      }
+                      return last ? name(last) : '(범인 미상)';
+                    }""")
+                    fails.append(f"{path}[320px] 가로 넘침 {over}px — {culprit}")
+                checked += 1
+                pg.close()
 
             # 데모 도크를 연 상태 — 사이트에서 상호작용이 가장 많은 표면
             pg = b.new_page(viewport={"width": 1280, "height": 900})

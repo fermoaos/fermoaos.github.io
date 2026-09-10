@@ -204,4 +204,40 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/cases/roster/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/cases/roster/"/>
   </url>
+  <url>
+    <loc>https://fermoaos.github.io/insights/do-not-trust-done/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/do-not-trust-done/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/do-not-trust-done/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/do-not-trust-done/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/insights/do-not-trust-done/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/do-not-trust-done/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/do-not-trust-done/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/do-not-trust-done/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/insights/contract-first-rollback-free/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/contract-first-rollback-free/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/contract-first-rollback-free/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/contract-first-rollback-free/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/insights/contract-first-rollback-free/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/contract-first-rollback-free/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/contract-first-rollback-free/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/contract-first-rollback-free/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/insights/ads-that-end-on-the-device/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/ads-that-end-on-the-device/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/ads-that-end-on-the-device/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/ads-that-end-on-the-device/"/>
+  </url>
+  <url>
+    <loc>https://fermoaos.github.io/en/insights/ads-that-end-on-the-device/</loc>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/ads-that-end-on-the-device/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/ads-that-end-on-the-device/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/ads-that-end-on-the-device/"/>
+  </url>
 </urlset>

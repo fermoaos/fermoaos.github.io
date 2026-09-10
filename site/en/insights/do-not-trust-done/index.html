@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How not to believe an agent’s “done” — Fermoa</title>
+<meta name="description" content="For anyone about to hand real work to an agent. The short version: the point where an agent says it is finished and the point where the work is actually finished are not the same place. We close that gap with code rather than with human attention.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="../../../assets/style.css">
+<link rel="icon" href="../../../assets/mark.svg" type="image/svg+xml">
+<link rel="canonical" href="https://fermoaos.github.io/en/insights/do-not-trust-done/">
+<link rel="alternate" hreflang="ko" href="https://fermoaos.github.io/insights/do-not-trust-done/">
+<link rel="alternate" hreflang="en" href="https://fermoaos.github.io/en/insights/do-not-trust-done/">
+<link rel="alternate" hreflang="x-default" href="https://fermoaos.github.io/insights/do-not-trust-done/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fermoa">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:url" content="https://fermoaos.github.io/en/insights/do-not-trust-done/">
+<meta property="og:title" content="How not to believe an agent’s “done” — Fermoa">
+<meta property="og:description" content="For anyone about to hand real work to an agent. The short version: the point where an agent says it is finished and the point where the work is actually finished are not the same place. We close that gap with code rather than with human attention.">
+<meta property="og:image" content="https://fermoaos.github.io/assets/og-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Fermoa — Hold, and gather. A conductor on graph paper, baton stilled at its peak">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How not to believe an agent’s “done” — Fermoa">
+<meta name="twitter:description" content="For anyone about to hand real work to an agent. The short version: the point where an agent says it is finished and the point where the work is actually finished are not the same place. We close that gap with code rather than with human attention.">
+<meta name="twitter:image" content="https://fermoaos.github.io/assets/og-en.png">
+<meta name="theme-color" content="#f7f6f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14161a" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"How not to believe an agent’s “done”","description":"For anyone about to hand real work to an agent. The short version: the point where an agent says it is finished and the point where the work is actually finished are not the same place. We close that gap with code rather than with human attention.","datePublished":"2026-09-10","dateModified":"2026-09-10","inLanguage":"en-US","mainEntityOfPage":"https://fermoaos.github.io/en/insights/do-not-trust-done/","image":"https://fermoaos.github.io/assets/og-en.png","author":{"@type":"Organization","name":"Fermoa"},"publisher":{"@type":"Organization","name":"Fermoa"}}</script>
+</head>
+<body class="sub">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <a class="brand" href="../../../en/index.html" aria-label="Fermoa"><svg class="mark" viewBox="0 0 48 48" aria-hidden="true"><use href="#mark"/></svg><span class="wordmark">Fermoa</span></a>
+  <nav class="nav" aria-label="Main"><a href="../../../en/index.html#agentos">AgentOS</a><a href="../../../en/index.html#ops">Agentic Ops</a><a href="../../../en/index.html#cases">Use Cases</a><a href="../../../en/index.html#fabric">AI Fabric</a><a href="../../../en/index.html#insights">Insights</a><a href="../../../en/index.html#company">Company</a></nav>
+  <div class="top-tools">
+    <button class="theme" type="button" data-theme-toggle data-label-light="Blackboard" data-label-dark="Graph paper">Blackboard</button>
+    <span class="lang"><a href="../../../insights/do-not-trust-done/index.html" hreflang="ko">KOR</a></span>
+    <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+  </div>
+</header>
+<main id="main">
+<section class="page-hero">
+  <p class="crumb"><a href="../../../en/index.html#insights">Insights</a></p>
+  <div class="page-hero-grid">
+    <div>
+      <h1>How not to believe an agent’s “done”</h1>
+      <p class="lede">For anyone about to hand real work to an agent. The short version: the point where an agent says it is finished and the point where the work is actually finished are not the same place. We close that gap with code rather than with human attention.</p>
+      <p class="byline"><time datetime="2026-09-10">Sep 10, 2026</time></p>
+    </div>
+    <figure class="mod-fig mod-fig--hero"><img class="mod-img img-light" src="../../../assets/character/p2-hold-graphpaper-ink-768.webp" srcset="../../../assets/character/p2-hold-graphpaper-ink-768.webp 768w, ../../../assets/character/p2-hold-graphpaper-ink-1536.webp 1536w" sizes="(max-width:768px) 100vw, 34rem" width="1536" height="1024" loading="lazy" decoding="async" alt="The baton held still at its peak, left hand raised in a stop — waiting for approval"><img class="mod-img img-dark" src="../../../assets/character/p2-hold-graphpaper-chalk-768.webp" srcset="../../../assets/character/p2-hold-graphpaper-chalk-768.webp 768w, ../../../assets/character/p2-hold-graphpaper-chalk-1536.webp 1536w" sizes="(max-width:768px) 100vw, 34rem" width="1536" height="1024" loading="lazy" decoding="async" alt="The baton held still at its peak, left hand raised in a stop — waiting for approval"></figure>
+  </div>
+</section>
+<section class="page-body insight-body">
+  <div class="prose"><h2>0.925 was not performance, it was leakage</h2><p>We trained a repurchase propensity model. Holdout AUC 0.925. Normally you ship that and move on. Then we put an untrained one-line frequency rule against the same holdout and it scored 0.880. Training was buying us 0.044.</p><p>Digging into why gave us the answer. The model had not learned who buys; it had learned how many orders a customer has. The top features by gain were orders in the last 365 days at 42.3% and spend at 19.0%. It was reading back a hidden constant the synthetic generator had fixed before it made the data. The high score was evidence of leakage, not of skill.</p><p>So we do not sell that model. The wiring is all there, but the default path is the rule and the model is marked non-authoritative. The decision is written into the bakery case on this site.</p><h2>The real problem was that nobody had measured the baseline</h2><p>The same investigation turned up something far more uncomfortable. The rule the store was actually running, which ranks customers by whether their personal purchase cycle has come due, scored AUC 0.284. That is worse than the 0.5 you get from guessing. The top 10% it selected repurchased at 0.287 times the overall average, meaning targeting with it produced a list 3.5 times worse than picking at random.</p><p>The cause was almost disappointingly simple. In this data, a long gap since the last order does not mean due to buy soon; it means this person rarely buys. The subscribers who were certain to buy next month had short cycles and had therefore always bought recently, so the due-date rule was pushing them to the bottom of the list.</p><p>This does not make the rule useless. For its original job, deciding when to send a reminder, it still holds. It simply must not be used to rank repurchase probability, and the only thing that revealed that was standing up a fair opponent and measuring both with the same ruler. Work that set out to validate a model ended up catching the rule that was already running.</p><h2>A tool passing you usually means it answered a different question</h2><p>Accessibility had the same shape. This site runs axe across every page in both themes and holds violations at zero. Meanwhile the keyboard focus ring in the light theme was highlighter yellow, and against the paper background its contrast was 1.22 to 1. WCAG 2.2 asks for 3 to 1. A focus indicator that was effectively invisible sat there while the checks stayed green.</p><p>axe was not broken. Focus-indicator contrast is simply not something axe looks at. The mistake was reading a tool’s silence as safety. The gate now reads the computed values out of the browser, measures the contrast itself, and fails below 3 to 1. After fixing it we deliberately reverted the CSS to confirm the gate really does catch 1.21 to 1 and fail, because a gate you have never seen fail is not a gate.</p><h2>Gates lie too</h2><p>Once you start trusting gates, the gates become the next trap. Our demo dock checker had the number four hardcoded as the scenario count. The moment we grew to seven scenarios, a perfectly healthy build failed its check. The day before, the accessibility checker had a renamed page path baked in and spent thirty seconds knocking on an address that no longer existed. The same defect twice in two days.</p><p>Both now derive their numbers from data. The scenario count is known by the manifest, the page list is known by the disk, and a missing path dies loudly instead of passing quietly. When you write a new gate, any constant you see in it is where the next false verdict will come from.</p><p>The cheapest lesson deserves recording too. If you pipe a command’s output through something to trim it and then print the exit code, that code belongs to the trimmer, not the command. We read it as a pass, and it had read nothing at all.</p><h2>The three lines we keep</h2><p>Code owns the verdict. Not the model, not the agent, not the person; nobody grades their own output. Passing is an exit code, not somebody’s sentence.</p><p>Every treatment gets a fair control. A trained model is measured against the untrained rule, and a new method against the one currently running, on the same ruler. A number with no control says nothing, however large it is.</p><p>Gate constants are derived from data. And once a gate exists, break it on purpose once. A gate you have never watched fail does not prove that anything passed.</p></div>
+  <aside class="facts" aria-label="What this post rests on">
+    <h2>What this post rests on</h2>
+    <dl><div><dt>Model verdict</dt><dd><code>growth-commerce-os/docs/research/2026-09-03-repurchase-propensity.md</code> — LightGBM holdout AUC 0.925 against an untrained frequency rule at 0.880, a gap of 0.044. The model ships non-authoritative; the rule is the default path</dd></div><div><dt>Feature gain</dt><dd>same document §3.2 — <code>orders_365d</code> 0.423, <code>monetary_365d</code> 0.190</dd></div><div><dt>Due-date rule inverted</dt><dd>same document §3.1 — AUC 0.284, top 10% repurchasing at 0.287× the overall average</dd></div><div><dt>Focus ring contrast</dt><dd><code>fermoa-site/scripts/a11y_check.py</code> — an axe blind spot, so the gate computes it, <code>MIN_FOCUS_CONTRAST = 3.0</code>. Verified by reverting and watching it fail at 1.21:1</dd></div><div><dt>Constants removed from gates</dt><dd><code>scripts/demo_dock_check.py</code> derives the count from <code>assets/demo/index.json</code>; <code>scripts/a11y_check.py</code> derives the page list from disk</dd></div><div><dt>Page reconciliation</dt><dd><code>scripts/meta_check.py</code> — fails when the sitemap URL count differs from the page count on disk</dd></div></dl>
+  </aside>
+</section>
+<section class="related">
+  <h2>Other posts</h2>
+  <ul><li><a href="../contract-first-rollback-free/index.html">Write the contract first and rollback becomes free</a></li><li><a href="../ads-that-end-on-the-device/index.html">Advertising that ends inside the device</a></li></ul>
+  <p><a class="btn btn-line" href="../../../en/index.html#insights">Back to the list</a></p>
+</section>
+<section class="page-cta">
+  <h2>Want to hold this layer?</h2>
+  <p>From experiment to execution, together.</p>
+  <a class="btn btn-ink" href="../../../en/index.html#contact">Contact</a>
+</section>
+</main>
+<footer class="foot foot-sub">
+  <div class="foot-base"><p class="biz">Fermoa, Seoul, Korea</p><p class="copy">© <span data-year>2026</span> Fermoa. All rights reserved.</p></div>
+</footer>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M4 12 L24 30 M4 30 L24 30 M4 44 L24 30 M24 30 L46 22"/><path d="M15 20 A9 9 0 0 1 33 20"/><circle cx="24" cy="30" r="4.2" fill="var(--hold)"/></symbol></svg>
+<script src="../../../assets/main.js" defer></script>
+</body>
+</html>

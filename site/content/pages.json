@@ -782,21 +782,21 @@
       "slug": "privacy-ads",
       "impl": "plataid-ondevice-slm",
       "status": {
-        "ko": "DIPS 2026 · 게이트 8/8 PASS",
-        "en": "DIPS 2026; gates 8/8 PASS"
+        "ko": "DIPS 2026 · 게이트 13/13 PASS",
+        "en": "DIPS 2026; gates 13/13 PASS"
       },
       "ko": {
         "title": "프라이버시 광고",
         "lede": "기기 안 의도추론과 연합학습으로 개인정보 없이 타깃팅합니다. 2026 초격차 스타트업(DIPS) 과제.",
         "body": [
-          "광고 요청이 서버로 가지 않습니다. 카탈로그 3,000 항목이 215KB 로 압축돼 기기에 통째로 내려가고, 의도는 기기 안에서 벡터가 됩니다. 서버가 받는 것은 집계된 가중치뿐이고, 원본 발화와 프로필은 한 번도 나가지 않습니다.",
-          "도입은 두 단계입니다. 기기 인구가 1만 미만인 파일럿에서는 연합학습을 끄고 원문 전송 0 만 약속합니다. 나가는 것이 없으니 예산이 필요 없고, 그쪽이 더 강한 주장입니다. 1만 이상에서 학습을 켜고 캠페인 ε ≤ 2.0 을 공개합니다. 실측 총 ε 은 1.730 입니다.",
-          "이기종 기기에서 30% 가 탈락해도 집계는 수렴합니다. 같은 크기 예산의 공개 정적 임베딩보다 한국어 실데이터 분류에서 24 포인트 앞서고, 그 격차는 차원이 아니라 구조에서 옵니다. SDK 예산을 늘려 품질을 사려 하지 않습니다. 그 축은 포화입니다."
+          "광고 요청이 서버로 가지 않습니다. 6,020개 말단 분류의 카탈로그가 709KB 로 기기에 통째로 내려가고, 의도는 기기 안에서 벡터가 됩니다. 서버가 받는 것은 집계된 가중치뿐이고, 원본 발화와 프로필은 한 번도 나가지 않습니다. 이건 필터가 아니라 타입입니다. 올라가는 구조체에는 문자열 인자가 없고, 개인 헤드는 추론 코어에 직렬화 라이브러리가 없어서 내보낼 방법 자체가 없습니다.",
+          "도입은 두 단계입니다. 기기 인구가 1만 미만인 파일럿에서는 연합학습을 끄고 원문 전송 0 만 약속합니다. 나가는 것이 없으니 예산이 필요 없고, 그쪽이 더 강한 주장입니다. 1만 이상에서 학습을 켜고 캠페인 ε ≤ 2.0 을 공개합니다. 실측 합산은 1.73 이며, 이 값은 매 라운드 일부만 참여한다는 부표본 증폭을 전제로 합니다. 그 전제를 빼면 17.67 입니다.",
+          "이기종 기기에서 30% 가 탈락해도 집계는 수렴합니다. 품질은 크기를 사서 얻지 않았습니다. 512차원 4비트가 128차원 int8 보다 오히려 작으면서 분류 지표는 7포인트 높습니다. 지금 배포본을 승격할 때 치른 값도 적어 둡니다. 제품 지표는 0.87포인트 올랐고 일반 언어 이해는 1.21포인트 내려갔습니다."
         ],
         "facts": [
           [
             "요청",
-            "광고 요청 0, 카탈로그 전량 번들 215KB"
+            "광고 요청 0, 카탈로그 전량 번들 709KB"
           ],
           [
             "1단계",
@@ -808,15 +808,19 @@
           ],
           [
             "실측 ε",
-            "1.730"
+            "캠페인 1.73 (증폭 가정) · 라운드당 2.20"
           ],
           [
             "수렴",
-            "탈락 30% 에도 50/50 집계"
+            "탈락 30% 에도 집계 수렴"
           ],
           [
-            "품질",
-            "같은 급 공개 모델 대비 YNAT +24.2pp"
+            "크기",
+            "다운로드 3.30MB / 4MB · 네이티브 추가 Android 65KB"
+          ],
+          [
+            "게이트",
+            "13/13 --strict · E2E 64/64 (2026-09-08)"
           ]
         ]
       },
@@ -824,14 +828,14 @@
         "title": "Privacy-preserving ads",
         "lede": "On-device intent inference and federated learning target without personal data. A 2026 DIPS deep-tech startup project.",
         "body": [
-          "No ad request goes to a server. The 3,000-item catalog ships to the device as a 215KB bundle, and intent becomes a vector on the device. The server receives aggregated weights only; raw utterances and profiles never leave.",
-          "Adoption has two stages. Pilots under 10,000 devices keep federated learning off and promise zero raw transfer, a stronger claim than any budget because nothing leaves. Above 10,000, learning turns on and the campaign ε ≤ 2.0 is published. The measured total is 1.730.",
-          "Aggregation converges on heterogeneous devices even with 30% dropout. On real Korean classification data the model leads a same-size public static embedding by 24 points, and that gap comes from structure, not dimensions. We do not buy quality by enlarging the SDK budget; that axis is saturated."
+          "No ad request goes to a server. A catalog of 6,020 leaf categories ships to the device as a 709KB bundle, and intent becomes a vector on the device. The server receives aggregated weights only; raw utterances and profiles never leave. This is a type, not a filter: the struct that goes up has no string parameter, and the personal head cannot be exported at all because the inference core carries no serialisation library.",
+          "Adoption has two stages. Pilots under 10,000 devices keep federated learning off and promise zero raw transfer, a stronger claim than any budget because nothing leaves. Above 10,000, learning turns on and the campaign ε ≤ 2.0 is published. The measured total is 1.73, and that figure assumes subsampling amplification, meaning only a subset participates each round. Without that assumption it is 17.67.",
+          "Aggregation converges on heterogeneous devices even with 30% dropout. Quality was not bought with size: 512 dimensions at 4-bit is smaller than 128 at int8 and still scores seven points higher on classification. We also record what the current deployment cost: the product metric rose 0.87 points while general language understanding fell 1.21."
         ],
         "facts": [
           [
             "Requests",
-            "Zero ad requests; full catalog bundle, 215KB"
+            "Zero ad requests; full catalog bundle, 709KB"
           ],
           [
             "Stage 1",
@@ -843,15 +847,19 @@
           ],
           [
             "Measured ε",
-            "1.730"
+            "Campaign 1.73 (amplified) · 2.20 per round"
           ],
           [
             "Convergence",
-            "50/50 aggregation with 30% dropout"
+            "Aggregation converges with 30% dropout"
           ],
           [
-            "Quality",
-            "+24.2pp YNAT vs same-size public model"
+            "Size",
+            "Download 3.30MB / 4MB · native added on Android 65KB"
+          ],
+          [
+            "Gates",
+            "13/13 --strict · E2E 64/64 (2026-09-08)"
           ]
         ]
       }
