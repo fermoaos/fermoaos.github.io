@@ -31,6 +31,21 @@ MARK = '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><
 
 def e(s): return html.escape(s, quote=True)
 
+def doc_links(assets):
+    """<head> 공통 링크 — 폰트 preconnect · 웹폰트 · 스타일 · 파비콘. 여섯 템플릿이 공유한다.
+    ⛔ 2026-09-12 이전엔 여섯 벌이 손으로 복사돼 있었고 그중 **둘에 jsdelivr preconnect 가
+    빠져 있었다**(cases·agentos 26장 + usecases). 드리프트는 복사본의 성질이지 실수가 아니다."""
+    return (
+      '<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+      '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>\n'
+      '<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">\n'
+      '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">\n'
+      f'<link rel="stylesheet" href="{assets}style.css">\n'
+      f'<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">')
+
+
+
 # ── 공유·검색 메타 (코드가 소유한다 — 손으로 head 를 고치지 마라) ─────────────
 ORIGIN = "https://fermoaos.github.io"
 OG_IMAGE = {"ko": ORIGIN + "/assets/og.png", "en": ORIGIN + "/assets/og-en.png"}
@@ -143,12 +158,7 @@ def page(kind, item, lang):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)} — Fermoa</title>
 <meta name="description" content="{e(c['lede'])}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{assets}style.css">
-<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{doc_links(assets)}
 {meta}
 </head>
 <body class="sub">
@@ -288,12 +298,7 @@ def usecases_page(lang):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{u["h"]} — Fermoa</title>
 <meta name="description" content="{e(u['page_p'].format(n=n))}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{assets}style.css">
-<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{doc_links(assets)}
 {meta}
 </head>
 <body class="sub">
@@ -382,6 +387,7 @@ def write_sitemap():
 def four_oh_four():
     """GitHub Pages 는 없는 경로마다 /404.html 을 준다 — 어느 깊이에서 떠도 되게 절대 경로를 쓴다.
     지휘자의 컷오프(p5) 를 쓴다: 흩어진 것. 브랜드가 사과하지 않고 길만 내준다."""
+    links404 = doc_links("/assets/")
     img = "/assets/character/p5-cutoff-graphpaper"
     alt = e(POSE_ALT["p5-cutoff"]["ko"])
     return f"""<!doctype html>
@@ -392,13 +398,7 @@ def four_oh_four():
 <title>없는 페이지 — Fermoa</title>
 <meta name="description" content="찾으시는 페이지가 없습니다.">
 <meta name="robots" content="noindex">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="/assets/style.css">
-<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+{links404}
 </head>
 <body class="sub">
 <a class="skip" href="#main">본문으로 건너뛰기</a>
@@ -492,13 +492,7 @@ def program_page(lang):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(m["name"])} — {e(m["h"])} — Fermoa</title>
 <meta name="description" content="{e(m["lede"])}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{assets}style.css">
-<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{doc_links(assets)}
 {meta}
 </head>
 <body class="sub">
@@ -592,13 +586,7 @@ def legal_page(key, lang):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(c['title'])} — Fermoa</title>
 <meta name="description" content="{e(c['lede'])}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{assets}style.css">
-<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{doc_links(assets)}
 {meta}
 </head>
 <body class="sub">
@@ -683,13 +671,7 @@ def insight_page(post, lang):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(c['title'])} — Fermoa</title>
 <meta name="description" content="{e(c['lede'])}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="{assets}style.css">
-<link rel="icon" href="{assets}mark.svg" type="image/svg+xml">
+{doc_links(assets)}
 {meta}
 </head>
 <body class="sub">

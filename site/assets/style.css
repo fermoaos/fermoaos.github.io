@@ -296,7 +296,10 @@ section.page-body.insight-body{grid-template-columns:minmax(0,1fr); padding-bloc
 .crumb{font-family:var(--font-display); font-size:.95rem; color:var(--muted); margin-bottom:1.2rem}
 .crumb a{text-decoration:none; border-bottom:1px solid var(--rule)}
 .crumb a:hover{border-bottom-color:var(--ink); color:var(--ink)}
-.page-hero{padding:calc(var(--space-section) * .6) var(--gutter) calc(var(--space-section) * .5)}
+/* ⛔ `section:not(.hero):not(.manifesto)`(0,2,1)가 `.page-hero`(0,1,0)를 이겨서 이 규칙은
+   2026-09-12 까지 **한 번도 적용된 적이 없다**(의도 0.6/0.5, 실제 1.0/1.0). 서브페이지는 전부
+   body.sub 이므로 그걸로 특이도를 (0,2,1)로 맞추고 뒤에 둔다 — legal/insight 와 같은 수법. */
+body.sub .page-hero{padding:calc(var(--space-section) * .6) var(--gutter) calc(var(--space-section) * .5)}
 .page-hero-grid{display:grid; grid-template-columns:minmax(0,6fr) minmax(0,6fr); gap:var(--gutter); align-items:end}
 .page-hero h1{font-size:clamp(2.4rem,1.4rem + 4vw,5.2rem)}
 .page-hero .lede{max-width:34rem}
